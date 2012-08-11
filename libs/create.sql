@@ -1,91 +1,91 @@
 SET foreign_key_checks = 0;
 
-DROP TABLE IF EXISTS darce;
-CREATE TABLE darce (
+DROP TABLE IF EXISTS donor;
+CREATE TABLE donor (
     id        		INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     nick			VARCHAR(50) NOT NULL,
     password		CHAR(128) NOT NULL,
-    jmeno           VARCHAR(50) NOT NULL,
-    prijmeni        VARCHAR(50) NOT NULL,
-    psc             INT(5) UNSIGNED,
-    mesto           VARCHAR(100),
-    ulice           VARCHAR(100),
-    telefon         CHAR(13),
+    name	        VARCHAR(50) NOT NULL,
+    surname         VARCHAR(50) NOT NULL,
+    postal_code     INT(5) UNSIGNED,
+    city            VARCHAR(100),
+    street          VARCHAR(100),
+    phone           CHAR(13),
     email           VARCHAR(50),
-    krevni_typ      CHAR(3),
-    rodne_cislo     INT(10) UNSIGNED NOT NULL UNIQUE,
-    aktivni         TINYINT NOT NULL,
-    pref_pobocka    INT(5) UNSIGNED NOT NULL,
-    poznamka        VARCHAR(150),
+    blood_type      CHAR(3),
+    national_id     INT(10) UNSIGNED NOT NULL UNIQUE,
+    active          TINYINT NOT NULL,
+    pref_station    INT(5) UNSIGNED NOT NULL,
+    note           VARCHAR(150),
     PRIMARY KEY (id),
-    CONSTRAINT fk_darce_pref_pobocka FOREIGN KEY (pref_pobocka) REFERENCES stanice (id)
+    CONSTRAINT fk_donor_pref_station FOREIGN KEY (pref_station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS odber;
-CREATE TABLE odber (
+DROP TABLE IF EXISTS drawn;
+CREATE TABLE drawn (
     id		        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    datum           DATETIME NOT NULL,
-    darce           INT(7) UNSIGNED NOT NULL, 
-    krevni_typ      CHAR(3), 
-    odebiral        INT(5) UNSIGNED NOT NULL, 
-    sklad           INT(3) UNSIGNED NOT NULL,
-    rezervace       INT(10) UNSIGNED, 
-    kvalita         TINYINT,
+    date            DATETIME NOT NULL,
+    donor           INT(7) UNSIGNED NOT NULL, 
+    blood_type      CHAR(3), 
+    nurse           INT(5) UNSIGNED NOT NULL,
+    store           INT(3) UNSIGNED NOT NULL,
+    reservation     INT(10) UNSIGNED, 
+    quality         TINYINT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_odber_darce FOREIGN KEY (darce) REFERENCES darce (id),
-    CONSTRAINT fk_odber_odebiral FOREIGN KEY (odebiral) REFERENCES personal (id),
-    CONSTRAINT fk_odber_sklad FOREIGN KEY (sklad) REFERENCES stanice (id),
-    CONSTRAINT fk_odber_rezervace FOREIGN KEY (rezervace) REFERENCES rezervace (id)
+    CONSTRAINT fk_drawn_donor FOREIGN KEY (donor) REFERENCES donor (id),
+    CONSTRAINT fk_drawn_nurse FOREIGN KEY (nurse) REFERENCES nurse (id),
+    CONSTRAINT fk_drawn_store FOREIGN KEY (store) REFERENCES station (id),
+    CONSTRAINT fk_odber_reservation FOREIGN KEY (reservation) REFERENCES reservation (id)
 )DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS pozvanka;
-CREATE TABLE pozvanka (
+DROP TABLE IF EXISTS invitation;
+CREATE TABLE invitation (
     id			    INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    darce           INT(7) UNSIGNED NOT NULL, 
-    datum           DATETIME,
-    stanice         INT(3) UNSIGNED NOT NULL,
-    typ             CHAR(6),
+    donor           INT(7) UNSIGNED NOT NULL, 
+    date            DATETIME,
+    station         INT(3) UNSIGNED NOT NULL,
+    type            CHAR(6),
     PRIMARY KEY (id),
-    CONSTRAINT fk_pozvanka_darce FOREIGN KEY (darce) REFERENCES darce (id),
-    CONSTRAINT fk_pozvanka_stanice FOREIGN KEY (stanice) REFERENCES stanice (id)
+    CONSTRAINT fk_invitation_donor FOREIGN KEY (donor) REFERENCES donor (id),
+    CONSTRAINT fk_invitation_station FOREIGN KEY (station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS stanice;
-CREATE TABLE stanice (
+DROP TABLE IF EXISTS station;
+CREATE TABLE station (
     id 			    INT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
-    nazev           VARCHAR(100) NOT NULL,
-    psc             INT(5) UNSIGNED,
-    mesto           VARCHAR(100),
-    ulice           VARCHAR(100),
+    name            VARCHAR(100) NOT NULL,
+    postal_code     INT(5) UNSIGNED,
+    city            VARCHAR(100),
+    stree           VARCHAR(100),
     PRIMARY KEY (id)
 )DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS personal;
-CREATE TABLE personal (
+DROP TABLE IF EXISTS nurse;
+CREATE TABLE nurse (
     id			    INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
     nick			VARCHAR(50) NOT NULL,
     password		CHAR(128) NOT NULL,
-    jmeno           VARCHAR(50) NOT NULL,
-    prijmeni        VARCHAR(50) NOT NULL,
-    funkce          INT(3),
-    pracoviste      INT(3) UNSIGNED,
-    psc             INT(5) NOT NULL,
-    mesto           VARCHAR(100) NOT NULL,
-    ulice           VARCHAR(100) NOT NULL,
-    rodne_cislo     INT(10) NOT NULL UNIQUE,
-    telefon         CHAR(13),
+    name            VARCHAR(50) NOT NULL,
+    surname         VARCHAR(50) NOT NULL,
+    function        INT(3), -- unnecessary
+    station		    INT(3) UNSIGNED,
+    postal_code     INT(5) NOT NULL,
+    city            VARCHAR(100) NOT NULL,
+    street          VARCHAR(100) NOT NULL,
+    national_id     INT(10) NOT NULL UNIQUE,
+    phone           CHAR(13),
     PRIMARY KEY (id),
-    CONSTRAINT fk_persona_pracoviste FOREIGN KEY (pracoviste) REFERENCES stanice (id),
-    CONSTRAINT un_personal_rodne_cislo UNIQUE (rodne_cislo)
+    CONSTRAINT fk_nurse_station FOREIGN KEY (station) REFERENCES station (id),
+    CONSTRAINT un_nurse_national_id UNIQUE (national_id)
 )DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS rezervace;
-CREATE TABLE rezervace (
+DROP TABLE IF EXISTS reservation;
+CREATE TABLE reservation (
     id    			INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    komu            VARCHAR(200),
-    krevni_typ      CHAR(3),
-    mnozstvi         INT,
-    datum           DATETIME,
-    poznamka        VARCHAR(200),
+    order_from      VARCHAR(200),
+    blood_type      CHAR(3),
+    quantity        INT(6) UNSIGNED,
+    date            DATETIME,
+    note            VARCHAR(200),
     PRIMARY KEY (id)
 )DEFAULT CHARSET=utf8;
