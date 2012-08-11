@@ -8,7 +8,7 @@ namespace IIS;
 use Nette;
 
 /**
- * Reprezentuje repozitář pro databázovou tabulku
+ * Represent repository for given database table
  */
 abstract class Table extends Nette\Object
 {
@@ -29,12 +29,12 @@ abstract class Table extends Nette\Object
 
         if ($this->tableName === NULL) {
             $class = get_class($this);
-            throw new Nette\InvalidStateException("Název tabulky musí být definován v $class::\$tableName.");
+            throw new Nette\InvalidStateException("Name of table have to be defined in $class::\$tableName.");
         }
     }
 
     /**
-     * Vrací celou tabulku z databáze
+     * Returns whole table
      * @return \Nette\Database\Table\Selection
      */
     protected function getTable()
@@ -43,7 +43,7 @@ abstract class Table extends Nette\Object
     }
 
     /**
-     * Vrací všechny záznamy z databáze
+     * Returns every record from table
      * @return \Nette\Database\Table\Selection
      */
     public function findAll()
@@ -52,8 +52,8 @@ abstract class Table extends Nette\Object
     }
 
     /**
-     * Vrací vyfiltrované záznamy na základě vstupního pole
-     * (pole array('name' => 'David') se převede na část SQL dotazu WHERE name = 'David')
+     * Returns filtered records according to array $by
+     * array('name' => 'David') means in SQL WHERE name = David
      * @param array $by
      * @return \Nette\Database\Table\Selection
      */
@@ -63,7 +63,7 @@ abstract class Table extends Nette\Object
     }
 
     /**
-     * To samé jako findBy akorát vrací vždy jen jeden záznam
+	 * Same as findBy, but returns just one record
      * @param array $by
      * @return \Nette\Database\Table\ActiveRow|FALSE
      */
@@ -73,7 +73,7 @@ abstract class Table extends Nette\Object
     }
 
     /**
-     * Vrací záznam s daným primárním klíčem
+     * Returns record with given primary key
      * @param int $id
      * @return \Nette\Database\Table\ActiveRow|FALSE
      */

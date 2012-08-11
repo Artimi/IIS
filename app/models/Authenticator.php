@@ -1,5 +1,7 @@
 <?php
 
+namespace IIS;
+
 use Nette\Security as NS;
 
 
@@ -16,9 +18,9 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 
 
 
-	public function __construct(Nette\Database\Table\Selection $users)
+	public function __construct(Nette\Database\Connection $database)
 	{
-		$this->users = $users;
+	    $this->database = $database;
 	}
 
 
