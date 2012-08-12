@@ -87,5 +87,6 @@ CREATE TABLE reservation (
     quantity        INT(6) UNSIGNED,
     date            DATETIME,
     note            VARCHAR(200),
+    state			VARCHAR(20),
     PRIMARY KEY (id)
 )DEFAULT CHARSET=utf8;

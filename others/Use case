@@ -1,0 +1,24 @@
+Odběr	- Dárce 	- Prohlédnout své odběry
+	- Sestra	- Prohlédnout odběry, možnost filtru
+			- Změnit údaje odběru (kvalita, sklad)
+			- Vytvořit nový odběr
+
+Pozvánky - Dárce	- Prohlédnout minulé pozvánky
+			- Odpovědět na pozvánky (ano, ne, změnit čas)
+	 - Sestra	- Poslat pozvánku
+			- Prohlédnout minulé pozvánky
+			- Stornovat pozvánku
+
+Údaje	- Dárce		- Změnit adresu, email, aktivitu
+	- Sestra	- Změnit adresu, email, aktivitu
+
+Dárci	- Sestra	- Vyhledávání podle filtrů
+			- Přepnutí se na jiné okna nebo udělat Master - Detail u každého?
+			- Přidat dárce
+
+Rezervace - Sestra	- Nová rezervace
+			- Zrušit rezervaci
+			- Odeslat krev na rezervaci a označit rezervaci za hotovou
+
+Systém	- Sestra	- přidat další sestru
+			- přidat stanici
