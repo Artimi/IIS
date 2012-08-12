@@ -1,5 +1,5 @@
 /* import framework core */
-@import url("../yaml/core/base.min.css");
+@import url("yaml/core/base.min.css");
 
 /* import screen layout */
 @import url("yaml/navigation/hlist.css");
