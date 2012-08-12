@@ -4,7 +4,7 @@
  * Downloaded from: http://doc.nette.org/cs/quickstart/database
  */
 
-namespace IIS;
+namespace BloodCenter;
 use Nette;
 
 /**

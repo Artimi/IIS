@@ -1,7 +1,8 @@
 <?php
 
-namespace IIS;
+namespace BloodCenter;
 
+use Nette;
 use Nette\Security as NS;
 
 

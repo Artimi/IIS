@@ -33,13 +33,13 @@ common:
 
 	services:
 		database: @Nette\Database\Connection
-		authenticator: IIS/Authenticator( @database )
-		donor: IIS/Donor
-		drawn: IIS/Drawn
-		invitation: IIS/Invitation
-		nurse: IIS/Nurse
-		reservation: IIS/Reservation
-		station: IIS/Station
+		authenticator: BloodCenter\Authenticator( @database )
+		donor: BloodCenter\Donor
+		drawn: BloodCenter\Drawn
+		invitation: BloodCenter\Invitation
+		nurse: BloodCenter\Nurse
+		reservation: BloodCenter\Reservation
+		station: BloodCenter\Station
 
 	factories:
 

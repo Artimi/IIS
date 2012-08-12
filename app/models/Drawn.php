@@ -1,6 +1,6 @@
 <?php
 
-namespace IIS;
+namespace BloodCenter;
 
 /**
  * Model for 'drawn' table
