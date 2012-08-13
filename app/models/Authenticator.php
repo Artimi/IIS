@@ -15,16 +15,17 @@ use Nette\Security as NS;
 class Authenticator extends Nette\Object implements NS\IAuthenticator
 {
 	/** @var Nette\Database\Table\Selection */
-	private $users;
-
+	private $database;
+        private $donor;
+        private $nurse;
 
 
 	public function __construct(Nette\Database\Connection $database)
 	{
 	    $this->database = $database;
+            $this->donor = $this->database->table('donor');
+            $this->nurse = $this->database->table('nurse');
 	}
-
-
 
 	/**
 	 * Performs an authentication
@@ -35,18 +36,24 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 	public function authenticate(array $credentials)
 	{
 		list($username, $password) = $credentials;
-		$row = $this->users->where('username', $username)->fetch();
-
-		if (!$row) {
-			throw new NS\AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
+                if ($row = $this->donor->where('nick', $username)->fetch())
+                {
+                    $role = 'donor';
+                }
+                else if($row = $this->nurse->where('nick', $username)->fetch())
+                {
+                    $role = 'nurse';
+                }
+		else
+                {
+                    throw new NS\AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
 		}
-
 		if ($row->password !== $this->calculateHash($password)) {
 			throw new NS\AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
 		}
 
 		unset($row->password);
-		return new NS\Identity($row->id, $row->role, $row->toArray());
+		return new NS\Identity($row->id, $role, $row->toArray()); //TODO: same id different person, nurse id 1 != donor id 1
 	}
 
 
@@ -56,9 +63,9 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 	 * @param  string
 	 * @return string
 	 */
-	public function calculateHash($password)
-	{
-		return md5($password . str_repeat('*enter any random salt here*', 10));
-	}
-
+        public static function calculateHash($password, $salt = null)
+        {
+            return md5($password . str_repeat('*random salt*', 10));
+        }
 }
+

@@ -23,9 +23,9 @@ class SignPresenter extends BasePresenter
 		$form = new UI\Form;
 		$form->addText('username', 'Username:')
 			->setRequired('Please provide a username.');
-
 		$form->addPassword('password', 'Password:')
-			->setRequired('Please provide a password.');
+			->setRequired('Please provide a password.')
+                        ->setAttribute('ym-fbox-check');
 
 		$form->addCheckbox('remember', 'Remember me on this computer');
 

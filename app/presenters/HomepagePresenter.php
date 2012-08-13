@@ -6,6 +6,7 @@
  * @package    MyApplication
  */
 
+use \Navigation;
 
 class HomepagePresenter extends BasePresenter
 {
@@ -20,10 +21,5 @@ class HomepagePresenter extends BasePresenter
 	public function renderDefault()
 	{
 
-        }
-
-        public function createComponentDonorsList()
-        {
-            return new BloodCenter\DonorsListControl($this->donor->findAll());
         }
 }

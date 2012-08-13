@@ -3,8 +3,8 @@
 /**
  * My Application bootstrap file.
  */
-use Nette\Application\Routers\Route;
-
+//use Nette\Application\Routers\Route;
+use Nette\Application\Routers\SimpleRouter;
 
 // Load Nette Framework
 require LIBS_DIR . '/Nette/loader.php';
@@ -29,8 +29,9 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $container = $configurator->createContainer();
 
 // Setup router
-$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
-$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+$container->router[] = new SimpleRouter('Homepage:default');
+//$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
+//$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 
 
 // Configure and run the application!
