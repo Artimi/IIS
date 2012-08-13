@@ -26,7 +26,7 @@ common:
 
 		database:
 			default:
-				dsn: 'xsebek02:host=localhost;dbname=xsebek02'
+				dsn: 'mysql:host=127.0.0.1;dbname=xsebek02'
 				user: xsebek02
 				password: j3kajmej
 

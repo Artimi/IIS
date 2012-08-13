@@ -1,0 +1,39 @@
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nick</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Postal code</th>
+        <th>City</th>
+        <th>Street</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Blood type</th>
+        <th>National ID</th>
+        <th>Active</th>	
+        <th>Preffered Station</th>
+        <th>Note</th>
+    </tr>
+    <tbody>
+    {foreach $donors as $donor}
+    <tr n:class="$iterator->isOdd() ? odd : even">
+        <td>{$donor->id}</td>
+        <td>{$donor->nick}</td>
+        <td>{$donor->name}</td>
+        <td>{$donor->surname}</td>
+        <td>{$donor->postal_code}</td>
+        <td>{$donor->city}</td>
+        <td>{$donor->street}</td>
+        <td>{$donor->phone}</td>
+        <td>{$donor->email}</td>
+        <td>{$donor->blood_type}</td>
+        <td>{$donor->national_id}</td>
+        <td>{$donor->active}</td>
+        <td>{$donor->pref_station}</td>
+        <td>{$donor->note}</td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>

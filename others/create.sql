@@ -13,7 +13,7 @@ CREATE TABLE donor (
     phone           CHAR(13),
     email           VARCHAR(50),
     blood_type      CHAR(3),
-    national_id     INT(10) UNSIGNED NOT NULL UNIQUE,
+    national_id     DECIMAL(10) UNSIGNED NOT NULL UNIQUE,
     active          TINYINT NOT NULL,
     pref_station    INT(5) UNSIGNED NOT NULL,
     note           VARCHAR(150),
@@ -56,7 +56,7 @@ CREATE TABLE station (
     name            VARCHAR(100) NOT NULL,
     postal_code     INT(5) UNSIGNED,
     city            VARCHAR(100),
-    stree           VARCHAR(100),
+    street          VARCHAR(100),
     PRIMARY KEY (id)
 )DEFAULT CHARSET=utf8;
 
@@ -72,11 +72,10 @@ CREATE TABLE nurse (
     postal_code     INT(5) NOT NULL,
     city            VARCHAR(100) NOT NULL,
     street          VARCHAR(100) NOT NULL,
-    national_id     INT(10) NOT NULL UNIQUE,
+    national_id     DECIMAL(10) NOT NULL UNIQUE,
     phone           CHAR(13),
     PRIMARY KEY (id),
-    CONSTRAINT fk_nurse_station FOREIGN KEY (station) REFERENCES station (id),
-    CONSTRAINT un_nurse_national_id UNIQUE (national_id)
+    CONSTRAINT fk_nurse_station FOREIGN KEY (station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS reservation;
