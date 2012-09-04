@@ -11,7 +11,14 @@ class DonorPresenter extends BasePresenter
         public function startup()
         {
             parent::startup();
+            if (!$this->getUser()->isLoggedIn()) 
+            {
+                $this->flashMessage('You have to be signed in.');
+                $this->redirect('Sign:in');
+            }
+            
             $this->donor = $this->context->donor;
+            
         }
     
 	public function renderDefault()

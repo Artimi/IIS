@@ -11,39 +11,66 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
-	<meta name="robots" content="{$robots}" n:ifset="$robots">
-	
-    <title>Blood Center</title>
+        <meta name="robots" content="{$robots}" n:ifset="$robots">
 
-  	<!-- stylesheets -->
-  	<link rel="stylesheet" href="css/yaml/core/base.min.css" type="text/css"/>
-  	<link rel="stylesheet" href="css/central.css" type="text/css"/>
-	<!--[if lte IE 7]>
-	<link rel="stylesheet" href="css/yaml/core/iehacks.min.css" type="text/css"/>
-	<![endif]-->
-	  
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+        <title>Blood Center</title>
+
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="css/yaml/core/base.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/central.css" type="text/css"/>
+        <!--[if lte IE 7]>
+        <link rel="stylesheet" href="css/yaml/core/iehacks.min.css" type="text/css"/>
+        <![endif]-->
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
 	{block head}{/block}
-</head>
+    </head>
 
-<body>
-      <header>
+    <body>
+        <header>
+            <div class="ym-wrapper">
+                <div class="ym-wbox">
+                    <h1><a n:href="Homepage:default">Blood Center</a></h1>
+                </div>
+            </div>
+
+            <nav>
+                <div class="ym-wrapper">
+                    <div class="ym-hlist">
+            {widget navigation}
+                       </div>
+                </div>
+            </nav>
+
+        </header>
+        <script> document.body.className+=' js' </script>
+
+        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+<div id="main">
     <div class="ym-wrapper">
       <div class="ym-wbox">
-    	<h1><a n:href="Homepage:default">Blood Center</a></h1>
-      </div>
-    </div>
 
-  </header>
-	<script> document.body.className+=' js' </script>
-
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-
+        {if $user->isLoggedIn()}
+        <h2>Logged as: {$user->getIdentity()->nick} | <a n:href="Sign:out">Log out</a><h2>
+        {/if}
 	{include #content}
-</body>
+
+        </div>
+    </div>
+  </div>
+        <footer>
+            <div class="ym-wrapper">
+                <div class="ym-wbox">
+                    A to je vše přátelé
+                </div>
+            </div>
+        </footer>
+
+    </body>
 </html>
