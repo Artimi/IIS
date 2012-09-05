@@ -1,4 +1,8 @@
 /nbproject/
 /temp/
+!/temp/web.config
+!/temp/.htaccess
 /log/
+!/log/web.config
+!/log/.htaccess
 *~
