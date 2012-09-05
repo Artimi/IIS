@@ -66,7 +66,8 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
      */
     public static function calculateHash($password, $salt = null)
     {
-        return md5($password . str_repeat('*random salt*', 10));
+        return $password;
+        //return md5($password . str_repeat('*random salt*', 10));
     }
 
 }

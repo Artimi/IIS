@@ -28,7 +28,6 @@
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
         <script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
-	{block head}{/block}
     </head>
 
     <body>
@@ -57,10 +56,11 @@
       <div class="ym-wbox">
 
         {if $user->isLoggedIn()}
-        <h2>Logged as: {$user->getIdentity()->nick} | <a n:href="Sign:out">Log out</a><h2>
+        Logged as: {$user->getIdentity()->nick} | <a n:href="Sign:out">Log out</a>
         {/if}
 	{include #content}
 
+                        
         </div>
     </div>
   </div>

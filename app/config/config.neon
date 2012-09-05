@@ -26,14 +26,14 @@ common:
 
 		database:
 			default:
-				dsn: 'mysql:host=127.0.0.1;dbname=xsebek02'
+				dsn: 'mysql:host=localhost;dbname=xsebek02'
 				user: xsebek02
 				password: j3kajmej
 
 
 	services:
 		database: @Nette\Database\Connection
-		authenticator: BloodCenter\Authenticator( @database )
+		authenticator: BloodCenter\Authenticator
 		donor: BloodCenter\Donor
 		drawn: BloodCenter\Drawn
 		invitation: BloodCenter\Invitation

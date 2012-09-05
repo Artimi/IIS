@@ -3,7 +3,6 @@
 /**
  * My Application bootstrap file.
  */
-use Nette\Application\Routers\Route;
 use Nette\Application\Routers\SimpleRouter;
 
 // Load Nette Framework
