@@ -8,5 +8,14 @@ namespace BloodCenter;
  */
 class Donor extends Table
 {
-	protected $tableName = 'donor';	
+
+    protected $tableName = 'donor';
+
+    public function setPassword($id, $password)
+    {
+        $this->getTable()->where(array('id' => $id))->update(array(
+            'password' => Authenticator::calculateHash($password)
+        ));
+    }
+
 }

@@ -36,7 +36,6 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
      */
     public function authenticate(array $credentials)
     {
-        Debugger::log("Function AUTHENTICATE");
         list($username, $password) = $credentials;
         if ($row = $this->donor->where('nick', $username)->fetch())
         {
@@ -66,8 +65,7 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
      */
     public static function calculateHash($password, $salt = null)
     {
-        return $password;
-        //return md5($password . str_repeat('*random salt*', 10));
+        return md5($password . str_repeat('veryrandom0', 10));
     }
 
 }
