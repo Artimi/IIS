@@ -1,9 +1,7 @@
 <?php
-//use \Nette\Forms\Form,
 use Nette\Application\UI\Form;
-use    Nette\Security as NS;
-use Nette\Diagnostics\Debugger;
-use Nette\Forms\Controls\SubmitButton;
+use Nette\Security as NS;
+
 /**
  * Sign in/out presenters.
  *
@@ -13,7 +11,6 @@ use Nette\Forms\Controls\SubmitButton;
 class SignPresenter extends BasePresenter
 {
 
-    
     /**
      * Sign in form component factory.
      * @return Nette\Application\UI\Form
@@ -21,22 +18,20 @@ class SignPresenter extends BasePresenter
     protected function createComponentSignInForm($name)
     {
 
-        $form = new Form($this,$name);
+        $form = new Form($this, $name);
         $form->addText('username', 'Username:')
             ->setRequired('Please provide a username.');
         $form->addPassword('password', 'Password:')
             ->setRequired('Please provide a password.');
         $form->addCheckbox('remember', 'Remember me on this computer');
 
-        $form->addSubmit('send', 'Sign in');//->onClick[] =callback($this, 'signInFormSubmitted');
-//        $form->onSuccess[] = $this->signInFormSubmitted;
-        $form->onSuccess[] = callback($this,'signInFormSubmitted');
+        $form->addSubmit('send', 'Sign in');
+        $form->onSuccess[] = callback($this, 'signInFormSubmitted');
         return $form;
     }
 
     public function signInFormSubmitted(Form $form)
     {
-        Debugger::log("Sign In form submitted");
         try
         {
             $values = $form->getValues();
@@ -57,7 +52,6 @@ class SignPresenter extends BasePresenter
         }
     }
 
-    
     public function actionOut()
     {
         $this->getUser()->logout(TRUE);
