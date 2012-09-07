@@ -1,10 +1,12 @@
 <?php
+
 /**
  * @author petr
  * Downloaded from: http://doc.nette.org/cs/quickstart/database
  */
 
 namespace BloodCenter;
+
 use Nette;
 
 /**
@@ -27,7 +29,8 @@ abstract class Table extends Nette\Object
     {
         $this->connection = $db;
 
-        if ($this->tableName === NULL) {
+        if ($this->tableName === NULL)
+        {
             $class = get_class($this);
             throw new Nette\InvalidStateException("Name of table have to be defined in $class::\$tableName.");
         }
@@ -63,7 +66,7 @@ abstract class Table extends Nette\Object
     }
 
     /**
-	 * Same as findBy, but returns just one record
+     * Same as findBy, but returns just one record
      * @param array $by
      * @return \Nette\Database\Table\ActiveRow|FALSE
      */
@@ -80,5 +83,15 @@ abstract class Table extends Nette\Object
     public function find($id)
     {
         return $this->getTable()->get($id);
+    }
+
+    public function findOffset($offset, $itemsPerPage)
+    {
+        return $this->getTable()->limit($itemsPerPage, $offset);
+    }
+    
+    public function getCount()
+    {
+        return $this->getTable()->count();
     }
 }

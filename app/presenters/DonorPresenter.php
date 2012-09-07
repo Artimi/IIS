@@ -34,7 +34,7 @@ class DonorPresenter extends BasePresenter
             $this->flashMessage('You have to be signed in.');
             $this->redirect('Sign:in');
         }
-        return new BloodCenter\DonorsListControl($this->donor->findAll());
+        return new BloodCenter\DonorsListControl($this->donor);
     }
 
 }
