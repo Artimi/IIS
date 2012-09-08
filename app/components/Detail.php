@@ -1,7 +1,6 @@
 <?php
 
 use Nette\Application\UI\Form;
-
 /**
  * Description of Detail
  *
@@ -11,6 +10,8 @@ class Detail extends Nette\Application\UI\Control
 {
     private $defaults;
     
+    public $submitted = array();
+    
     
     public function __construct($defaults = null)
     {
@@ -18,6 +19,7 @@ class Detail extends Nette\Application\UI\Control
 
         if (isset($defaults))
             $this->defaults = $defaults;
+        $this->submitted = callback($this, 'detailSubmitted');
     }
 
     public function render()
@@ -43,11 +45,11 @@ class Detail extends Nette\Application\UI\Control
         $form->addText('national_id', 'National ID:')->setRequired();
         $form->addText('active', 'Preferred station:')->setRequired();
         $form->addTextArea('note', 'Note:');
-        $form->addSubmit('edit', 'Edit')
-            ->onClick[] = $this->detailSubmitted($form);
-//        $form->onSuccess[] = callback($this, 'detailSubmitted');
+        $form->addSubmit('edit', 'Edit');
+        $form->onSuccess[] = callback($this, 'detailSubmitted');
         if (isset($this->defaults))
             $form->setDefaults($this->defaults);
+//        $form->setAction($this->getPresenter()->link("Donor:", array("do" => "donorsList-detailsubmit")));
         return $form;
     }
 

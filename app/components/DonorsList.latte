@@ -1,3 +1,6 @@
+{foreach $flashes as $flash}
+<div class="flash {$flash->type}">{$flash->message}</div>
+{/foreach}
 <table>
     <thead>
     <tr>

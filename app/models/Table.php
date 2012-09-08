@@ -95,8 +95,8 @@ abstract class Table extends Nette\Object
         return $this->getTable()->count();
     }
     
-    public function update($data)
+    public function update($data,$id)
     {
-        return $this->getTable()->update($data);
+        return $this->getTable()->where('id',$id)->update($data);
     }
 }

@@ -42,7 +42,12 @@
                 <div class="ym-wrapper">
                     <div class="ym-hlist">
             {widget navigation}
-                       </div>
+                                {if $user->isLoggedIn()}
+                        <form class="ym-searchform">
+                            Logged as: {$user->getIdentity()->nick} | <a n:href="Sign:out">Log out</a>
+                        </form>
+                                {/if}
+                    </div>
                 </div>
             </nav>
 
@@ -51,19 +56,17 @@
 
         <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
-<div id="main">
-    <div class="ym-wrapper">
-      <div class="ym-wbox">
+        <div id="main">
+            <div class="ym-wrapper">
+                <div class="ym-wbox">
 
-        {if $user->isLoggedIn()}
-        Logged as: {$user->getIdentity()->nick} | <a n:href="Sign:out">Log out</a>
-        {/if}
+
 	{include #content}
 
-                        
+
+                </div>
+            </div>
         </div>
-    </div>
-  </div>
         <footer>
             <div class="ym-wrapper">
                 <div class="ym-wbox">
