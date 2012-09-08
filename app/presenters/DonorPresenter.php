@@ -9,6 +9,7 @@ class DonorPresenter extends BasePresenter
 {
 
     private $donor;
+    private $station;
 
     public function startup()
     {
@@ -20,6 +21,7 @@ class DonorPresenter extends BasePresenter
         }
 
         $this->donor = $this->context->donor;
+        $this->station = $this->context->station;
     }
 
     public function renderDefault()
@@ -34,7 +36,7 @@ class DonorPresenter extends BasePresenter
             $this->flashMessage('You have to be signed in.');
             $this->redirect('Sign:in');
         }
-        return new BloodCenter\DonorsListControl($this->donor);
+        return new BloodCenter\DonorsListControl($this->donor, $this->station);
     }
 
 }

@@ -16,11 +16,14 @@ class DonorsListControl extends Nette\Application\UI\Control
 
     /** @var \Nette\Database\Table\Selection */
     private $donors;
+    private $station;
 
-    public function __construct(\BloodCenter\Donor $donors)
+    public function __construct(\BloodCenter\Donor $donors,
+                                \BloodCenter\Station $station)
     {
         parent::__construct();
         $this->donors = $donors;
+        $this->station = $station;
     }
 
     public function render()
@@ -48,18 +51,29 @@ class DonorsListControl extends Nette\Application\UI\Control
     public function createComponentDetail($name)
     {
         $form = new Form($this, $name);
-        $form->addText('id', 'ID:')->setRequired();
-        $form->addText('nick', 'Nick:')->setRequired();
-        $form->addText('name', 'Name:')->setRequired();
-        $form->addText('surname', 'Surname:')->setRequired();
+        $form->addText('id', 'ID:')
+            ->setRequired()
+            ->setAttribute('readonly');
+        $form->addText('nick', 'Nick:')
+            ->setRequired()
+            ->setAttribute('readonly');
+        $form->addText('name', 'Name:'
+            )->setRequired();
+        $form->addText('surname', 'Surname:')
+            ->setRequired();
         $form->addText('postal_code', 'Postal code:');
         $form->addText('city', 'City:');
         $form->addText('street', 'Street:');
         $form->addText('phone', 'Phone:');
         $form->addText('email', 'Email:');
-        $form->addText('blood_type', 'Blood type:')->setRequired();
-        $form->addText('national_id', 'National ID:')->setRequired();
-        $form->addText('active', 'Preferred station:')->setRequired();
+        $form->addText('blood_type', 'Blood type:'
+            )->setRequired();
+        $form->addText('national_id', 'National ID:')
+            ->setRequired();
+        $form->addRadioList('active', 'Active:',array(0 => 'inactive', 1 => 'active'))
+            ->setRequired();
+        $stationNames = $this->station->getStationNames();
+        $form->addSelect('pref_station','Preferred station:', $stationNames);
         $form->addTextArea('note', 'Note:');
         $form->addSubmit('edit', 'Edit');
         $form->onSuccess[] = callback($this, 'detailEdited');
