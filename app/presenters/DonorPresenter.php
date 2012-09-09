@@ -13,8 +13,10 @@ class DonorPresenter extends BasePresenter
     private $donor;
     private $station;
     private $invitation;
+    private $drawn;
     
     private $defaultsDetail;
+    private $stationNames;
 
     public function startup()
     {
@@ -28,6 +30,10 @@ class DonorPresenter extends BasePresenter
         $this->donor = $this->context->donor;
         $this->station = $this->context->station;
         $this->invitation = $this->context->invitation;
+        $this->drawn = $this->context->drawn;
+        
+        $this->stationNames = $this->station->getStationNames();
+        $this->template->stationNames = $this->stationNames;
     }
 
     public function renderDefault()
@@ -42,7 +48,14 @@ class DonorPresenter extends BasePresenter
             $this->flashMessage('You have to be signed in.');
             $this->redirect('Sign:in');
         }
-        return new BloodCenter\DonorsListControl($this->donor, $this->station);
+        if ($this->getUser()->isInRole('nurse'))
+        {
+            return new BloodCenter\DonorsListControl($this->donor);
+        }
+        else
+        {
+            return new BloodCenter\DonorsListControl($this->donor,$this->getUser()->id);
+        }
     }
 
     public function renderDetail($id)
@@ -53,7 +66,7 @@ class DonorPresenter extends BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new BloodCenter\Detail($this->defaultsDetail, $this->station->getStationNames());
+        $form = new BloodCenter\Detail($this->defaultsDetail, $this->stationNames);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
@@ -73,7 +86,7 @@ class DonorPresenter extends BasePresenter
     
     public function createComponentAdd($name)
     {   
-        $form = new BloodCenter\Detail($this->defaultsDetail, $this->station->getStationNames());
+        $form = new BloodCenter\Detail(NULL, $this->stationNames);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'donorAdd');
         return $form;
@@ -92,6 +105,11 @@ class DonorPresenter extends BasePresenter
     public function renderInvitation($donorid)
     {
         $this->template->invitations = $this->invitation->findBy(array('donor' => $donorid));
+    }
+    
+    public function renderDrawn($donorid)
+    {
+        $this->template->drawns = $this->drawn->findBy(array('donor'=> $donorid));
     }
 
 }

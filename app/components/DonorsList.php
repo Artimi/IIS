@@ -15,22 +15,29 @@ class DonorsListControl extends Nette\Application\UI\Control
 
     /** @var \Nette\Database\Table\Selection */
     private $donor;
-    private $station;
+    private $donorid;
 
-    public function __construct(\BloodCenter\Donor $donor,
-                                \BloodCenter\Station $station)
+    public function __construct(\BloodCenter\Donor $donor,  $donorid=NULL)
     {
         parent::__construct();
         $this->donor = $donor;
-        $this->station = $station;
+        $this->donorid = $donorid;
     }
 
     public function render()
     {
         $this->template->setFile(__DIR__ . '/DonorsList.latte');
+        if($this->donorid != NULL)
+        {
+            $this->template->donors = $this->donor->findBy(array('id' => $this->donorid));
+            
+        }
+        else
+        {
         $this['paginator']->paginator->itemCount = $this->donor->getCount();
         $this->template->donors = $this->donor
             ->findOffset($this['paginator']->paginator->offset, $this['paginator']->paginator->itemsPerPage);
+        }
         $this->template->render();
     }
 

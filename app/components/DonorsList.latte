@@ -28,7 +28,7 @@
         <td>{$donor->blood_type}</td>
         <td><a href="{plink Donor:detail $donor->id}" class="ym-button">Detail</a></td>
        <td><a href="{plink Donor:invitation $donor->id}" class="ym-button">Invitations</a></td>
-       <td><a href="#" class="ym-button">Drawns</a></td>
+       <td><a href="{plink Donor:drawn $donor->id}" class="ym-button">Drawns</a></td>
     </tr>
     {/foreach}
     </tbody>

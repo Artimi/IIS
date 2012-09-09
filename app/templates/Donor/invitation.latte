@@ -19,7 +19,7 @@ Invitation
         <td>{$invitation->id}</td>
         <td>{$invitation->donor}</td>
         <td>{$invitation->date}</td>
-        <td>{$invitation->station}</td>
+        <td>{$stationNames[$invitation->station]}</td>
         <td>{$invitation->type}</td>
     </tr>
     {/foreach}

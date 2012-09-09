@@ -36,14 +36,11 @@ class Detail extends \Nette\Application\UI\Form
             ->setRequired();
         $this->addRadioList('active', 'Active:', array(0 => 'inactive', 1 => 'active'))
             ->setRequired();
-//        $stationNames = $this->station->getStationNames();
         $this->addSelect('pref_station', 'Preferred station:', $stationNames);
         $this->addTextArea('note', 'Note:');
         $this->addSubmit('submit', 'Submit:');
-//        $this->onSuccess[] = callback($this, 'detailEdited');
-        if (isset($defaults))
+        if ($defaults != NULL)
             $this->setDefaults($defaults);
-//        return $this;
     }
 
 }
