@@ -54,12 +54,13 @@
         </header>
         <script> document.body.className+=' js' </script>
 
-        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
         <div id="main">
             <div class="ym-wrapper">
                 <div class="ym-wbox">
 
+                    <h1>{block title}{/block}</h1>            
+                    <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
 	{include #content}
 

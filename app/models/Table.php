@@ -99,4 +99,9 @@ abstract class Table extends Nette\Object
     {
         return $this->getTable()->where('id',$id)->update($data);
     }
+    
+    public function insert($data)
+    {
+        return $this->getTable()->insert($data);
+    }
 }

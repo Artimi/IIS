@@ -17,5 +17,11 @@ class Donor extends Table
             'password' => Authenticator::calculateHash($password)
         ));
     }
+    
+    public function createNick($surname)
+    {
+        $nick = strtolower(substr($surname,0,5));
+        return $nick.'00'; //TODO uniqueness control
+    }
 
 }
