@@ -1,3 +1,4 @@
+<h1>List of Donors</h1>
 {foreach $flashes as $flash}
 <div class="flash {$flash->type}">{$flash->message}</div>
 {/foreach}
@@ -25,15 +26,11 @@
         <td>{$donor->phone}</td>
         <td>{$donor->email}</td>
         <td>{$donor->blood_type}</td>
-        <td><a n:href="detail! $donor->id" class="ym-button">Detail</a></td>
-       <td><a href="#" class="ym-button">Invitations</a></td>
+        <td><a href="{plink Donor:detail $donor->id}" class="ym-button">Detail</a></td>
+       <td><a href="{plink Donor:invitation $donor->id}" class="ym-button">Invitations</a></td>
        <td><a href="#" class="ym-button">Drawns</a></td>
     </tr>
     {/foreach}
     </tbody>
 </table>
 {control paginator}
-
-{ifCurrent donorsList:detail!}
-{control detail}
-{/ifCurrent}

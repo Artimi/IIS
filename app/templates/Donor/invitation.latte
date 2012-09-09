@@ -1,0 +1,26 @@
+{block content}
+<h1>Invitations</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Donor</th>
+        <th>Date</th>
+        <th>Station</th>
+        <th>type</th>
+      
+     </tr>
+    </thead>
+    <tbody>
+    {foreach $invitations as $invitation}
+    <tr n:class="$iterator->isOdd() ? odd : even">
+        <td>{$invitation->id}</td>
+        <td>{$invitation->donor}</td>
+        <td>{$invitation->date}</td>
+        <td>{$invitation->station}</td>
+        <td>{$invitation->type}</td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{/block}
