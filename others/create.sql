@@ -2,8 +2,7 @@ SET foreign_key_checks = 0;
 
 DROP TABLE IF EXISTS donor;
 CREATE TABLE donor (
-    id        		INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    nick			VARCHAR(50) NOT NULL,
+    nick			CHAR(7) NOT NULL,
     password		CHAR(128) NOT NULL,
     name	        VARCHAR(50) NOT NULL,
     surname         VARCHAR(50) NOT NULL,
@@ -17,7 +16,7 @@ CREATE TABLE donor (
     active          TINYINT NOT NULL,
     pref_station    INT(5) UNSIGNED NOT NULL,
     note           VARCHAR(150),
-    PRIMARY KEY (id),
+    PRIMARY KEY (nick),
     CONSTRAINT fk_donor_pref_station FOREIGN KEY (pref_station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
@@ -25,15 +24,15 @@ DROP TABLE IF EXISTS drawn;
 CREATE TABLE drawn (
     id		        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     date            DATETIME NOT NULL,
-    donor           INT(7) UNSIGNED NOT NULL, 
+    donor           CHAR(7) NOT NULL, 
     blood_type      CHAR(3), 
-    nurse           INT(5) UNSIGNED NOT NULL,
+    nurse           CHAR(7) NOT NULL,
     store           INT(3) UNSIGNED NOT NULL,
     reservation     INT(10) UNSIGNED, 
     quality         TINYINT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_drawn_donor FOREIGN KEY (donor) REFERENCES donor (id),
-    CONSTRAINT fk_drawn_nurse FOREIGN KEY (nurse) REFERENCES nurse (id),
+    CONSTRAINT fk_drawn_donor FOREIGN KEY (donor) REFERENCES donor (nick),
+    CONSTRAINT fk_drawn_nurse FOREIGN KEY (nurse) REFERENCES nurse (nick),
     CONSTRAINT fk_drawn_store FOREIGN KEY (store) REFERENCES station (id),
     CONSTRAINT fk_odber_reservation FOREIGN KEY (reservation) REFERENCES reservation (id)
 )DEFAULT CHARSET=utf8;
@@ -41,12 +40,13 @@ CREATE TABLE drawn (
 DROP TABLE IF EXISTS invitation;
 CREATE TABLE invitation (
     id			    INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    donor           INT(7) UNSIGNED NOT NULL, 
+    donor           CHAR(7) NOT NULL, 
     date            DATETIME,
     station         INT(3) UNSIGNED NOT NULL,
     type            CHAR(6),
+    state           TINYINT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_invitation_donor FOREIGN KEY (donor) REFERENCES donor (id),
+    CONSTRAINT fk_invitation_donor FOREIGN KEY (donor) REFERENCES donor (nick),
     CONSTRAINT fk_invitation_station FOREIGN KEY (station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
@@ -62,19 +62,17 @@ CREATE TABLE station (
 
 DROP TABLE IF EXISTS nurse;
 CREATE TABLE nurse (
-    id			    INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-    nick			VARCHAR(50) NOT NULL,
+    nick			CHAR(7) NOT NULL,
     password		CHAR(128) NOT NULL,
     name            VARCHAR(50) NOT NULL,
     surname         VARCHAR(50) NOT NULL,
-    function        INT(3), -- unnecessary
     station		    INT(3) UNSIGNED,
     postal_code     INT(5) NOT NULL,
     city            VARCHAR(100) NOT NULL,
     street          VARCHAR(100) NOT NULL,
     national_id     DECIMAL(10) NOT NULL UNIQUE,
     phone           CHAR(13),
-    PRIMARY KEY (id),
+    PRIMARY KEY (nick),
     CONSTRAINT fk_nurse_station FOREIGN KEY (station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
