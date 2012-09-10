@@ -77,7 +77,7 @@ class DonorPresenter extends BasePresenter
     {
         $values = $form->getValues();
         $this->donor->update($values, $values['id']);
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['nick'] . ') was edited.');
+        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was edited.');
     }
 
     public function renderAddDonor()
@@ -96,11 +96,11 @@ class DonorPresenter extends BasePresenter
     public function addDonor(Form $form)
     {
         $values = $form->getValues();
-        $values['nick'] = $this->donor->createNick($values['surname']);
+        $values['id'] = $this->donor->createNick($values['surname']);
         $result = $this->donor->insert($values);
 //        Nette\Diagnostics\Debugger::dump($result->id);
         //TODO password
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['nick'] . ') was added.');
+        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
     }
 
     public function renderInvitation($donorid)

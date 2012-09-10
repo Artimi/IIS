@@ -37,11 +37,11 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
     public function authenticate(array $credentials)
     {
         list($username, $password) = $credentials;
-        if ($row = $this->donor->where('nick', $username)->fetch())
+        if ($row = $this->donor->where('id', $username)->fetch())
         {
             $role = 'donor';
         }
-        else if ($row = $this->nurse->where('nick', $username)->fetch())
+        else if ($row = $this->nurse->where('id', $username)->fetch())
         {
             $role = 'nurse';
         }

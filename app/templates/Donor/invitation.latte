@@ -5,7 +5,6 @@ Invitation
 <table>
     <thead>
     <tr>
-        <th>ID</th>
         <th>Donor</th>
         <th>Date</th>
         <th>Station</th>
@@ -16,7 +15,6 @@ Invitation
     <tbody>
     {foreach $invitations as $invitation}
     <tr n:class="$iterator->isOdd() ? odd : even">
-        <td>{$invitation->id}</td>
         <td>{$invitation->donor}</td>
         <td>{$invitation->date}</td>
         <td>{$stationNames[$invitation->station]}</td>

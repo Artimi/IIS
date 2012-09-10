@@ -19,8 +19,6 @@ class DetailForm extends \Nette\Application\UI\Form
         parent::__construct($parent, $name);
         $this->addText('id', 'ID:')
             ->setAttribute('readonly');
-        $this->addText('nick', 'Nick:')
-            ->setAttribute('readonly');
         $this->addText('name', 'Name:'
         )->setRequired();
         $this->addText('surname', 'Surname:')

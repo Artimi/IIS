@@ -6,7 +6,6 @@ Drawns
 <table>
     <thead>
     <tr>
-        <th>ID</th>
         <th>Date</th>
         <th>Donor</th>
         <th>Blood type</th>
@@ -20,7 +19,6 @@ Drawns
     <tbody>
     {foreach $drawns as $drawn}
     <tr n:class="$iterator->isOdd() ? odd : even">
-        <td>{$drawn->id}</td>
         <td>{$drawn->date}</td>
         <td>{$drawn->donor}</td>
         <td>{$drawn->blood_type}</td>

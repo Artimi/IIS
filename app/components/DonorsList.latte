@@ -6,7 +6,6 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Nick</th>
         <th>Name</th>
         <th>Surname</th>
         <th>Phone</th>
@@ -20,7 +19,6 @@
     {foreach $donors as $donor}
     <tr n:class="$iterator->isOdd() ? odd : even">
         <td>{$donor->id}</td>
-        <td>{$donor->nick}</td>
         <td>{$donor->name}</td>
         <td>{$donor->surname}</td>
         <td>{$donor->phone}</td>

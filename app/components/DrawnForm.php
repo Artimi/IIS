@@ -17,8 +17,6 @@ class DrawnForm extends Form
     public function __construct($defaults, $stationNames, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
-        $this->addText('id', 'ID:')
-            ->setAttribute('readonly');
         $this->addText('date', 'Date:')//TODO better date picking
             ->setRequired();
         $this->addText('donor', 'Donor:')

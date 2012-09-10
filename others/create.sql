@@ -2,7 +2,7 @@ SET foreign_key_checks = 0;
 
 DROP TABLE IF EXISTS donor;
 CREATE TABLE donor (
-    nick			CHAR(7) NOT NULL,
+    id			CHAR(7) NOT NULL,
     password		CHAR(128) NOT NULL,
     name	        VARCHAR(50) NOT NULL,
     surname         VARCHAR(50) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE donor (
     active          TINYINT NOT NULL,
     pref_station    INT(5) UNSIGNED NOT NULL,
     note           VARCHAR(150),
-    PRIMARY KEY (nick),
+    PRIMARY KEY (id),
     CONSTRAINT fk_donor_pref_station FOREIGN KEY (pref_station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
@@ -31,8 +31,8 @@ CREATE TABLE drawn (
     reservation     INT(10) UNSIGNED, 
     quality         TINYINT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_drawn_donor FOREIGN KEY (donor) REFERENCES donor (nick),
-    CONSTRAINT fk_drawn_nurse FOREIGN KEY (nurse) REFERENCES nurse (nick),
+    CONSTRAINT fk_drawn_donor FOREIGN KEY (donor) REFERENCES donor (id),
+    CONSTRAINT fk_drawn_nurse FOREIGN KEY (nurse) REFERENCES nurse (id),
     CONSTRAINT fk_drawn_store FOREIGN KEY (store) REFERENCES station (id),
     CONSTRAINT fk_odber_reservation FOREIGN KEY (reservation) REFERENCES reservation (id)
 )DEFAULT CHARSET=utf8;
@@ -46,7 +46,7 @@ CREATE TABLE invitation (
     type            CHAR(6),
     state           TINYINT,
     PRIMARY KEY (id),
-    CONSTRAINT fk_invitation_donor FOREIGN KEY (donor) REFERENCES donor (nick),
+    CONSTRAINT fk_invitation_donor FOREIGN KEY (donor) REFERENCES donor (id),
     CONSTRAINT fk_invitation_station FOREIGN KEY (station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
@@ -62,7 +62,7 @@ CREATE TABLE station (
 
 DROP TABLE IF EXISTS nurse;
 CREATE TABLE nurse (
-    nick			CHAR(7) NOT NULL,
+    id			CHAR(7) NOT NULL,
     password		CHAR(128) NOT NULL,
     name            VARCHAR(50) NOT NULL,
     surname         VARCHAR(50) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE nurse (
     street          VARCHAR(100) NOT NULL,
     national_id     DECIMAL(10) NOT NULL UNIQUE,
     phone           CHAR(13),
-    PRIMARY KEY (nick),
+    PRIMARY KEY (id),
     CONSTRAINT fk_nurse_station FOREIGN KEY (station) REFERENCES station (id)
 )DEFAULT CHARSET=utf8;
 
