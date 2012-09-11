@@ -6,7 +6,7 @@ Options -Indexes
 # enable cool URL
 <IfModule mod_rewrite.c>
 	RewriteEngine On
-	RewriteBase /home/petr/public_html/IIS
+	#RewriteBase /
 
 	# front controller
 	RewriteCond %{REQUEST_FILENAME} !-f

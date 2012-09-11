@@ -5,15 +5,6 @@
 # http://nette.org/security-warning
 #
 common:
-	parameters:
-		database:
-			driver: mysql
-			host: localhost
-			dbname: test
-			user:
-			password:
-
-
 	php:
 		date.timezone: Europe/Prague
 		# session.save_path: "%tempDir%/sessions"
@@ -26,9 +17,9 @@ common:
 
 		database:
 			default:
-				dsn: 'mysql:host=localhost;dbname=xsebek02'
-				user: xsebek02
-				password: j3kajmej
+				dsn: '%database.driver%:unix_socket=%database.socket%;dbname=%database.dbname%'
+				user: %database.user%
+				password: %database.password%
 
 
 	services:
@@ -45,5 +36,21 @@ common:
 
 
 production < common:
+	parameters:
+		database:
+			driver: mysql
+			host: localhost
+			dbname: xsebek02
+			user: xsebek02
+			password: j3kajmej
+			socket: /var/run/mysql/mysql.sock
 
 development < common:
+	parameters:
+		database:
+			driver: mysql
+			host: localhost
+			dbname: xsebek02
+			user: xsebek02
+			password: j3kajmej
+			socket: /var/run/mysqld/mysqld.sock

@@ -1,5 +1,5 @@
 <?php
-
+use Navigation\Navigation;
 /**
  * Base class for all application presenters.
  *
@@ -11,7 +11,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
             protected function createComponentNavigation($name)
         {
-		$nav = new Navigation\Navigation($this, $name);
+		$nav = new Navigation($this, $name);
 		$nav->setupHomepage("Home", $this->link("Homepage:"));
 		$donor = $nav->add("Donor", $this->link("Donor:"));
 //		$drawn = $nav->add("Drawn", $this->link("Drawn:"));
