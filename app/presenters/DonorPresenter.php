@@ -39,28 +39,13 @@ class DonorPresenter extends BasePresenter
 
     public function renderDefault()
     {
-        
+
     }
 
-    public function createComponentDonorsList()
-    {
-        if (!$this->getUser()->isLoggedIn())
-        {
-            $this->flashMessage('You have to be signed in.');
-            $this->redirect('Sign:in');
-        }
-        if ($this->getUser()->isInRole('nurse'))
-        {
-            return new BloodCenter\DonorsListControl($this->donor);
-        }
-        else
-        {
-            return new BloodCenter\DonorsListControl($this->donor, $this->getUser()->id);
-        }
-    }
 
     public function renderDetail($id)
     {
+
         $defaults = $this->donor->findOneBy(array('id' => $id));
         $this->defaultsDetail = $defaults;
     }
@@ -155,6 +140,11 @@ class DonorPresenter extends BasePresenter
             $values['reservation'] = NULL;
         $this->drawn->insert($values);
         $this->flashMessage('Added drawn of donor ' . $values['donor']);
+    }
+    
+    public function createComponentDonorGrid($name)
+    {
+        return new BloodCenter\DonorGrid($this->donor);
     }
 
 }

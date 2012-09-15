@@ -1,6 +1,12 @@
+{block title}
+Donor
+{/block}
+
 {block content}
-        {control donorsList}
+{*        {control donorsList}
 {if $user->isInRole('nurse')}
 <a n:href="Donor:addDonor" class="ym-button">Add donor</a>
 {/if}
+*}
+{control donorGrid}
 {/block}

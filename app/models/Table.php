@@ -20,6 +20,16 @@ abstract class Table extends Nette\Object
 
     /** @var string */
     protected $tableName;
+    
+    public $bloodTypes = array ('0-' => '0-',
+                                 '0+' => '0+',
+                                 'A-' => 'A-',
+                                 'A+' => 'A+',
+                                 'B-' => 'B-',
+                                 'B+' => 'B+',
+                                 'AB-' => 'AB-',
+                                 'AB+' => 'AB+');
+    
 
     /**
      * @param Nette\Database\Connection $db
@@ -103,5 +113,15 @@ abstract class Table extends Nette\Object
     public function insert($data)
     {
         return $this->getTable()->insert($data);
+    }
+    
+    public function findLike($data)
+    {   
+        $table = $this->getTable();
+        foreach ($data as $key => $value)
+        {
+            $table = $table->where("$key".' LIKE ?',"%$value%");
+        }
+        return $table;
     }
 }
