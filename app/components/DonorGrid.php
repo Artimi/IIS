@@ -13,13 +13,17 @@ namespace BloodCenter;
 class DonorGrid extends \NiftyGrid\Grid
 {
     protected $donor;
+    protected $default;
     
-
-    
-    public function __construct($donor)
+    public function __construct($donor,$default = array())
     {
         parent::__construct();
         $this->donor = $donor;
+        $this->default = $default;
+        foreach ($this->default as $column => $value)
+        {
+            $this->filter[$column] = $value;
+        }
     }
     
     protected function configure($presenter)
@@ -38,7 +42,7 @@ class DonorGrid extends \NiftyGrid\Grid
         $this->addColumn('active', 'Active')
             ->setBooleanFilter(array(0 => 'inactive', 1 => 'active'));
         $this->addColumn('pref_station', 'Preferred station')
-        ->setTextFilter(); //TODO select filter
+            ->setTextFilter(); //TODO select filter
         $this->addButton('detail','Detail')
             ->setClass('ym-button')
             ->setLink(function($row) use ($presenter){return $presenter->link("Donor:detail", $row['id']);})
@@ -50,6 +54,10 @@ class DonorGrid extends \NiftyGrid\Grid
         $this->addButton('drawn','Drawns')
             ->setClass('ym-button')
             ->setLink(function($row) use ($presenter){return $presenter->link("Donor:drawn", $row['id']);})
+            ->setAjax(FALSE);
+        $this->addGlobalButton('add_donor', 'Add donor')
+            ->setLink($presenter->link('Donor:addDonor'))
+            ->setClass('ym-button')
             ->setAjax(FALSE);
         
     }

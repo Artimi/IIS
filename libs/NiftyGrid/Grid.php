@@ -828,8 +828,7 @@ class Grid extends \Nette\Application\UI\Control
 
 	/**
 	 * @param array $values
-	 */
-	public function filterFormSubmitted($values)
+	 */public function filterFormSubmitted($values)
 	{
 		$filters = array();
 		$paginators = array();
