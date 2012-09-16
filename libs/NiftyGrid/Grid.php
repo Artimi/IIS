@@ -76,7 +76,7 @@ class Grid extends \Nette\Application\UI\Control
 	protected $templatePath;
 
 	/** @var string */
-	public $messageNoRecords = 'Žádné záznamy';
+	public $messageNoRecords = 'No records';
 
 	/**
 	 * @param \Nette\Application\UI\Presenter $presenter

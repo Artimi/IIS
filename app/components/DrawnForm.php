@@ -14,7 +14,7 @@ use Nette\Application\UI\Form;
 class DrawnForm extends Form
 {
 
-    public function __construct($defaults, $stationNames, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($defaults, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('date', 'Date:')//TODO better date picking
@@ -24,8 +24,9 @@ class DrawnForm extends Form
         $this->addText('blood_type', 'Blood type:'); 
         $this->addText('nurse', 'Nurse:')
             ->setRequired();
-        $this->addSelect('store', 'Store:', $stationNames)
-            ->setRequired();
+//        $this->addSelect('store', 'Store:', $stationNames)
+//            ->setRequired();
+        $this->addText('store', 'Store');
         $this->addText('reservation', 'Reservation:');
         $this->addText('quality', 'Quality:');
         $this->addSubmit('submit','Submit');

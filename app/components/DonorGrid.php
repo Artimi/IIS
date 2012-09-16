@@ -30,7 +30,7 @@ class DonorGrid extends \NiftyGrid\Grid
     {
         $source = new \NiftyGrid\NDataSource($this->donor->findAll());
         $this->setDataSource($source);
-        $this->setPerPageValues(array(3, 10, 20, 50));
+        $this->setPerPageValues(array(10, 20, 50));
         $this->addColumn('id', 'ID')
             ->setTextFilter();
         $this->addColumn('name', 'Name')
@@ -53,7 +53,7 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setAjax(FALSE);
         $this->addButton('drawn','Drawns')
             ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Donor:drawn", $row['id']);})
+            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", $row['id']);}) //TODO pass hash array not single string
             ->setAjax(FALSE);
         $this->addGlobalButton('add_donor', 'Add donor')
             ->setLink($presenter->link('Donor:addDonor'))

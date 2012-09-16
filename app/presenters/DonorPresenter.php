@@ -16,7 +16,6 @@ class DonorPresenter extends BasePresenter
     private $drawn;
     private $defaultsDetail;
     private $defaultAddInvitaion;
-    private $defaultAddDrawn;
     private $stationNames;
 
     public function startup()
@@ -118,33 +117,10 @@ class DonorPresenter extends BasePresenter
         $this->invitation->insert($values);
         $this->flashMessage('Added invitation for donor ' . $values['donor']);
     }
-
-    public function renderAddDrawn($donorid)
-    {
-        $this->defaultAddDrawn = array('donor' => $donorid,
-                                       'date' => date('Y-m-d H-i-s'),
-                                        'nurse' => $this->getUser()->id);
-    }
-
-    public function createComponentAddDrawn($name)
-    {
-        $form = new BloodCenter\DrawnForm($this->defaultAddDrawn, $this->stationNames);
-        $form->onSuccess[] = callback($this, 'addDrawn');
-        return $form;
-    }
-
-    public function addDrawn(Form $form)
-    {
-        $values = $form->getValues();
-        if ($values['reservation'] == '') //TODO little hack to avoid foreign_key error
-            $values['reservation'] = NULL;
-        $this->drawn->insert($values);
-        $this->flashMessage('Added drawn of donor ' . $values['donor']);
-    }
     
     public function createComponentDonorGrid($name)
     {
-        return new BloodCenter\DonorGrid($this->donor);
+        return new BloodCenter\DonorGrid($this->donor,array());
     }
 
 }
