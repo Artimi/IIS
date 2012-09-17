@@ -40,7 +40,6 @@ class DrawnPresenter extends BasePresenter
                 $default[$key] = $value;
         }
         $this->default = $default;
-
     }
 
     public function createComponentDrawnGrid()

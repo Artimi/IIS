@@ -18,6 +18,9 @@ class DonorPresenter extends BasePresenter
     private $defaultAddInvitaion;
     private $stationNames;
 
+    private $default;
+    private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
+    
     public function startup()
     {
         parent::startup();
@@ -38,7 +41,14 @@ class DonorPresenter extends BasePresenter
 
     public function renderDefault()
     {
-
+        $query = $this->context->httpRequest->getQuery();
+        $default = array();
+        foreach($query as $key => $value)
+        {
+            if (in_array($key, $this->columns))
+                $default[$key] = $value;
+        }
+        $this->default = $default;
     }
 
 
@@ -87,40 +97,17 @@ class DonorPresenter extends BasePresenter
         $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
     }
 
-    public function renderInvitation($donorid)
-    {
-        $this->template->invitations = $this->invitation->findBy(array('donor' => $donorid));
-        $this->template->donorid = $donorid;
-    }
-
     public function renderDrawn($donorid)
     {
         $this->template->drawns = $this->drawn->findBy(array('donor' => $donorid));
         $this->template->donorid = $donorid;
     }
 
-    public function renderAddInvitation($donorid)
-    {
-        $this->defaultAddInvitaion = array('donor' => $donorid);
-    }
 
-    public function createComponentAddInvitation($name)
-    {
-        $form = new BloodCenter\InvitationForm($this->defaultAddInvitaion, $this->stationNames);
-        $form->onSuccess[] = callback($this, 'addInvitation');
-        return $form;
-    }
-
-    public function addInvitation(Form $form)
-    {
-        $values = $form->getValues();
-        $this->invitation->insert($values);
-        $this->flashMessage('Added invitation for donor ' . $values['donor']);
-    }
     
     public function createComponentDonorGrid($name)
     {
-        return new BloodCenter\DonorGrid($this->donor,array());
+        return new BloodCenter\DonorGrid($this->donor,$this->default);
     }
 
 }

@@ -20,10 +20,7 @@ class DonorGrid extends \NiftyGrid\Grid
         parent::__construct();
         $this->donor = $donor;
         $this->default = $default;
-        foreach ($this->default as $column => $value)
-        {
-            $this->filter[$column] = $value;
-        }
+        $this->setFilter($default);
     }
     
     protected function configure($presenter)
@@ -49,11 +46,11 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setAjax(FALSE);
         $this->addButton('invitation','Invitations')
             ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Donor:invitation", $row['id']);})
+            ->setLink(function($row) use ($presenter){return $presenter->link("Invitation:default", array('donor' => $row['id']));})
             ->setAjax(FALSE);
         $this->addButton('drawn','Drawns')
             ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", array('donor' => $row['id']));}) //TODO pass hash array not single string
+            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", array('donor' => $row['id']));})
             ->setAjax(FALSE);
         $this->addGlobalButton('add_donor', 'Add donor')
             ->setLink($presenter->link('Donor:addDonor'))
