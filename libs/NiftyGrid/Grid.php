@@ -906,4 +906,15 @@ class Grid extends \Nette\Application\UI\Control
 		$this->template->setFile($templatePath);
 		$this->template->render();
 	}
+        
+    protected function setFilter($default)
+    {
+        if ($default != array())
+        {
+            foreach ($this->default as $column => $value)
+            {
+                $this->filter[$column] = $value;
+            }
+        }
+    }
 }

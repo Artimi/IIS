@@ -14,17 +14,14 @@ class DrawnGrid extends \NiftyGrid\Grid
 {
     protected $drawn;
     protected $default;
+
     
     public function __construct($drawn, $default = array())
     {
         parent::__construct();
         $this->drawn = $drawn;
         $this->default = $default;
-//        \Nette\Diagnostics\Debugger::dump($default);
-        foreach ($this->default as $column => $value)
-        {
-            $this->filter[$column] = $value;
-        }
+        $this->setFilter($default);
     }
     
     protected function configure($presenter)
@@ -54,6 +51,5 @@ class DrawnGrid extends \NiftyGrid\Grid
             ->setAjax(FALSE);
         
     }
-    
-    
+   
 }

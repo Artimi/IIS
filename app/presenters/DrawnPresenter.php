@@ -16,6 +16,7 @@ class DrawnPresenter extends BasePresenter
     private $drawn;
     private $default;
     private $defaultAddDrawn;
+    private $columns = array('id', 'date', 'donor', 'blood_type', 'nurse', 'store', 'reservation', 'quality');
 
     public function startup()
     {
@@ -29,12 +30,17 @@ class DrawnPresenter extends BasePresenter
         $this->drawn = $this->context->drawn;
     }
 
-    public function renderDefault($default=NULL)
+    public function renderDefault()
     {
-        if ($default != NULL)
-            $this->default = array('donor' => $default); //TODO pass array not string
-        else
-            $this->default = array();
+        $query = $this->context->httpRequest->getQuery();
+        $default = array();
+        foreach($query as $key => $value)
+        {
+            if (in_array($key, $this->columns))
+                $default[$key] = $value;
+        }
+        $this->default = $default;
+
     }
 
     public function createComponentDrawnGrid()

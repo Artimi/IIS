@@ -53,7 +53,7 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setAjax(FALSE);
         $this->addButton('drawn','Drawns')
             ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", $row['id']);}) //TODO pass hash array not single string
+            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", array('donor' => $row['id']));}) //TODO pass hash array not single string
             ->setAjax(FALSE);
         $this->addGlobalButton('add_donor', 'Add donor')
             ->setLink($presenter->link('Donor:addDonor'))
