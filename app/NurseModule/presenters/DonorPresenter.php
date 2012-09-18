@@ -1,13 +1,13 @@
 <?php
 
 use Nette\Application\UI\Form;
-
+namespace NurseModule;
 /**
  * Description of DonorPresenter
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class DonorPresenter extends BasePresenter
+class DonorPresenter extends \NurseModule\BasePresenter
 {
 
     private $donor;
@@ -61,7 +61,7 @@ class DonorPresenter extends BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new BloodCenter\DetailForm($this->defaultsDetail, $this->stationNames);
+        $form = new \BloodCenter\DetailForm($this->defaultsDetail, $this->stationNames);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
@@ -81,7 +81,7 @@ class DonorPresenter extends BasePresenter
 
     public function createComponentAddDonor($name)
     {
-        $form = new BloodCenter\DetailForm(NULL, $this->stationNames);
+        $form = new \BloodCenter\DetailForm(NULL, $this->stationNames);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;
@@ -107,7 +107,7 @@ class DonorPresenter extends BasePresenter
     
     public function createComponentDonorGrid($name)
     {
-        return new BloodCenter\DonorGrid($this->donor,$this->default);
+        return new \BloodCenter\DonorGrid($this->donor,$this->default);
     }
 
 }

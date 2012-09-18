@@ -8,7 +8,7 @@ use Nette\Security as NS;
  * @author     John Doe
  * @package    MyApplication
  */
-class SignPresenter extends BasePresenter
+class SignPresenter extends Nette\Application\UI\Presenter
 {
 
     /**
@@ -43,8 +43,16 @@ class SignPresenter extends BasePresenter
             {
                 $this->getUser()->setExpiration('+ 20 minutes', TRUE);
             }
-            $this->getUser()->login($values->username, $values->password);
-            $this->redirect('Homepage:');
+            $user = $this->getUser();
+            $user->login($values->username, $values->password);
+            if ($user->isInRole('nurse'))
+            {
+                $this->redirect(':Nurse:Donor:');
+            }
+            else
+            {
+                $this->redirect(':Donor:Donor:');
+            }
         }
         catch (NS\AuthenticationException $e)
         {

@@ -55,7 +55,7 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
         }
 
         unset($row->password);
-        return new NS\Identity($row->id, $role, $row->toArray()); //TODO: same id different person, nurse id 1 != donor id 1
+        return new NS\Identity($row->id, $role, $row->toArray());
     }
 
     /**

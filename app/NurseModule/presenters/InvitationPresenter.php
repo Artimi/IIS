@@ -4,13 +4,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+namespace NurseModule;
 /**
  * Description of DrawnPresenter
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class InvitationPresenter extends BasePresenter
+class InvitationPresenter extends \NurseModule\BasePresenter
 {
 
     private $invitation;
@@ -44,7 +44,7 @@ class InvitationPresenter extends BasePresenter
 
     public function createComponentInvitationGrid()
     {
-        return new BloodCenter\InvitationGrid($this->invitation, $this->default);
+        return new \BloodCenter\InvitationGrid($this->invitation, $this->default);
     }
 
     public function renderAddInvitation($donorid)
@@ -54,7 +54,7 @@ class InvitationPresenter extends BasePresenter
 
     public function createComponentAddInvitation($name)
     {
-        $form = new BloodCenter\InvitationForm($this->defaultAddInvitation);
+        $form = new \BloodCenter\InvitationForm($this->defaultAddInvitation);
         $form->onSuccess[] = callback($this, 'addInvitation');
         return $form;
     }

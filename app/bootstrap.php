@@ -28,7 +28,7 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $container = $configurator->createContainer();
 
 // Setup router
-$container->router[] = new SimpleRouter('Homepage:default');
+$container->router[] = new SimpleRouter('Sign:in');
 //$container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
 //$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 

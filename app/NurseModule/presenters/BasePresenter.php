@@ -1,19 +1,18 @@
 <?php
-use Navigation\Navigation;
+namespace NurseModule;
 /**
  * Base class for all application presenters.
  *
  * @author     John Doe
  * @package    MyApplication
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
 
             protected function createComponentNavigation($name)
         {
-		$nav = new Navigation($this, $name);
-		$nav->setupHomepage("Home", $this->link("Homepage:"));
-		$donor = $nav->add("Donor", $this->link("Donor:"));
+		$nav = new \Navigation\Navigation($this, $name);
+		$nav->setupHomepage("Donor", $this->link("Donor:"));
 		$drawn = $nav->add("Drawn", $this->link("Drawn:"));
 		$invitation = $nav->add("Invitation", $this->link("Invitation:"));
 //		$personal = $nav->add("Person", $this->link("Person:"));

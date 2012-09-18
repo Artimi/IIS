@@ -4,13 +4,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+namespace NurseModule;
 /**
  * Description of DrawnPresenter
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class DrawnPresenter extends BasePresenter
+class DrawnPresenter extends \NurseModule\BasePresenter
 {
 
     private $drawn;
@@ -44,7 +44,7 @@ class DrawnPresenter extends BasePresenter
 
     public function createComponentDrawnGrid()
     {
-        return new BloodCenter\DrawnGrid($this->drawn, $this->default);
+        return new \BloodCenter\DrawnGrid($this->drawn, $this->default);
     }
 
     public function renderAddDrawn($donor)
@@ -56,7 +56,7 @@ class DrawnPresenter extends BasePresenter
 
     public function createComponentAddDrawn($name)
     {
-        $form = new BloodCenter\DrawnForm($this->defaultAddDrawn);
+        $form = new \BloodCenter\DrawnForm($this->defaultAddDrawn);
         $form->onSuccess[] = callback($this, 'addDrawn');
         return $form;
     }
