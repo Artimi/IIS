@@ -1,7 +1,9 @@
 <?php
 
-use Nette\Application\UI\Form;
+use \Nette\Application\UI\Form;
+
 namespace NurseModule;
+
 /**
  * Description of DonorPresenter
  *
@@ -15,12 +17,10 @@ class DonorPresenter extends \NurseModule\BasePresenter
     private $invitation;
     private $drawn;
     private $defaultsDetail;
-    private $defaultAddInvitaion;
     private $stationNames;
-
     private $default;
     private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
-    
+
     public function startup()
     {
         parent::startup();
@@ -43,14 +43,13 @@ class DonorPresenter extends \NurseModule\BasePresenter
     {
         $query = $this->context->httpRequest->getQuery();
         $default = array();
-        foreach($query as $key => $value)
+        foreach ($query as $key => $value)
         {
             if (in_array($key, $this->columns))
                 $default[$key] = $value;
         }
         $this->default = $default;
     }
-
 
     public function renderDetail($id)
     {
@@ -87,13 +86,12 @@ class DonorPresenter extends \NurseModule\BasePresenter
         return $form;
     }
 
-    public function addDonor(Form $form)
+    public function addDonor(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
-        $values['id'] = $this->donor->createNick($values['surname']);
-        $result = $this->donor->insert($values);
-//        Nette\Diagnostics\Debugger::dump($result->id);
-        //TODO password
+        $values['id'] = $this->donor->generateNick($values['surname']);
+        $this->donor->insert($values);
+        $this->donor->setPassword($values['id'], '123');
         $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
     }
 
@@ -103,11 +101,9 @@ class DonorPresenter extends \NurseModule\BasePresenter
         $this->template->donorid = $donorid;
     }
 
-
-    
     public function createComponentDonorGrid($name)
     {
-        return new \BloodCenter\DonorGrid($this->donor,$this->default);
+        return new \BloodCenter\DonorGrid($this->donor, $this->default);
     }
 
 }
