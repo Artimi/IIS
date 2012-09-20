@@ -1,13 +1,54 @@
-{var $robots = noindex}
 
 {block content}
 
-<div id="main">
-    <div class="ym-wrapper">
-        <div class="ym-wbox">
-            <h1>Sign in</h1>
-{control signInForm}
-        </div>
+
+  <div class="ym-grid">
+    <div class="ym-g50 ym-gl">
+      <div class="ym-gbox">
+          <h2>Sign In</h2>
+          {control signInForm}
+      </div>
     </div>
-</div>
+    <div class="ym-g50 ym-gr">
+      <div class="ym-gbox">
+          <h2>How to start?</h2>
+          <p>
+              Welcome at Blood Center web-based administration system.
+              If you are a newbie among blood donors, please, visit us personally
+              at any of our <a href="#"> stations</a>, our nurses will take care
+              about you. In case you are our member, sign in using your
+              credentials. Enjoy!
+          </p>
+          <p>
+              Use this credentials if you are a tester:
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Role</th>
+                          <th>Username</th>
+                          <th>Password</th>
+                      </tr>
+                  </thead>
+                  <tbody>                      
+                      <tr>
+                          <td>Admin</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td>Donor</td>
+                          <td>zelen00</td>
+                          <td>123</td>
+                      </tr>
+                      <tr>
+                          <td>Nurse</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </p>
+      </div>
+    </div>
+  </div>
 {/block}
