@@ -24,7 +24,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->addPassword('password', 'Password:')
             ->setRequired('Please provide a password.');
         $form->addCheckbox('remember', 'Remember me on this computer');
-
         $form->addSubmit('send', 'Sign in');
         $form->onSuccess[] = callback($this, 'signInFormSubmitted');
         return $form;
