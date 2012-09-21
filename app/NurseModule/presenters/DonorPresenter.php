@@ -24,10 +24,10 @@ class DonorPresenter extends \NurseModule\BasePresenter
     public function startup()
     {
         parent::startup();
-        if (!$this->getUser()->isLoggedIn())
+        if(!$this->user->isLoggedIn()  or !$this->user->isInRole('nurse'))
         {
-            $this->flashMessage('You have to be signed in.');
-            $this->redirect('Sign:in');
+            $this->flashMessage('You have to be signed in as a nurse.');
+            $this->redirect(':Sign:in');
         }
 
         $this->donor = $this->context->donor;
@@ -60,13 +60,13 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\DetailForm($this->defaultsDetail, $this->stationNames);
+        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->stationNames);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
     }
 
-    public function donorEdited(Form $form)
+    public function donorEdited(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
         $this->donor->update($values, $values['id']);

@@ -21,10 +21,10 @@ class InvitationPresenter extends \NurseModule\BasePresenter
     public function startup()
     {
         parent::startup();
-        if (!$this->getUser()->isLoggedIn())
+        if(!$this->user->isLoggedIn()  or !$this->user->isInRole('nurse'))
         {
-            $this->flashMessage('You have to be signed in.');
-            $this->redirect('Sign:in');
+            $this->flashMessage('You have to be signed in as a nurse.');
+            $this->redirect(':Sign:in');
         }
 
         $this->invitation = $this->context->invitation;
