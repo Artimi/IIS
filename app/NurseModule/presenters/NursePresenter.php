@@ -11,8 +11,7 @@ class NursePresenter extends BasePresenter
 {
 
     private $nurse;
-    private $columns = array('id', 'name', 'surname', 'station', 'phone');
-    private $default;
+    protected $columns = array('id', 'name', 'surname', 'station', 'phone');
     private $defaultsDetail;
 
     protected function startup()
@@ -29,14 +28,7 @@ class NursePresenter extends BasePresenter
 
     public function renderDefault()
     {
-        $query = $this->context->httpRequest->getQuery();
-        $default = array();
-        foreach ($query as $key => $value)
-        {
-            if (in_array($key, $this->columns))
-                $default[$key] = $value;
-        }
-        $this->default = $default;
+        $this->getDefaults();
     }
 
     public function createComponentNurseGrid($name)

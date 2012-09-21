@@ -18,8 +18,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     private $drawn;
     private $defaultsDetail;
     private $stationNames;
-    private $default;
-    private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
+    protected $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
 
     public function startup()
     {
@@ -41,14 +40,8 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function renderDefault()
     {
-        $query = $this->context->httpRequest->getQuery();
-        $default = array();
-        foreach ($query as $key => $value)
-        {
-            if (in_array($key, $this->columns))
-                $default[$key] = $value;
-        }
-        $this->default = $default;
+        $this->getDefaults();
+
     }
 
     public function renderDetail($id)

@@ -14,9 +14,8 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 {
 
     private $drawn;
-    private $default;
     private $defaultAddDrawn;
-    private $columns = array('id', 'date', 'donor', 'blood_type', 'nurse', 'store', 'reservation', 'quality');
+    protected $columns = array('id', 'date', 'donor', 'blood_type', 'nurse', 'store', 'reservation', 'quality');
 
     public function startup()
     {
@@ -32,14 +31,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 
     public function renderDefault()
     {
-        $query = $this->context->httpRequest->getQuery();
-        $default = array();
-        foreach($query as $key => $value)
-        {
-            if (in_array($key, $this->columns))
-                $default[$key] = $value;
-        }
-        $this->default = $default;
+        $this->getDefaults();
     }
 
     public function createComponentDrawnGrid()

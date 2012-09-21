@@ -14,9 +14,8 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 {
 
     private $invitation;
-    private $default;
     private $defaultAddInvitation;
-    private $columns = array('id', 'donor', 'date', 'station', 'type');
+    protected $columns = array('id', 'donor', 'date', 'station', 'type');
 
     public function startup()
     {
@@ -32,14 +31,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     public function renderDefault()
     {
-        $query = $this->context->httpRequest->getQuery();
-        $default = array();
-        foreach ($query as $key => $value)
-        {
-            if (in_array($key, $this->columns))
-                $default[$key] = $value;
-        }
-        $this->default = $default;
+        $this->getDefaults();
     }
 
     public function createComponentInvitationGrid()
