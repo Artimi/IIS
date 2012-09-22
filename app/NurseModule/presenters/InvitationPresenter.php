@@ -4,7 +4,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace NurseModule;
+
 /**
  * Description of DrawnPresenter
  *
@@ -15,6 +17,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     private $invitation;
     private $defaultAddInvitation;
+    private $defaultsDetail;
     protected $columns = array('id', 'donor', 'date', 'station', 'type');
 
     public function startup()
@@ -41,7 +44,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddInvitation($name)
     {
-        $form = new \BloodCenter\InvitationForm($this->defaultAddInvitation);
+        $form = new \BloodCenter\InvitationDetailForm($this->defaultAddInvitation);
         $form->onSuccess[] = callback($this, 'addInvitation');
         return $form;
     }
@@ -52,6 +55,28 @@ class InvitationPresenter extends \NurseModule\BasePresenter
         $values['state'] = 0; //in progress
         $this->invitation->insert($values);
         $this->flashMessage('Added invitation for donor ' . $values['donor']);
+    }
+
+    public function renderDetail($id)
+    {
+
+        $defaults = $this->invitation->findOneBy(array('id' => $id));
+        $this->defaultsDetail = $defaults;
+    }
+
+    public function createComponentDetail($name)
+    {
+        $form = new \BloodCenter\InvitationDetailForm($this->defaultsDetail);
+        $form['submit']->caption = 'Edit';
+        $form->onSuccess[] = callback($this, 'invitationEdited');
+        return $form;
+    }
+
+    public function invitationEdited(\Nette\Application\UI\Form $form)
+    {
+        $values = $form->getValues();
+        $this->invitation->update($values, $values['id']);
+        $this->flashMessage('Invitation ' . $values['id'] . ' was edited.');
     }
 
 }

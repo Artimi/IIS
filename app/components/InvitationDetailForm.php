@@ -13,7 +13,7 @@ use Nette\Application\UI\Form;
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class InvitationForm extends Form
+class InvitationDetailForm extends Form
 {
 
     public function __construct($defaults, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)

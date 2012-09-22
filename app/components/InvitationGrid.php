@@ -46,6 +46,10 @@ class InvitationGrid extends \NiftyGrid\Grid
         $this->addColumn('state','State')
             ->setSelectFilter($invitationState)
             ->setRenderer(function($row) use($invitationState) {return $invitationState[$row['state']];});
+        $this->addButton('detail','Detail')
+            ->setClass('ym-button')
+            ->setLink(function($row) use ($presenter){return $presenter->link("Invitation:detail",  $row['id']);})
+            ->setAjax(FALSE); 
         $this->addGlobalButton('add_invitation', 'Add invitation')
             ->setLink($presenter->link('Invitation:addInvitation'))
             ->setClass('ym-button')
