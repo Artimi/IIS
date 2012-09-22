@@ -34,9 +34,11 @@ abstract class Table extends Nette\Object
                                       1 => 'finished',
                                       2 => 'cancelled');
     
-    public $invittationState = array (0 => 'in progress',
+    public $invitationState = array ( 0 => 'in progress',
                                       1 => 'confirmed',
-                                      2 => 'cancelled');
+                                      2 => 'cancelled',
+                                      3 => 'finished',
+                                      4 => 'unfulfilled');
     
 
     /**

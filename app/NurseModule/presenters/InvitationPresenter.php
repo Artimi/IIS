@@ -46,9 +46,10 @@ class InvitationPresenter extends \NurseModule\BasePresenter
         return $form;
     }
 
-    public function addInvitation(Form $form)
+    public function addInvitation(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
+        $values['state'] = 0; //in progress
         $this->invitation->insert($values);
         $this->flashMessage('Added invitation for donor ' . $values['donor']);
     }

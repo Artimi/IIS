@@ -38,6 +38,10 @@ class InvitationGrid extends \NiftyGrid\Grid
             ->setTextFilter();
         $this->addColumn('type', 'Type')
             ->setSelectFilter(array('normal' => 'normal', 'urgent' => 'urgent'));
+        $invitationState = $this->invitation->invitationState;
+        $this->addColumn('state','State')
+            ->setSelectFilter($invitationState)
+            ->setRenderer(function($row) use($invitationState) {return $invitationState[$row['state']];});
         $this->addGlobalButton('add_invitation', 'Add invitation')
             ->setLink($presenter->link('Invitation:addInvitation'))
             ->setClass('ym-button')
