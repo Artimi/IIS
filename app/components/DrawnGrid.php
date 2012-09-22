@@ -55,6 +55,10 @@ class DrawnGrid extends \NiftyGrid\Grid
         $this->addColumn('quality', 'Quality')
              ->setBooleanFilter($quality)
              ->setRenderer(function($row) use ($quality) {return $quality[$row['quality']];});
+        $this->addButton('detail','Detail')
+            ->setClass('ym-button')
+            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:detail",  $row['id']);})
+            ->setAjax(FALSE);                 
         $this->addGlobalButton('add_drawn', 'Add drawn')
             ->setLink($presenter->link('Drawn:addDrawn'))
             ->setClass('ym-button')

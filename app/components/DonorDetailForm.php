@@ -14,7 +14,7 @@ namespace BloodCenter;
  */
 class DonorDetailForm extends \Nette\Application\UI\Form
 {
-    public function __construct($defaults, $stationNames, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($defaults = NULL, $stationNames, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID:')
