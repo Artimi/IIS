@@ -17,11 +17,6 @@ class NursePresenter extends BasePresenter
     protected function startup()
     {
         parent::startup();
-        if (!$this->user->isLoggedIn() or !$this->user->isInRole('nurse'))
-        {
-            $this->flashMessage('You have to be signed in as a nurse.');
-            $this->redirect('Sign:in');
-        }
 
         $this->nurse = $this->context->nurse;
     }

@@ -23,11 +23,6 @@ class DonorPresenter extends \NurseModule\BasePresenter
     public function startup()
     {
         parent::startup();
-        if(!$this->user->isLoggedIn()  or !$this->user->isInRole('nurse'))
-        {
-            $this->flashMessage('You have to be signed in as a nurse.');
-            $this->redirect(':Sign:in');
-        }
 
         $this->donor = $this->context->donor;
         $this->station = $this->context->station;
@@ -73,7 +68,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDonor($name)
     {
-        $form = new \BloodCenter\DetailForm(NULL, $this->stationNames);
+        $form = new \BloodCenter\DonorDetailForm(NULL, $this->stationNames);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;
