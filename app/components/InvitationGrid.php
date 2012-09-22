@@ -31,6 +31,10 @@ class InvitationGrid extends \NiftyGrid\Grid
         $this->addColumn('id', 'ID')
             ->setNumericFilter();
         $this->addColumn('donor', 'Donor')
+             ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['donor'])
+                ->href($presenter->link("Donor:detail", $row['donor']));})
             ->setTextFilter();
         $this->addColumn('date', 'Date')
             ->setDateFilter();

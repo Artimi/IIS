@@ -34,10 +34,18 @@ class DrawnGrid extends \NiftyGrid\Grid
         $this->addColumn('date', 'Date')
             ->setDateFilter();
         $this->addColumn('donor', 'Donor')
+             ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['donor'])
+                ->href($presenter->link("Donor:detail", $row['donor']));})
             ->setTextFilter();
         $this->addColumn('blood_type', 'Blood type')
             ->setSelectFilter($this->drawn->bloodTypes);
         $this->addColumn('nurse', 'Nurse')
+            ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['nurse'])
+                ->href($presenter->link("Nurse:detail", $row['nurse']));})
             ->setTextFilter();
         $this->addColumn('store', 'Store')
             ->setTextFilter();

@@ -23,6 +23,10 @@ class NurseGrid extends \NiftyGrid\Grid
         $this->setDataSource($source);
         $this->setPerPageValues(array(10, 20, 50));
         $this->addColumn('id', 'ID')
+              ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['id'])
+                ->href($presenter->link("Nurse:detail", $row['id']));})
             ->setTextFilter();
         $this->addColumn('name', 'Name')
             ->setTextFilter();
