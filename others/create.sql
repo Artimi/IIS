@@ -27,7 +27,7 @@ CREATE TABLE drawn (
     donor           CHAR(7) NOT NULL, 
     blood_type      CHAR(3), 
     nurse           CHAR(7) NOT NULL,
-    store           INT(3) UNSIGNED NOT NULL,
+    store           INT(3) UNSIGNED,
     reservation     INT(10) UNSIGNED, 
     quality         TINYINT,
     PRIMARY KEY (id),

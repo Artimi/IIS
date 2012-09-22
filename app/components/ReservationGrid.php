@@ -37,8 +37,8 @@ class ReservationGrid extends \NiftyGrid\Grid
             ->setTextFilter();
         $this->addColumn('date', 'Date')
             ->setTextFilter();
-        $this->addColumn('note', 'Note')
-            ->setTextFilter();
+//        $this->addColumn('note', 'Note')
+//            ->setTextFilter();
         $reservationState = $this->reservation->reservationState;
         $this->addColumn('state', 'State')
             ->setRenderer(function($row)  use ($reservationState) {return $reservationState[$row['state']];})
@@ -46,6 +46,10 @@ class ReservationGrid extends \NiftyGrid\Grid
         $this->addButton('detail','Detail')
             ->setClass('ym-button')
             ->setLink(function($row) use ($presenter){return $presenter->link("Reservation:detail", $row['id']);})
+            ->setAjax(FALSE);
+        $this->addButton('send','Send')
+            ->setClass('ym-button')
+            ->setLink(function($row) use ($presenter){return $presenter->link("send!", $row['id']);})
             ->setAjax(FALSE);
         $this->addGlobalButton('add_reservation', 'Add reservation')
             ->setLink($presenter->link('Reservation:addReservation'))

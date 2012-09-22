@@ -63,6 +63,9 @@ class DrawnGrid extends \NiftyGrid\Grid
             ->setLink($presenter->link('Drawn:addDrawn'))
             ->setClass('ym-button')
             ->setAjax(FALSE);
+//        $this->addAction('reserve', 'Reserve')
+//            ->setCallback(function($id) use ($presenter){return $presenter->reserve($id);});
+            
         
     }
    

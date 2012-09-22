@@ -44,7 +44,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddInvitation($name)
     {
-        $form = new \BloodCenter\InvitationDetailForm($this->defaultAddInvitation);
+        $form = new \BloodCenter\InvitationDetailForm($this->defaultAddInvitation, $this->invitation);
         $form->onSuccess[] = callback($this, 'addInvitation');
         return $form;
     }
@@ -66,7 +66,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\InvitationDetailForm($this->defaultsDetail);
+        $form = new \BloodCenter\InvitationDetailForm($this->defaultsDetail, $this->invitation);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'invitationEdited');
         return $form;
