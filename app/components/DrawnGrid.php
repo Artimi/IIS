@@ -43,8 +43,10 @@ class DrawnGrid extends \NiftyGrid\Grid
             ->setTextFilter();
         $this->addColumn('reservation', 'Reservation')
              ->setTextFilter();
+        $quality = array(0 => 'bad', 1 => 'good');
         $this->addColumn('quality', 'Quality')
-             ->setBooleanFilter(array(0 => 'bad', 1 => 'good'));
+             ->setBooleanFilter($quality)
+             ->setRenderer(function($row) use ($quality) {return $quality[$row['quality']];});
         $this->addGlobalButton('add_drawn', 'Add drawn')
             ->setLink($presenter->link('Drawn:addDrawn'))
             ->setClass('ym-button')
