@@ -29,6 +29,10 @@ class DonorGrid extends \NiftyGrid\Grid
         $this->setDataSource($source);
         $this->setPerPageValues(array(10, 20, 50));
         $this->addColumn('id', 'ID')
+              ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['id'])
+                ->href($presenter->link("Donor:detail", $row['id']));})
             ->setTextFilter();
         $this->addColumn('name', 'Name')
             ->setTextFilter();
@@ -56,6 +60,7 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setLink($presenter->link('Donor:addDonor'))
             ->setClass('ym-button')
             ->setAjax(FALSE);
+
         
     }
     

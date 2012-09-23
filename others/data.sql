@@ -26,8 +26,8 @@ INSERT INTO drawn VALUES (7,'2011-01-11 07:56:35','zablo00','A+','nnova00',003,N
 INSERT INTO drawn VALUES (8,'2012-03-15 09:11:22','cihla00','0+','nvask00',004,NULL,1);
 INSERT INTO drawn VALUES (9,'2011-11-13 09:34:15','zablo00','A+','nnova00',002,NULL,1);
 
-INSERT INTO reservation VALUES (1,'Motol Praha','B+',8,'2012-03-30 07:00:00',NULL,'odbavena');
-INSERT INTO reservation VALUES (2,'Uherskohradistska Nemocnice','0-',7,'2012-03-30 07:00:00',NULL,'v prubehu');
+INSERT INTO reservation VALUES (1,'Motol Praha','B+',8,'2012-03-30 07:00:00',NULL,1);
+INSERT INTO reservation VALUES (2,'Uherskohradistska Nemocnice','0-',7,'2012-03-30 07:00:00',NULL,0);
 
 INSERT INTO invitation VALUES (1,'skrom00','2012-04-01 07:00:00',001,'normal',0);
 INSERT INTO invitation VALUES (2,'novaa00','2012-03-30 07:00:00',001,'normal',1);

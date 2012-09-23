@@ -13,17 +13,20 @@ use Nette\Application\UI\Form;
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class InvitationForm extends Form
+class InvitationDetailForm extends Form
 {
 
-    public function __construct($defaults, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($defaults, $invitation, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
+        $this->addText('id', 'Id')
+            ->setAttribute('readonly');
         $this->addText('donor', 'Donor:')
             ->setRequired();
         $this->addText('date', 'Date:'); //TODO better date picking
         $this->addText('station', 'Station:');
         $this->addSelect('type', 'Type:', array('normal' => 'normal', 'urgent' => 'urgent'));
+        $this->addSelect('state', 'State',$invitation->invitationState);
         $this->addSubmit('submit','Submit');
         if ($defaults != NULL)
         {

@@ -14,32 +14,20 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 {
 
     private $drawn;
-    private $default;
     private $defaultAddDrawn;
-    private $columns = array('id', 'date', 'donor', 'blood_type', 'nurse', 'store', 'reservation', 'quality');
+    private $defaultsDetail;
+    protected $columns = array('id', 'date', 'donor', 'blood_type', 'nurse', 'store', 'reservation', 'quality');
 
     public function startup()
     {
         parent::startup();
-        if (!$this->getUser()->isLoggedIn())
-        {
-            $this->flashMessage('You have to be signed in.');
-            $this->redirect('Sign:in');
-        }
 
         $this->drawn = $this->context->drawn;
     }
 
     public function renderDefault()
     {
-        $query = $this->context->httpRequest->getQuery();
-        $default = array();
-        foreach($query as $key => $value)
-        {
-            if (in_array($key, $this->columns))
-                $default[$key] = $value;
-        }
-        $this->default = $default;
+        $this->getDefaults();
     }
 
     public function createComponentDrawnGrid()
@@ -56,7 +44,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDrawn($name)
     {
-        $form = new \BloodCenter\DrawnForm($this->defaultAddDrawn);
+        $form = new \BloodCenter\DrawnDetailForm($this->defaultAddDrawn);
         $form->onSuccess[] = callback($this, 'addDrawn');
         return $form;
     }
@@ -70,4 +58,27 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         $this->flashMessage('Added drawn of donor ' . $values['donor']);
     }
 
+     public function renderDetail($id)
+    {
+
+        $defaults = $this->drawn->findOneBy(array('id' => $id));
+        $this->defaultsDetail = $defaults;
+    }
+
+    public function createComponentDetail($name)
+    {
+        $form = new \BloodCenter\DrawnDetailForm($this->defaultsDetail);
+        $form['submit']->caption = 'Edit';
+        $form->onSuccess[] = callback($this, 'drawnEdited');
+        return $form;
+    }
+
+    public function drawnEdited(\Nette\Application\UI\Form $form)
+    {
+        $values = $form->getValues();
+        if ($values['reservation'] == '') //TODO little hack to avoid foreign_key error
+            $values['reservation'] = NULL;
+        $this->drawn->update($values, $values['id']);
+        $this->flashMessage('Drawn '  . $values['id'] . ' was edited.');
+    }
 }

@@ -27,7 +27,7 @@ CREATE TABLE drawn (
     donor           CHAR(7) NOT NULL, 
     blood_type      CHAR(3), 
     nurse           CHAR(7) NOT NULL,
-    store           INT(3) UNSIGNED NOT NULL,
+    store           INT(3) UNSIGNED,
     reservation     INT(10) UNSIGNED, 
     quality         TINYINT,
     PRIMARY KEY (id),
@@ -44,7 +44,7 @@ CREATE TABLE invitation (
     date            DATETIME,
     station         INT(3) UNSIGNED NOT NULL,
     type            CHAR(6),
-    state           TINYINT,
+    state           TINYINT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_invitation_donor FOREIGN KEY (donor) REFERENCES donor (id),
     CONSTRAINT fk_invitation_station FOREIGN KEY (station) REFERENCES station (id)
@@ -84,6 +84,6 @@ CREATE TABLE reservation (
     quantity        INT(6) UNSIGNED,
     date            DATETIME,
     note            VARCHAR(200),
-    state			VARCHAR(20),
+    state	    TINYINT NOT NULL,
     PRIMARY KEY (id)
 )DEFAULT CHARSET=utf8;

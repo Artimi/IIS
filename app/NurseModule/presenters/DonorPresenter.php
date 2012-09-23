@@ -18,17 +18,11 @@ class DonorPresenter extends \NurseModule\BasePresenter
     private $drawn;
     private $defaultsDetail;
     private $stationNames;
-    private $default;
-    private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
+    protected $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
 
     public function startup()
     {
         parent::startup();
-        if (!$this->getUser()->isLoggedIn())
-        {
-            $this->flashMessage('You have to be signed in.');
-            $this->redirect('Sign:in');
-        }
 
         $this->donor = $this->context->donor;
         $this->station = $this->context->station;
@@ -41,14 +35,8 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function renderDefault()
     {
-        $query = $this->context->httpRequest->getQuery();
-        $default = array();
-        foreach ($query as $key => $value)
-        {
-            if (in_array($key, $this->columns))
-                $default[$key] = $value;
-        }
-        $this->default = $default;
+        $this->getDefaults();
+
     }
 
     public function renderDetail($id)
@@ -60,13 +48,13 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\DetailForm($this->defaultsDetail, $this->stationNames);
+        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->stationNames);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
     }
 
-    public function donorEdited(Form $form)
+    public function donorEdited(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
         $this->donor->update($values, $values['id']);
@@ -80,7 +68,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDonor($name)
     {
-        $form = new \BloodCenter\DetailForm(NULL, $this->stationNames);
+        $form = new \BloodCenter\DonorDetailForm(NULL, $this->stationNames);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;

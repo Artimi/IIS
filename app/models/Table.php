@@ -30,6 +30,16 @@ abstract class Table extends Nette\Object
                                  'AB-' => 'AB-',
                                  'AB+' => 'AB+');
     
+    public $reservationState = array (0 => 'in progress',
+                                      1 => 'finished',
+                                      2 => 'cancelled');
+    
+    public $invitationState = array ( 0 => 'in progress',
+                                      1 => 'confirmed',
+                                      2 => 'cancelled',
+                                      3 => 'finished',
+                                      4 => 'unfulfilled');
+    
 
     /**
      * @param Nette\Database\Connection $db

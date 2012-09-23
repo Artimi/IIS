@@ -34,21 +34,38 @@ class DrawnGrid extends \NiftyGrid\Grid
         $this->addColumn('date', 'Date')
             ->setDateFilter();
         $this->addColumn('donor', 'Donor')
+             ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['donor'])
+                ->href($presenter->link("Donor:detail", $row['donor']));})
             ->setTextFilter();
         $this->addColumn('blood_type', 'Blood type')
             ->setSelectFilter($this->drawn->bloodTypes);
         $this->addColumn('nurse', 'Nurse')
+            ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['nurse'])
+                ->href($presenter->link("Nurse:detail", $row['nurse']));})
             ->setTextFilter();
         $this->addColumn('store', 'Store')
             ->setTextFilter();
         $this->addColumn('reservation', 'Reservation')
              ->setTextFilter();
+        $quality = array(0 => 'bad', 1 => 'good');
         $this->addColumn('quality', 'Quality')
-             ->setBooleanFilter(array(0 => 'bad', 1 => 'good'));
+             ->setBooleanFilter($quality)
+             ->setRenderer(function($row) use ($quality) {return $quality[$row['quality']];});
+        $this->addButton('detail','Detail')
+            ->setClass('ym-button')
+            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:detail",  $row['id']);})
+            ->setAjax(FALSE);                 
         $this->addGlobalButton('add_drawn', 'Add drawn')
             ->setLink($presenter->link('Drawn:addDrawn'))
             ->setClass('ym-button')
             ->setAjax(FALSE);
+//        $this->addAction('reserve', 'Reserve')
+//            ->setCallback(function($id) use ($presenter){return $presenter->reserve($id);});
+            
         
     }
    
