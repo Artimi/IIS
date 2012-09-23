@@ -27,7 +27,7 @@ class DonorPresenter extends \DonorModule\BasePresenter
         if (!$this->getUser()->isLoggedIn())
         {
             $this->flashMessage('You have to be signed in.');
-            $this->redirect('Sign:in');
+            $this->redirect(':Sign:in');
         }
 
         $this->donor = $this->context->donor;

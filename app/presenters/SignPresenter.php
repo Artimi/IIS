@@ -50,6 +50,7 @@ class SignPresenter extends Nette\Application\UI\Presenter
             }
             else
             {
+                $this->flashMessage('Welcome back, '. $user->getIdentity()->name.'!');
                 $this->redirect(':Donor:Donor:');
             }
         }

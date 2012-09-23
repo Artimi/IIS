@@ -60,9 +60,5 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setLink($presenter->link('Donor:addDonor'))
             ->setClass('ym-button')
             ->setAjax(FALSE);
-
-        
     }
-    
-    
 }

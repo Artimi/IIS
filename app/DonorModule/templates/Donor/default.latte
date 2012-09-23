@@ -1,12 +1,28 @@
-{block title}
-Donor
-{/block}
-
 {block content}
-{*        {control donorsList}
-{if $user->isInRole('nurse')}
-<a n:href="Donor:addDonor" class="ym-button">Add donor</a>
-{/if}
-*}
-{*control donorGrid*}
+<div class="box">
+    <p>
+        pozvanky pripadne
+    </p>
+</div>
+<div class="box">
+    <p>
+        
+        posledni odbery
+    </p>
+</div>
+<div class="ym-grid">
+    <div class="ym-g50 ym-gl">
+        <div class="box">
+            
+            <p>udaje</p>
+
+        </div>
+    </div>
+    <div class="ym-g50 ym-gr">
+        <div class="box">
+            <p>cosi</p>
+        </div>
+    </div>
+</div>
+
 {/block}
