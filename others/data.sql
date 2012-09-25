@@ -17,14 +17,15 @@ INSERT INTO donor VALUES ('novaa00','6bc512d3e25169acf30fa31de9a6298c','Klara','
 INSERT INTO donor VALUES ('cihla00','6bc512d3e25169acf30fa31de9a6298c','Vincent','Cihlar',68601,'Uherske Hradiste','Protzkarova 15',NULL,'vcihlar@mailsever.mail','0+',7503214784,1,004,NULL);
 INSERT INTO donor VALUES ('zablo00','6bc512d3e25169acf30fa31de9a6298c','Mia','Zabloudilova',68602,'Praha','Videnska 154','+420789456123','miazab@mailsever.mail','A+',8252057892,1,003,NULL);
 
-INSERT INTO drawn VALUES (1,'2011-02-25 06:52:02','skrom00','0-','nsmrn00',001,NULL,1);
-INSERT INTO drawn VALUES (2,'2011-04-02 08:02:45','zelen00','AB+','npave00',001,NULL,1);
-INSERT INTO drawn VALUES (3,'2012-01-17 13:05:41','novaa00','A+','nsmrn00',001,NULL,1);
-INSERT INTO drawn VALUES (4,'2011-05-19 10:14:08','zelen00','AB+','nnova00',003,NULL,1);
-INSERT INTO drawn VALUES (6,'2010-11-08 11:31:25','skrom00','0-','ncist00',001,NULL,1);
-INSERT INTO drawn VALUES (7,'2011-01-11 07:56:35','zablo00','A+','nnova00',003,NULL,1);
-INSERT INTO drawn VALUES (8,'2012-03-15 09:11:22','cihla00','0+','nvask00',004,NULL,1);
-INSERT INTO drawn VALUES (9,'2011-11-13 09:34:15','zablo00','A+','nnova00',002,NULL,1);
+INSERT INTO drawn VALUES (1,'2011-01-11 07:56:35','zablo00','A+','nnova00',3,NULL,1);
+INSERT INTO drawn VALUES (2,'2011-02-25 06:52:02','skrom00','0-','nsmrn00',1,NULL,1);
+INSERT INTO drawn VALUES (3,'2011-04-02 08:02:45','zelen00','AB+','npave00',1,NULL,1);
+INSERT INTO drawn VALUES (4,'2011-06-06 13:05:41','novaa00','A+','nsmrn00',1,NULL,1);
+INSERT INTO drawn VALUES (5,'2011-07-10 07:12:20','cihla00','0+','nsmrn00',4,NULL,1);
+INSERT INTO drawn VALUES (6,'2011-08-08 11:31:25','skrom00','0-','ncist00',1,NULL,1);
+INSERT INTO drawn VALUES (7,'2011-08-19 10:14:08','zelen00','AB+','nnova00',3,NULL,1);
+INSERT INTO drawn VALUES (8,'2011-11-13 09:34:15','zablo00','A+','nnova00',2,NULL,1);
+INSERT INTO drawn VALUES (9,'2012-03-15 09:11:22','cihla00','0+','nvask00',4,NULL,1);
 
 INSERT INTO reservation VALUES (1,'Motol Praha','B+',8,'2012-03-30 07:00:00',NULL,1);
 INSERT INTO reservation VALUES (2,'Uherskohradistska Nemocnice','0-',7,'2012-03-30 07:00:00',NULL,0);

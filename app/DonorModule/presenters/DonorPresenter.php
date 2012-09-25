@@ -1,6 +1,6 @@
 <?php
 
-use \Nette\Application\UI\Form;
+//use \Nette\Application\UI\Form;
 
 namespace DonorModule;
 
@@ -49,8 +49,16 @@ class DonorPresenter extends \DonorModule\BasePresenter
                 $default[$key] = $value;
         }
         $this->default = $default;
+       
     }
 
+      
+    public function createComponentLastDrawnsDonorGrid()
+    {
+        return new \BloodCenter\LastDrawnsDonorGrid($this->drawn, $this->default);
+    }
+    
+    /*
     public function renderDetail($id)
     {
 
@@ -105,6 +113,6 @@ class DonorPresenter extends \DonorModule\BasePresenter
     {
         return new \BloodCenter\DonorGrid($this->donor, $this->default);
     }
-
+    */
 }
 
