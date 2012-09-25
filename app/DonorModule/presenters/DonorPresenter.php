@@ -1,13 +1,12 @@
 <?php
 
-//use \Nette\Application\UI\Form;
 
 namespace DonorModule;
 
 /**
  * Description of DonorPresenter
  *
- * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Simon <xsimon14@stud.fit.vutbr.cz>
  */
 class DonorPresenter extends \DonorModule\BasePresenter
 {
@@ -16,11 +15,14 @@ class DonorPresenter extends \DonorModule\BasePresenter
     private $station;
     private $invitation;
     private $drawn;
-    private $defaultsDetail;
+    //private $defaultsDetail;
     private $stationNames;
     private $default;
     private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
-
+    private $invitations;
+    private $drawns;
+    private $donorInfo;
+    private $hasInvitations;
     public function startup()
     {
         parent::startup();
@@ -36,7 +38,10 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->drawn = $this->context->drawn;
 
         $this->stationNames = $this->station->getStationNames();
-        $this->template->stationNames = $this->stationNames;
+        $this->invitations = $this->invitation->getInvitationsById($this->user->getIdentity()->id);
+        $this->drawns = $this->drawn->getDrawnsById($this->user->getIdentity()->id);
+        $this->donorInfo = $this->donor->getInfoById($this->user->getIdentity()->id);
+        $this->hasInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id);
     }
 
     public function renderDefault()
@@ -49,15 +54,16 @@ class DonorPresenter extends \DonorModule\BasePresenter
                 $default[$key] = $value;
         }
         $this->default = $default;
-       
+        
+        $this->template->selectDrawnsByUser = $this->drawns;
+        $this->template->donorInfo = $this->donorInfo;
+        $this->template->invitations = $this->invitations;
+        $this->template->stationNames = $this->stationNames;
+        $this->template->hasInvitations = $this->hasInvitations;
     }
 
-      
-    public function createComponentLastDrawnsDonorGrid()
-    {
-        return new \BloodCenter\LastDrawnsDonorGrid($this->drawn, $this->default);
-    }
-    
+
+
     /*
     public function renderDetail($id)
     {

@@ -8,5 +8,30 @@ namespace BloodCenter;
  */
 class Invitation extends Table
 {
-	protected $tableName = 'invitation';	
+	protected $tableName = 'invitation';
+        
+        /**
+        * Returns all invitations for user defined by $id
+        * @param string $id
+        * @param int $state State of the invitation (0=in progress)
+        * @return \Nette\Database\Table\Selection
+        */
+        public function getInvitationsById($id, $state=0)
+        {
+            return $this->findBy(array('donor' => $id, 'state' => $state));
+        }
+                
+        
+        /**
+         * Returns if the user defined by $id has any invitations or not
+         * @param string $id
+         * @return boolean
+         */
+        public function hasInvitations($id, $state=0)
+        {
+            if ($this->findBy(array('donor' => $id, 'state' => $state))->count() > 0)
+                return TRUE;
+            else
+                return FALSE;
+        }
 }

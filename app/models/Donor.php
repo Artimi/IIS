@@ -37,5 +37,15 @@ class Donor extends Table
         }
         return $nick . str_pad((string) $number, 2, '0', STR_PAD_LEFT);
     }
+    
+    /**
+     * Returns information for user defined by $id
+     * @param string $id
+     * @return \Nette\Database\Table\ActiveRow|FALSE
+     */
+    public function getInfoById($id)
+    {
+        return $this->findOneBy(array('id' => $id));
+    }
 
 }

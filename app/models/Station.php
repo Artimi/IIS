@@ -21,5 +21,15 @@ class Station extends Table
         }
         return $result;
     }
+    
+    /**
+     * Returns a line about station defined by $id
+     * @param int $id
+     * @return array
+     */
+    public function getStationById($id)
+    {
+        return $this->findOneBy(array('id' => $id));
+    }
 
 }

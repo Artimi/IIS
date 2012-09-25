@@ -11,6 +11,32 @@ th input {
     display: inline;
 }
 
+
+.pi-blood-type{
+    font-size: 4em;
+    
+}
+
+.align-to-right{
+    text-align: right;
+
+}
+
+.pi-label{
+    border-bottom: 1px silver solid;
+    font-size:12pt;
+    color:gray;
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+
+.pi-value{
+    padding-left: 60pt;
+    font-size: 16pt;
+    color: black;
+    
+    
+}
 /*footer {
     text-align: center;
     width: 100%;

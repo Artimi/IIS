@@ -43,7 +43,7 @@
         <div id="main">
             <div class="ym-wrapper">
                 <div class="ym-wbox">          
-                    <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+                    <div n:foreach="$flashes as $flash" class="box {$flash->type}">{$flash->message}</div>
                     {include #content}
                 </div>
             </div>

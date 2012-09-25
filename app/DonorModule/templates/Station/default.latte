@@ -1,0 +1,20 @@
+
+{block content}
+
+<div class="ym-grid">
+    <div class="ym-g66 ym-gl">
+        <div class="ym-gbox">
+            <div class="pi-label">Name</div>
+            <div class="pi-value">{$stationInfo->name}</div>
+            <div class="pi-label">Address</div>
+            <div class="pi-value">{$stationInfo->street}<br />{$stationInfo->postal_code}, {$stationInfo->city}</div>
+        </div>
+    </div>
+    <div class="ym-33 ym-gr">
+        <div class="ym-gbox">
+            <p>Map</p>
+        </div>
+    </div>
+</div>
+<div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back</a></div>
+{/block}
