@@ -16,17 +16,17 @@ use Nette\Application\UI\Form;
 class InvitationDetailForm extends Form
 {
 
-    public function __construct($defaults, $invitation, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($defaults, $data, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'Id')
             ->setAttribute('readonly');
-        $this->addText('donor', 'Donor:')
+        $this->addSelect('donor', 'Donor:', $data['donor'])
             ->setRequired();
         $this->addText('date', 'Date:'); //TODO better date picking
-        $this->addText('station', 'Station:');
+        $this->addSelect('station', 'Station:', $data['stationNames']);
         $this->addSelect('type', 'Type:', array('normal' => 'normal', 'urgent' => 'urgent'));
-        $this->addSelect('state', 'State',$invitation->invitationState);
+        $this->addSelect('state', 'State',$data['invitationState']);
         $this->addSubmit('submit','Submit');
         if ($defaults != NULL)
         {

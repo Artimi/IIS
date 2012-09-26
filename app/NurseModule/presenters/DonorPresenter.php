@@ -72,7 +72,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDonor($name)
     {
-        $form = new \BloodCenter\DonorDetailForm(NULL, $this->s);
+        $form = new \BloodCenter\DonorDetailForm(NULL, $this->data);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;
