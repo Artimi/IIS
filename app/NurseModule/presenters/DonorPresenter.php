@@ -17,6 +17,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     private $invitation;
     private $drawn;
     private $defaultsDetail;
+    private $data = array();
     private $stationNames;
     protected $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
 
@@ -29,6 +30,9 @@ class DonorPresenter extends \NurseModule\BasePresenter
         $this->invitation = $this->context->invitation;
         $this->drawn = $this->context->drawn;
 
+        $this->data['stationNames'] = $this->station->getStationNames();
+        $this->data['bloodTypes'] = $this->donor->bloodTypes;
+        
         $this->stationNames = $this->station->getStationNames();
         $this->template->stationNames = $this->stationNames;
     }
@@ -48,7 +52,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->stationNames, $this->donor->bloodTypes);
+        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->data);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
@@ -68,7 +72,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDonor($name)
     {
-        $form = new \BloodCenter\DonorDetailForm(NULL, $this->stationNames, $this->donor->bloodTypes);
+        $form = new \BloodCenter\DonorDetailForm(NULL, $this->s);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;

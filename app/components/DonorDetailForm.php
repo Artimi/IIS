@@ -14,7 +14,7 @@ namespace BloodCenter;
  */
 class DonorDetailForm extends \Nette\Application\UI\Form
 {
-    public function __construct($defaults = NULL, $stationNames, $bloodTypes, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($defaults = NULL, $data, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID:')
@@ -28,13 +28,13 @@ class DonorDetailForm extends \Nette\Application\UI\Form
         $this->addText('street', 'Street:');
         $this->addText('phone', 'Phone:');
         $this->addText('email', 'Email:');
-        $this->addSelect('blood_type', 'Blood type:', $bloodTypes)
+        $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes'])
             ->setRequired();
         $this->addText('national_id', 'National ID:')
             ->setRequired();
         $this->addRadioList('active', 'Active:', array(0 => 'inactive', 1 => 'active'))
             ->setRequired();
-        $this->addSelect('pref_station', 'Preferred station:', $stationNames);
+        $this->addSelect('pref_station', 'Preferred station:', $data['stationNames']);
         $this->addTextArea('note', 'Note:');
         $this->addSubmit('submit', 'Submit:');
         if ($defaults != NULL)

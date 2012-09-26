@@ -14,21 +14,21 @@ use Nette\Application\UI\Form;
 class DrawnDetailForm extends Form
 {
 
-    public function __construct($defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($defaults = NULL, $data, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID')
             ->setAttribute('readonly');
         $this->addText('date', 'Date:')//TODO better date picking
             ->setRequired();
-        $this->addText('donor', 'Donor:')
+        $this->addSelect('donor', 'Donor:', $data['donors'])
             ->setRequired();
-        $this->addText('blood_type', 'Blood type:'); 
+        $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes']); 
         $this->addText('nurse', 'Nurse:')
             ->setRequired();
 //        $this->addSelect('store', 'Store:', $stationNames)
 //            ->setRequired();
-        $this->addText('store', 'Store');
+        $this->addSelect('store', 'Store', $data['stationNames']);
         $this->addText('reservation', 'Reservation:');
         $quality = array(0 => 'bad', 1 => 'good');
         $this->addSelect('quality', 'Quality:', $quality);

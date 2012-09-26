@@ -14,13 +14,15 @@ class DrawnGrid extends \NiftyGrid\Grid
 {
     protected $drawn;
     protected $default;
+    private $stationNames;
 
     
-    public function __construct($drawn, $default = array())
+    public function __construct($drawn, $stationNames, $default = array())
     {
         parent::__construct();
         $this->drawn = $drawn;
         $this->default = $default;
+        $this->stationNames = $stationNames;
         $this->setFilter($default);
     }
     
@@ -47,9 +49,18 @@ class DrawnGrid extends \NiftyGrid\Grid
                 ->setText($row['nurse'])
                 ->href($presenter->link("Nurse:detail", $row['nurse']));})
             ->setTextFilter();
+        $stationNames = $this->stationNames;
         $this->addColumn('store', 'Store')
-            ->setTextFilter();
+            ->setRenderer(function($row) use($stationNames, $presenter)
+                {return \Nette\Utils\Html::el('a')
+                    ->setText($stationNames[$row['store']])
+                    ->href($presenter->link('Station:detail', $row['store']));})
+            ->setSelectFilter($stationNames);
         $this->addColumn('reservation', 'Reservation')
+             ->setRenderer(function($row) use($presenter)
+                {return \Nette\Utils\Html::el('a')
+                    ->setText($row['reservation'])
+                    ->href($presenter->link('Reservation:detail', $row['reservation']));})
              ->setTextFilter();
         $quality = array(0 => 'bad', 1 => 'good');
         $this->addColumn('quality', 'Quality')
