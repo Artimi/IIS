@@ -48,7 +48,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->stationNames);
+        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->stationNames, $this->donor->bloodTypes);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
@@ -68,7 +68,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDonor($name)
     {
-        $form = new \BloodCenter\DonorDetailForm(NULL, $this->stationNames);
+        $form = new \BloodCenter\DonorDetailForm(NULL, $this->stationNames, $this->donor->bloodTypes);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;
@@ -91,7 +91,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDonorGrid($name)
     {
-        return new \BloodCenter\DonorGrid($this->donor, $this->default);
+        return new \BloodCenter\DonorGrid($this->donor, $this->stationNames, $this->default);
     }
 
 }

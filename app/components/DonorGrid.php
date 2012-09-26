@@ -14,12 +14,14 @@ class DonorGrid extends \NiftyGrid\Grid
 {
     protected $donor;
     protected $default;
+    private $stationNames;
     
-    public function __construct($donor,$default = array())
+    public function __construct($donor, $stationNames, $default = array())
     {
         parent::__construct();
         $this->donor = $donor;
         $this->default = $default;
+        $this->stationNames = $stationNames;
         $this->setFilter($default);
     }
     
@@ -40,10 +42,14 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setTextFilter();
         $this->addColumn('blood_type', 'Blood type')
             ->setSelectFilter($this->donor->bloodTypes);
+        $active = array(0 => 'inactive', 1 => 'active');
         $this->addColumn('active', 'Active')
-            ->setBooleanFilter(array(0 => 'inactive', 1 => 'active'));
+            ->setRenderer(function($row) use($active) {return $active[$row['active']];})
+            ->setBooleanFilter($active);
+        $stationNames = $this->stationNames;
         $this->addColumn('pref_station', 'Preferred station')
-            ->setTextFilter(); //TODO select filter
+            ->setRenderer(function($row) use($stationNames) {return $stationNames[$row['pref_station']];})
+            ->setSelectFilter($stationNames);
         $this->addButton('detail','Detail')
             ->setClass('ym-button')
             ->setLink(function($row) use ($presenter){return $presenter->link("Donor:detail", $row['id']);})
