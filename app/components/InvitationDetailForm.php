@@ -16,7 +16,7 @@ use Nette\Application\UI\Form;
 class InvitationDetailForm extends Form
 {
 
-    public function __construct($defaults, $data, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($data, $defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'Id')

@@ -14,7 +14,7 @@ use Nette\Application\UI\Form;
 class DrawnDetailForm extends Form
 {
 
-    public function __construct($defaults = NULL, $data, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($data,$defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID')

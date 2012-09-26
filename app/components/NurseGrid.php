@@ -9,12 +9,14 @@ class NurseGrid extends \NiftyGrid\Grid
 {
     protected $nurse;
     protected $default;
+    private $stationNames;
     
-    public function __construct($nurse,$default = array())
+    public function __construct($nurse, $stationNames, $default = array())
     {
         parent::__construct();
         $this->nurse = $nurse;
         $this->default = $default;
+        $this->stationNames = $stationNames;
         $this->setFilter($default);
     }
     protected function configure($presenter)
@@ -32,8 +34,13 @@ class NurseGrid extends \NiftyGrid\Grid
             ->setTextFilter();
         $this->addColumn('surname', 'Surname')
             ->setTextFilter();
+        $stationNames = $this->stationNames;
         $this->addColumn('station', 'Station')
-            ->setTextFilter(); //TODO select filter
+            ->setRenderer(function($row) use($stationNames, $presenter)
+                {return \Nette\Utils\Html::el('a')
+                    ->setText($stationNames[$row['station']])
+                    ->href($presenter->link('Station:detail', $row['station']));})
+            ->setSelectFilter($stationNames);
         $this->addColumn('phone', 'Phone')
             ->setTextFilter();
         $this->addButton('detail','Detail')

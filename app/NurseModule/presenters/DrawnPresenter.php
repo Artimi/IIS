@@ -58,7 +58,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 
     public function createComponentAddDrawn($name)
     {
-        $form = new \BloodCenter\DrawnDetailForm($this->defaultAddDrawn, $this->data);
+        $form = new \BloodCenter\DrawnDetailForm($this->data, $this->defaultAddDrawn);
         $form->onSuccess[] = callback($this, 'addDrawn');
         $form['id']->setDisabled();
         return $form;
@@ -82,7 +82,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\DrawnDetailForm($this->defaultsDetail, $this->data);
+        $form = new \BloodCenter\DrawnDetailForm($this->data, $this->defaultsDetail);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'drawnEdited');
         return $form;

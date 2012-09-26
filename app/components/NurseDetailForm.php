@@ -10,7 +10,7 @@ namespace BloodCenter;
  */
 class NurseDetailForm extends \Nette\Application\UI\Form
 {
-    public function __construct($defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($data, $defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID:')
@@ -25,7 +25,7 @@ class NurseDetailForm extends \Nette\Application\UI\Form
         $this->addText('phone', 'Phone:');
         $this->addText('national_id', 'National ID:')
             ->setRequired();
-        $this->addText('station', 'Station:');
+        $this->addSelect('station', 'Station:', $data['stationNames']);
         $this->addSubmit('submit', 'Submit:');
         if ($defaults != NULL)
             $this->setDefaults($defaults);
