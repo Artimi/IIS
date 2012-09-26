@@ -134,4 +134,20 @@ abstract class Table extends Nette\Object
         }
         return $table;
     }
+    
+    public function findOneByID($id)
+    {
+        return $this->findBy(array('id' => $id))->limit(1)->fetch();
+    }
+    
+        public function getIDs()
+    {
+        $result = array();
+        $table = $this->getTable();
+        foreach ($table as $row)
+        {
+            $result[$row['id']] = $row['id'];
+        }
+        return $result;
+    }
 }

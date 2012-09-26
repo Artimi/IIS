@@ -24,7 +24,7 @@ class DrawnDetailForm extends Form
         $this->addSelect('donor', 'Donor:', $data['donors'])
             ->setRequired();
         $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes']); 
-        $this->addText('nurse', 'Nurse:')
+        $this->addSelect('nurse', 'Nurse:',$data['nurses'])
             ->setRequired();
 //        $this->addSelect('store', 'Store:', $stationNames)
 //            ->setRequired();

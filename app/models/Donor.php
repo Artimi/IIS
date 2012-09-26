@@ -48,15 +48,6 @@ class Donor extends Table
         return $this->findOneBy(array('id' => $id));
     }
     
-    public function getIDs()
-    {
-        $result = array();
-        $table = $this->getTable();
-        foreach ($table as $donor)
-        {
-            $result[$donor['id']] = $donor['id'];
-        }
-        return $result;
-    }
+
 
 }
