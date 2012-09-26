@@ -74,6 +74,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     {
         $form = new \BloodCenter\DonorDetailForm(NULL, $this->data);
         $form['submit']->caption = 'Add';
+        $form['id']->setDisabled();
         $form->onSuccess[] = callback($this, 'addDonor');
         return $form;
     }

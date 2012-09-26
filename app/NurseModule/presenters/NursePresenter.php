@@ -63,6 +63,7 @@ class NursePresenter extends BasePresenter
         $form = new \BloodCenter\NurseDetailForm(NULL);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addNurse');
+        $form['id']->setDisabled();
         return $form;
     }
 
