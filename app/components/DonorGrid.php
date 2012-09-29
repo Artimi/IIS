@@ -34,7 +34,7 @@ class DonorGrid extends \NiftyGrid\Grid
               ->setRenderer(function($row) use ($presenter)
                 {return \Nette\Utils\Html::el('a')
                 ->setText($row['id'])
-                ->href($presenter->link("Donor:detail", $row['id']));})
+                ->href($presenter->link("Donors:detail", $row['id']));})
             ->setTextFilter();
         $this->addColumn('name', 'Name')
             ->setTextFilter();
@@ -48,11 +48,14 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setBooleanFilter($active);
         $stationNames = $this->stationNames;
         $this->addColumn('pref_station', 'Preferred station')
-            ->setRenderer(function($row) use($stationNames) {return $stationNames[$row['pref_station']];})
+            ->setRenderer(function($row) use ($presenter, $stationNames)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($stationNames[$row['pref_station']])
+                ->href($presenter->link("Station:detail", $row['id']));})
             ->setSelectFilter($stationNames);
         $this->addButton('detail','Detail')
             ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Donor:detail", $row['id']);})
+            ->setLink(function($row) use ($presenter){return $presenter->link("Donors:detail", $row['id']);})
             ->setAjax(FALSE);
         $this->addButton('invitation','Invitations')
             ->setClass('ym-button')
@@ -63,7 +66,7 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", array('donor' => $row['id']));})
             ->setAjax(FALSE);
         $this->addGlobalButton('add_donor', 'Add donor')
-            ->setLink($presenter->link('Donor:addDonor'))
+            ->setLink($presenter->link('Donors:addDonor'))
             ->setClass('ym-button')
             ->setAjax(FALSE);
     }

@@ -1,7 +1,5 @@
 <?php
 
-use \Nette\Application\UI\Form;
-
 namespace NurseModule;
 
 /**
@@ -11,93 +9,44 @@ namespace NurseModule;
  */
 class DonorPresenter extends \NurseModule\BasePresenter
 {
-
     private $donor;
-    private $station;
-    private $invitation;
     private $drawn;
-    private $defaultsDetail;
-    private $data = array();
-    private $stationNames;
-    protected $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
-
-    public function startup()
+    private $station;
+    private $donorInfo;
+    private $selectDrawnsByUser;
+    
+    
+    protected function startup()
     {
         parent::startup();
-
         $this->donor = $this->context->donor;
-        $this->station = $this->context->station;
-        $this->invitation = $this->context->invitation;
         $this->drawn = $this->context->drawn;
-
-        $this->data['stationNames'] = $this->station->getStationNames();
-        $this->data['bloodTypes'] = $this->donor->bloodTypes;
+        $this->station = $this->context->station;
         
-        $this->stationNames = $this->station->getStationNames();
-        $this->template->stationNames = $this->stationNames;
     }
 
     public function renderDefault()
     {
-        $this->getDefaults();
-
+        
     }
-
-    public function renderDetail($id)
+    
+    public function createComponentDonorForm($name)
     {
-
-        $defaults = $this->donor->findOneBy(array('id' => $id));
-        $this->defaultsDetail = $defaults;
-    }
-
-    public function createComponentDetail($name)
-    {
-        $form = new \BloodCenter\DonorDetailForm($this->data, $this->defaultsDetail);
-        $form['submit']->caption = 'Edit';
-        $form->onSuccess[] = callback($this, 'donorEdited');
+        $form = new \Nette\Application\UI\Form($this, $name);
+        $form->addSelect('donor', 'Donor', $this->donor->getIDs());
+        $form->addSubmit('submit', 'Submit');
+        $form->onSuccess[] = callback($this, 'chooseDonor');
         return $form;
     }
-
-    public function donorEdited(\Nette\Application\UI\Form $form)
+    
+    public function chooseDonor(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
-        $this->donor->update($values, $values['id']);
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was edited.');
-    }
-
-    public function renderAddDonor()
-    {
+        $this->donorInfo = $this->donor->findOneByID($values['donor']);
+        $this->template->donorInfo = $this->donorInfo;
+        $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($values['donor']);
+        $this->template->stationNames = $this->station->getStationNames();
         
     }
 
-    public function createComponentAddDonor($name)
-    {
-        $form = new \BloodCenter\DonorDetailForm($this->data);
-        $form['submit']->caption = 'Add';
-        $form['id']->setDisabled();
-        $form->onSuccess[] = callback($this, 'addDonor');
-        return $form;
-    }
-
-    public function addDonor(\Nette\Application\UI\Form $form)
-    {
-        $values = $form->getValues();
-        $values['id'] = $this->donor->generateNick($values['surname']);
-        $this->donor->insert($values);
-        $this->donor->setPassword($values['id'], '123');
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
-    }
-
-    public function renderDrawn($donorid)
-    {
-        $this->template->drawns = $this->drawn->findBy(array('donor' => $donorid));
-        $this->template->donorid = $donorid;
-    }
-
-    public function createComponentDonorGrid($name)
-    {
-        return new \BloodCenter\DonorGrid($this->donor, $this->stationNames, $this->default);
-    }
-
 }
-

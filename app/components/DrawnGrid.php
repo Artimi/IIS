@@ -39,7 +39,7 @@ class DrawnGrid extends \NiftyGrid\Grid
              ->setRenderer(function($row) use ($presenter)
                 {return \Nette\Utils\Html::el('a')
                 ->setText($row['donor'])
-                ->href($presenter->link("Donor:detail", $row['donor']));})
+                ->href($presenter->link("Donors:detail", $row['donor']));})
             ->setTextFilter();
         $this->addColumn('blood_type', 'Blood type')
             ->setSelectFilter($this->drawn->bloodTypes);
