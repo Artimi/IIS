@@ -36,7 +36,8 @@ class DonorDetailForm extends \Nette\Application\UI\Form
             ->setRequired();
         $this->addSelect('pref_station', 'Preferred station:', $data['stationNames']);
         $this->addTextArea('note', 'Note:');
-        $this->addSubmit('submit', 'Submit:');
+        $this->addSubmit('submit', 'Submit:')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
             $this->setDefaults($defaults);
     }

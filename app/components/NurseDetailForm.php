@@ -26,7 +26,8 @@ class NurseDetailForm extends \Nette\Application\UI\Form
         $this->addText('national_id', 'National ID:')
             ->setRequired();
         $this->addSelect('station', 'Station:', $data['stationNames']);
-        $this->addSubmit('submit', 'Submit:');
+        $this->addSubmit('submit', 'Submit:')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
             $this->setDefaults($defaults);
     }

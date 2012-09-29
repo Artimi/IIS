@@ -27,7 +27,8 @@ class InvitationDetailForm extends Form
         $this->addSelect('station', 'Station:', $data['stationNames']);
         $this->addSelect('type', 'Type:', array('normal' => 'normal', 'urgent' => 'urgent'));
         $this->addSelect('state', 'State',$data['invitationState']);
-        $this->addSubmit('submit','Submit');
+        $this->addSubmit('submit','Submit')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
         {
             $this->setDefaults($defaults);

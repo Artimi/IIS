@@ -32,7 +32,8 @@ class DrawnDetailForm extends Form
         $this->addText('reservation', 'Reservation:');
         $quality = array(0 => 'bad', 1 => 'good');
         $this->addSelect('quality', 'Quality:', $quality);
-        $this->addSubmit('submit','Submit');
+        $this->addSubmit('submit','Submit')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
         {
             $this->setDefaults($defaults);

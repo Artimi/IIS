@@ -23,7 +23,8 @@ class StationDetailForm extends \Nette\Application\UI\Form
             ->setRequired();
         $this->addText('street', 'Street:')
             ->setRequired();
-        $this->addSubmit('submit', 'Submit:');
+        $this->addSubmit('submit', 'Submit:')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
             $this->setDefaults($defaults);
     }

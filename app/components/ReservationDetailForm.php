@@ -26,7 +26,8 @@ class ReservationDetailForm extends \Nette\Application\UI\Form
         $this->addSelect('state', 'State:', $reservation->reservationState)
             ->setRequired();
         $this->addTextArea('note', 'Note:');
-        $this->addSubmit('submit', 'Submit:');
+        $this->addSubmit('submit', 'Submit:')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
             $this->setDefaults($defaults);
     }

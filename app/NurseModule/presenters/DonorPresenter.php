@@ -32,25 +32,34 @@ class DonorPresenter extends \NurseModule\BasePresenter
         
     }
     
-    public function createComponentDonorForm($name)
+    public function createComponentDonorForm($name, $donor = NULL)
     {
         $form = new \Nette\Application\UI\Form($this, $name);
         $form->addSelect('donor', 'Donor', $this->donor->getIDs());
-        $form->addSubmit('submit', 'Submit');
+        $form->addSubmit('submit', 'Submit')
+            ->setAttribute('class','ym-button');
         $form->onSuccess[] = callback($this, 'chooseDonor');
+        if ($donor != NULL)
+        {
+            $form->setDefaults(array('donor' => $donor));
+        }
         return $form;
     }
     
     public function chooseDonor(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
-        $this->donorInfo = $this->donor->findOneByID($values['donor']);
+        $this->redirect('Donor:detail', $values['donor']);
+    }
+    
+    public function renderDetail($donor)
+    {
+        $this->donorInfo = $this->donor->findOneByID($donor);
         $this->template->donorInfo = $this->donorInfo;
-        $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($values['donor']);
+        $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($donor);
         $this->template->stationNames = $this->station->getStationNames();
-        $this->template->invitations = $this->invitation->findBy(array('donor' => $values['donor']));
-        $this->template->invitationState = $this->invitation->invitationState;
-        
+        $this->template->invitations = $this->invitation->findBy(array('donor' => $donor));
+        $this->template->invitationState = $this->invitation->invitationState; 
     }
 
 }
