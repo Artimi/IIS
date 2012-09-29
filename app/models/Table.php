@@ -20,26 +20,22 @@ abstract class Table extends Nette\Object
 
     /** @var string */
     protected $tableName;
-    
-    public $bloodTypes = array ('0-' => '0-',
-                                 '0+' => '0+',
-                                 'A-' => 'A-',
-                                 'A+' => 'A+',
-                                 'B-' => 'B-',
-                                 'B+' => 'B+',
-                                 'AB-' => 'AB-',
-                                 'AB+' => 'AB+');
-    
-    public $reservationState = array (0 => 'in progress',
-                                      1 => 'finished',
-                                      2 => 'cancelled');
-    
-    public $invitationState = array ( 0 => 'in progress',
-                                      1 => 'confirmed',
-                                      2 => 'cancelled',
-                                      3 => 'finished',
-                                      4 => 'unfulfilled');
-    
+    public $bloodTypes = array('0-' => '0-',
+        '0+' => '0+',
+        'A-' => 'A-',
+        'A+' => 'A+',
+        'B-' => 'B-',
+        'B+' => 'B+',
+        'AB-' => 'AB-',
+        'AB+' => 'AB+');
+    public $reservationState = array(0 => 'in progress',
+        1 => 'finished',
+        2 => 'cancelled');
+    public $invitationState = array(0 => 'in progress',
+        1 => 'confirmed',
+        2 => 'cancelled',
+        3 => 'finished',
+        4 => 'unfulfilled');
 
     /**
      * @param Nette\Database\Connection $db
@@ -109,38 +105,38 @@ abstract class Table extends Nette\Object
     {
         return $this->getTable()->limit($itemsPerPage, $offset);
     }
-    
+
     public function getCount()
     {
         return $this->getTable()->count();
     }
-    
-    public function update($data,$id)
+
+    public function update($data, $id)
     {
-        return $this->getTable()->where('id',$id)->update($data);
+        return $this->getTable()->where('id', $id)->update($data);
     }
-    
+
     public function insert($data)
     {
         return $this->getTable()->insert($data);
     }
-    
+
     public function findLike($data)
-    {   
+    {
         $table = $this->getTable();
         foreach ($data as $key => $value)
         {
-            $table = $table->where("$key".' LIKE ?',"%$value%");
+            $table = $table->where("$key" . ' LIKE ?', "%$value%");
         }
         return $table;
     }
-    
+
     public function findOneByID($id)
     {
-        return $this->findBy(array('id' => $id))->limit(1)->fetch();
+        return $this->findOneBy(array('id' => $id));
     }
-    
-        public function getIDs()
+
+    public function getIDs()
     {
         $result = array();
         $table = $this->getTable();
@@ -150,4 +146,5 @@ abstract class Table extends Nette\Object
         }
         return $result;
     }
+
 }
