@@ -46,7 +46,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         return new \BloodCenter\DrawnGrid($this->drawn, $this->stationNames, $this->default);
     }
 
-    public function renderAddDrawn()
+    public function renderAddDrawn($donor=NULL)
     {
         $nurse = $this->getUser()->id;
         $store = $this->nurse->findOneByID($nurse['station']);
@@ -54,6 +54,10 @@ class DrawnPresenter extends \NurseModule\BasePresenter
             'date' => date('Y-m-d H-i-s'),
             'nurse' => $nurse,
             'store' => $store);
+        if ($donor != NULL)
+        {
+            $this->defaultAddDrawn['donor'] = $donor;
+        }
     }
 
     public function createComponentAddDrawn($name)

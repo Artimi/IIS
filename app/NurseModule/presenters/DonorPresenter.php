@@ -12,6 +12,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     private $donor;
     private $drawn;
     private $station;
+    private $invitation;
     private $donorInfo;
     private $selectDrawnsByUser;
     
@@ -22,6 +23,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
         $this->donor = $this->context->donor;
         $this->drawn = $this->context->drawn;
         $this->station = $this->context->station;
+        $this->invitation = $this->context->invitation;
         
     }
 
@@ -46,6 +48,8 @@ class DonorPresenter extends \NurseModule\BasePresenter
         $this->template->donorInfo = $this->donorInfo;
         $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($values['donor']);
         $this->template->stationNames = $this->station->getStationNames();
+        $this->template->invitations = $this->invitation->findBy(array('donor' => $values['donor']));
+        $this->template->invitationState = $this->invitation->invitationState;
         
     }
 

@@ -20,6 +20,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
     private $defaultsDetail;
     private $station;
     private $donor;
+    private $nurse;
     private $stationNames;
     private $data = array();
     protected $columns = array('id', 'donor', 'date', 'station', 'type');
@@ -31,6 +32,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
         $this->invitation = $this->context->invitation;
         $this->station = $this->context->station;
         $this->donor = $this->context->donor;
+        $this->nurse = $this->context->nurse;
         $this->stationNames = $this->station->getStationNames(TRUE);
         $this->data['stationNames'] = $this->station->getStationNames();
         $this->data['donor'] = $this->donor->getIDs();
@@ -48,9 +50,16 @@ class InvitationPresenter extends \NurseModule\BasePresenter
         return new \BloodCenter\InvitationGrid($this->invitation, $this->stationNames, $this->default);
     }
 
-    public function renderAddInvitation()
+    public function renderAddInvitation($donor = NULL)
     {
-        $this->defaultAddInvitation = array('date' => date('Y-m-d H-i-s'));
+        $nurse = $this->getUser()->id;
+        $store = $this->nurse->findOneByID($nurse['station']);
+        $this->defaultAddInvitation = array('date' => date('Y-m-d H-i-s'),
+                                            'store' => $store);
+        if ($donor != NULL)
+        {
+            $this->defaultAddInvitation['donor'] = $donor;
+        }
     }
 
     public function createComponentAddInvitation($name)

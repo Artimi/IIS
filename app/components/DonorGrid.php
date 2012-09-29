@@ -57,17 +57,5 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setClass('ym-button')
             ->setLink(function($row) use ($presenter){return $presenter->link("Donors:detail", $row['id']);})
             ->setAjax(FALSE);
-        $this->addButton('invitation','Invitations')
-            ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Invitation:default", array('donor' => $row['id']));})
-            ->setAjax(FALSE);
-        $this->addButton('drawn','Drawns')
-            ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", array('donor' => $row['id']));})
-            ->setAjax(FALSE);
-        $this->addGlobalButton('add_donor', 'Add donor')
-            ->setLink($presenter->link('Donors:addDonor'))
-            ->setClass('ym-button')
-            ->setAjax(FALSE);
     }
 }
