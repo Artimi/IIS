@@ -15,6 +15,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     private $invitation;
     private $donorInfo;
     private $selectDrawnsByUser;
+    private $donorID;
     
     
     protected function startup()
@@ -32,16 +33,16 @@ class DonorPresenter extends \NurseModule\BasePresenter
         
     }
     
-    public function createComponentDonorForm($name, $donor = NULL)
+    public function createComponentDonorForm($name)
     {
         $form = new \Nette\Application\UI\Form($this, $name);
         $form->addSelect('donor', 'Donor', $this->donor->getIDs());
         $form->addSubmit('submit', 'Submit')
             ->setAttribute('class','ym-button');
         $form->onSuccess[] = callback($this, 'chooseDonor');
-        if ($donor != NULL)
+        if (isset($this->donorID))
         {
-            $form->setDefaults(array('donor' => $donor));
+            $form->setDefaults(array('donor' => $this->donorID));
         }
         return $form;
     }
@@ -54,6 +55,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     
     public function renderDetail($donor)
     {
+        $this->donorID = $donor;
         $this->donorInfo = $this->donor->findOneByID($donor);
         $this->template->donorInfo = $this->donorInfo;
         $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($donor);

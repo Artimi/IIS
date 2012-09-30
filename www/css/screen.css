@@ -37,6 +37,9 @@ th input {
     
     
 }
+
+.required label { color: maroon }
+
 /*footer {
     text-align: center;
     width: 100%;

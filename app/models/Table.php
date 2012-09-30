@@ -113,11 +113,13 @@ abstract class Table extends Nette\Object
 
     public function update($data, $id)
     {
+        $data = $this->replaceEmptyStringByNull($data);
         return $this->getTable()->where('id', $id)->update($data);
     }
 
     public function insert($data)
     {
+        $data = $this->replaceEmptyStringByNull($data);
         return $this->getTable()->insert($data);
     }
 
@@ -145,6 +147,18 @@ abstract class Table extends Nette\Object
             $result[$row['id']] = $row['id'];
         }
         return $result;
+    }
+    
+    public function replaceEmptyStringByNull($array)
+    {
+        foreach($array as $key => $value)
+        {
+            if ($value == '')
+            {
+                $array[$key] = NULL; 
+            }
+        }
+        return $array;
     }
 
 }
