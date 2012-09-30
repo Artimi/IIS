@@ -2,13 +2,13 @@
 
 
 namespace BloodCenter;
-
+use \Nette\Application\UI\Form;
 /**
  * Description of NurseDetailForm
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class NurseDetailForm extends \Nette\Application\UI\Form
+class NurseDetailForm extends Form
 {
     public function __construct($data, $defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {

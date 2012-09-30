@@ -16,6 +16,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
     private $drawn;
     private $donor;
     private $nurse;
+    private $reservation;
     private $defaultAddDrawn;
     private $defaultsDetail;
     private $stationNames;
@@ -29,11 +30,13 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         $this->drawn = $this->context->drawn;
         $this->donor = $this->context->donor;
         $this->nurse = $this->context->nurse;
+        $this->reservation = $this->context->reservation;
         $this->stationNames = $this->context->station->getStationNames(TRUE);
         $this->data['stationNames'] = $this->context->station->getStationNames();
         $this->data['bloodTypes'] = $this->context->drawn->bloodTypes;
         $this->data['donors'] = $this->donor->getIDs();
         $this->data['nurses'] = $this->nurse->getIDs();
+        $this->data['reservation'] = $this->reservation->getReservationArray();
     }
 
     public function renderDefault()

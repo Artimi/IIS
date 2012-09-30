@@ -27,7 +27,7 @@ class DrawnDetailForm extends Form
         $this->addSelect('nurse', 'Nurse:',$data['nurses'])
             ->setRequired();
         $this->addSelect('store', 'Store', $data['stationNames']);
-        $this->addText('reservation', 'Reservation:');
+        $this->addSelect('reservation', 'Reservation:', $data['reservation']);
         $quality = array(0 => 'bad', 1 => 'good');
         $this->addSelect('quality', 'Quality:', $quality);
         $this->addSubmit('submit','Submit')
