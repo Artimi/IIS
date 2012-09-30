@@ -23,8 +23,10 @@ class InvitationDetailForm extends Form
             ->setAttribute('readonly');
         $this->addSelect('donor', 'Donor:', $data['donor'])
             ->setRequired();
-        $this->addText('date', 'Date:'); //TODO better date picking
-        $this->addSelect('station', 'Station:', $data['stationNames']);
+        $this->addText('date', 'Date:')
+            ->setRequired(); //TODO better date picking
+        $this->addSelect('station', 'Station:', $data['stationNames'])
+            ->setRequired();
         $this->addSelect('type', 'Type:', array('normal' => 'normal', 'urgent' => 'urgent'));
         $this->addSelect('state', 'State',$data['invitationState']);
         $this->addSubmit('submit','Submit')

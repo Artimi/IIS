@@ -2,15 +2,15 @@
 
 
 namespace BloodCenter;
-
+use \Nette\Application\UI\Form;
 /**
  * Description of ReservationDetailForm
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class ReservationDetailForm extends \Nette\Application\UI\Form
+class ReservationDetailForm extends Form
 {
-    public function __construct($defaults = NULL, $reservation, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($reservation, $defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID:')
@@ -20,7 +20,8 @@ class ReservationDetailForm extends \Nette\Application\UI\Form
         $this->addSelect('blood_type', 'Blood type:', $reservation->bloodTypes)
             ->setRequired();
         $this->addText('quantity', 'Quantity:')
-            ->setRequired();
+            ->setRequired()
+            ->addRule(Form::INTEGER, 'Quantity must be integer.');
         $this->addText('date', 'Date:')
             ->setRequired();
         $this->addSelect('state', 'State:', $reservation->reservationState)

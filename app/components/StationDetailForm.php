@@ -18,7 +18,9 @@ class StationDetailForm extends \Nette\Application\UI\Form
         $this->addText('name', 'Name:')
             ->setRequired();
         $this->addText('postal_code', 'Postal code:')
-            ->setRequired();
+            ->setRequired()
+            ->addRule(Form::INTEGER, 'Postal code must be integer.')
+            ->addRule(Form::LENGTH, 'Postal code must be 5 chars long.', 5);
         $this->addText('city', 'City:')
             ->setRequired();
         $this->addText('street', 'Street:')

@@ -41,8 +41,6 @@ class ReservationGrid extends \NiftyGrid\Grid
             ->setNumericFilter();
         $this->addColumn('date', 'Date')
             ->setTextFilter();
-//        $this->addColumn('note', 'Note')
-//            ->setTextFilter();
         $reservationState = $this->reservation->reservationState;
         $this->addColumn('state', 'State')
             ->setRenderer(function($row)  use ($reservationState) {return $reservationState[$row['state']];})
