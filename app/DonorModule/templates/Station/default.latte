@@ -1,6 +1,12 @@
 
 {block content}
 
+<select>
+    {foreach $stations as $item}
+    <option>{$item}</option>
+    {/foreach}
+</select>
+
 <div class="ym-grid">
     <div class="ym-g66 ym-gl">
         <div class="ym-gbox">
@@ -10,9 +16,9 @@
             <div class="pi-value">{$stationInfo->street}<br />{$stationInfo->postal_code}, {$stationInfo->city}</div>
         </div>
     </div>
-    <div class="ym-33 ym-gr">
-        <div class="ym-gbox">
-            <p>Map</p>
+    <div class="ym-g33 ym-gr">
+        <div class="box">
+            <p>Gmap</p>
         </div>
     </div>
 </div>

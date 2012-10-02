@@ -19,7 +19,7 @@ class DonorPresenter extends \DonorModule\BasePresenter
     private $stationNames;
     private $default;
     private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
-    private $invitations;
+    private $awaitingInvitations;
     private $drawns;
     private $donorInfo;
     private $hasInvitations;
@@ -38,8 +38,8 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->drawn = $this->context->drawn;
 
         $this->stationNames = $this->station->getStationNames();
-        $this->invitations = $this->invitation->getInvitationsById($this->user->getIdentity()->id);
-        $this->drawns = $this->drawn->getDrawnsById($this->user->getIdentity()->id);
+        $this->awaitingInvitations = $this->invitation->getInvitationsById($this->user->getIdentity()->id);
+        $this->drawns = $this->drawn->getDrawnsByDonor($this->user->getIdentity()->id);
         $this->donorInfo = $this->donor->getInfoById($this->user->getIdentity()->id);
         $this->hasInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id);
     }
@@ -55,15 +55,22 @@ class DonorPresenter extends \DonorModule\BasePresenter
         }
         $this->default = $default;
         
-        $this->template->selectDrawnsByUser = $this->drawns;
+        $this->template->drawns = $this->drawns;
         $this->template->donorInfo = $this->donorInfo;
-        $this->template->invitations = $this->invitations;
+        $this->template->awaitingInvitations = $this->awaitingInvitations;
         $this->template->stationNames = $this->stationNames;
         $this->template->hasInvitations = $this->hasInvitations;
     }
 
 
-
+    public function createComponentEdit($name)
+    {
+        $form = new \BloodCenter\DonorDetailForm($this->donorInfo, $this->stationNames);
+        $form['submit']->caption = 'Edit';
+        $form->onSuccess[] = callback($this, 'donorEdited');
+        return $form;
+    }
+    
     /*
     public function renderDetail($id)
     {

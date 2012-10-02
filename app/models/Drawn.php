@@ -11,12 +11,22 @@ class Drawn extends Table
 	protected $tableName = 'drawn';
         
         /**
-        * Returns all drawns for user defined by $id
+        * Returns all drawns for user defined by $donor
         * @param string $id
         * @return \Nette\Database\Table\Selection
         */
-        public function getDrawnsById($id)
+        public function getDrawnsByDonor($donor)
         {
-            return $this->findBy(array('donor' => $id));
+            return $this->findBy(array('donor' => $donor));
+        }
+        
+        /**
+        * Returns the drawn defined by $id
+        * @param string $id
+        * @return \Nette\Database\Table\ActiveRow|FALSE
+        */
+        public function getDrawnById($id)
+        {
+            return $this->findOneBy(array('id' => $id));
         }
 }

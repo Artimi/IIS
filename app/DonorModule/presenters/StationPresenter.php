@@ -11,7 +11,8 @@ namespace DonorModule;
 class StationPresenter extends \DonorModule\BasePresenter
 {
     private $station;
-    private $stationInfo;
+    //private $stationInfo;
+    //private $stations;
     
     public function startup()
     {
@@ -22,5 +23,6 @@ class StationPresenter extends \DonorModule\BasePresenter
     public function renderDefault($station)
     {
         $this->template->stationInfo = $this->station->getStationById($station);
+        $this->template->stations = $this->station->getStationNames();
     }
 }

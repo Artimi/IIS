@@ -2,12 +2,12 @@
 <div n:if="$hasInvitations" class="box info">
     <h3>You have an invitation!</h3>
     <ul>
-    {foreach $invitations as $invitation}
+    {foreach $awaitingInvitations as $invitation}
         <li>
             You are invited to blood donation by date "{$invitation->date|date:'%Y/%m/%d'}"
             to station "<a n:href="Station:default">{$stationNames[$invitation->station]}</a>".
             <div class="align-to-right">
-                <a class="ym-button">Confirm</a><a class="ym-button">Decline</a>
+                <a class="ym-button" >Confirm</a><a class="ym-button">Decline</a>
             </div>
         </li>
     {/foreach}
@@ -32,12 +32,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {foreach $selectDrawnsByUser as $drawn}
+                    {foreach $drawns as $drawn}
                     <tr>
                         <td>{$drawn->date|date:'%Y/%m/%d'}</td>
                         <td>{$drawn->nurse}</td>
                         <td>{$drawn->reservation ? "Reserved" : "Not reserved"}</td>
-                        <td>{$drawn->quality ? "Good" : "Not good"}</td>
+                        <td>{$drawn->quality ? "Good" : "Unusable"}</td>
                         <td><a n:href="Drawn:detail, id => $drawn->id" class="ym-button">Details</a></td>
                     </tr>
                     {/foreach}
@@ -78,6 +78,7 @@
                 <div class="pi-value"><a href="mailto:{$donorInfo->email}">{$donorInfo->email}</a></div>
                 {/if}
             </div>
+            <div class="ym-gbox ym-gr"><a n:href="Donor:edit" class="ym-button">Edit</a></div>
         </div>
     </div>
 </div>
