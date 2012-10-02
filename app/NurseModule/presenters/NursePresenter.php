@@ -11,6 +11,9 @@ class NursePresenter extends BasePresenter
 {
 
     private $nurse;
+    private $station;
+    private $stationNames;
+    private $data = array();
     protected $columns = array('id', 'name', 'surname', 'station', 'phone');
     private $defaultsDetail;
 
@@ -19,6 +22,9 @@ class NursePresenter extends BasePresenter
         parent::startup();
 
         $this->nurse = $this->context->nurse;
+        $this->station = $this->context->station;
+        $this->stationNames = $this->station->getStationNames(TRUE);
+        $this->data['stationNames'] = $this->station->getStationNames();
     }
 
     public function renderDefault()
@@ -28,7 +34,7 @@ class NursePresenter extends BasePresenter
 
     public function createComponentNurseGrid($name)
     {
-        return new \BloodCenter\NurseGrid($this->nurse, $this->default);
+        return new \BloodCenter\NurseGrid($this->nurse, $this->stationNames, $this->default);
     }
 
     public function renderDetail($id)
@@ -40,7 +46,7 @@ class NursePresenter extends BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\NurseDetailForm($this->defaultsDetail);
+        $form = new \BloodCenter\NurseDetailForm($this->data, $this->defaultsDetail);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'nurseEdited');
         return $form;
@@ -60,9 +66,10 @@ class NursePresenter extends BasePresenter
 
     public function createComponentAddNurse($name)
     {
-        $form = new \BloodCenter\NurseDetailForm(NULL);
+        $form = new \BloodCenter\NurseDetailForm($this->data);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addNurse');
+        $form['id']->setDisabled();
         return $form;
     }
 

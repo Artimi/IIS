@@ -29,12 +29,16 @@ class StationGrid extends \NiftyGrid\Grid
         $this->addColumn('id', 'ID')
             ->setNumericFilter();
         $this->addColumn('name', 'Name')
+              ->setRenderer(function($row) use ($presenter)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($row['name'])
+                ->href($presenter->link("Station:detail", $row['id']));})
             ->setTextFilter();
         $this->addColumn('postal_code', 'Postal Code')
             ->setDateFilter();
         $this->addColumn('city', 'City')
             ->setTextFilter();
-        $this->addColumn('street', 'street')
+        $this->addColumn('street', 'Street')
             ->setTextFilter();
         $this->addButton('detail','Detail')
             ->setClass('ym-button')

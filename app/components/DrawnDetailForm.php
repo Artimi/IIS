@@ -14,25 +14,24 @@ use Nette\Application\UI\Form;
 class DrawnDetailForm extends Form
 {
 
-    public function __construct($defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
+    public function __construct($data,$defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
         $this->addText('id', 'ID')
             ->setAttribute('readonly');
         $this->addText('date', 'Date:')//TODO better date picking
             ->setRequired();
-        $this->addText('donor', 'Donor:')
+        $this->addSelect('donor', 'Donor:', $data['donors'])
             ->setRequired();
-        $this->addText('blood_type', 'Blood type:'); 
-        $this->addText('nurse', 'Nurse:')
+        $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes']); 
+        $this->addSelect('nurse', 'Nurse:',$data['nurses'])
             ->setRequired();
-//        $this->addSelect('store', 'Store:', $stationNames)
-//            ->setRequired();
-        $this->addText('store', 'Store');
-        $this->addText('reservation', 'Reservation:');
+        $this->addSelect('store', 'Store', $data['stationNames']);
+        $this->addSelect('reservation', 'Reservation:', $data['reservation']);
         $quality = array(0 => 'bad', 1 => 'good');
         $this->addSelect('quality', 'Quality:', $quality);
-        $this->addSubmit('submit','Submit');
+        $this->addSubmit('submit','Submit')
+            ->setAttribute('class','ym-button');
         if ($defaults != NULL)
         {
             $this->setDefaults($defaults);

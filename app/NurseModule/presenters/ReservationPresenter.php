@@ -35,9 +35,10 @@ class ReservationPresenter extends BasePresenter
     
         public function createComponentAddReservation($name)
     {
-        $form = new \BloodCenter\ReservationDetailForm(NULL, $this->reservation);
+        $form = new \BloodCenter\ReservationDetailForm($this->reservation);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addStation');
+        $form['id']->setDisabled();
         return $form;
     }
 
@@ -57,8 +58,7 @@ class ReservationPresenter extends BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\ReservationDetailForm($this->defaultsDetail,
-                                                        $this->reservation);
+        $form = new \BloodCenter\ReservationDetailForm($this->reservation, $this->defaultsDetail);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'reservationEdited');
         return $form;

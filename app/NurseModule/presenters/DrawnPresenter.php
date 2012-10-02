@@ -14,8 +14,13 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 {
 
     private $drawn;
+    private $donor;
+    private $nurse;
+    private $reservation;
     private $defaultAddDrawn;
     private $defaultsDetail;
+    private $stationNames;
+    private $data = array();
     protected $columns = array('id', 'date', 'donor', 'blood_type', 'nurse', 'store', 'reservation', 'quality');
 
     public function startup()
@@ -23,6 +28,15 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         parent::startup();
 
         $this->drawn = $this->context->drawn;
+        $this->donor = $this->context->donor;
+        $this->nurse = $this->context->nurse;
+        $this->reservation = $this->context->reservation;
+        $this->stationNames = $this->context->station->getStationNames(TRUE);
+        $this->data['stationNames'] = $this->context->station->getStationNames();
+        $this->data['bloodTypes'] = $this->context->drawn->bloodTypes;
+        $this->data['donors'] = $this->donor->getIDs();
+        $this->data['nurses'] = $this->nurse->getIDs();
+        $this->data['reservation'] = $this->reservation->getReservationArray();
     }
 
     public function renderDefault()
@@ -32,24 +46,32 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDrawnGrid()
     {
-        return new \BloodCenter\DrawnGrid($this->drawn, $this->default);
+        return new \BloodCenter\DrawnGrid($this->drawn, $this->stationNames, $this->default);
     }
 
-    public function renderAddDrawn($donor)
+    public function renderAddDrawn($donor=NULL)
     {
-        $this->defaultAddDrawn = array('donor' => $donor,
+        $nurse = $this->getUser()->id;
+        $store = $this->nurse->findOneByID($nurse['station']);
+        $this->defaultAddDrawn = array(
             'date' => date('Y-m-d H-i-s'),
-            'nurse' => $this->getUser()->id);
+            'nurse' => $nurse,
+            'store' => $store);
+        if ($donor != NULL)
+        {
+            $this->defaultAddDrawn['donor'] = $donor;
+        }
     }
 
     public function createComponentAddDrawn($name)
     {
-        $form = new \BloodCenter\DrawnDetailForm($this->defaultAddDrawn);
+        $form = new \BloodCenter\DrawnDetailForm($this->data, $this->defaultAddDrawn);
         $form->onSuccess[] = callback($this, 'addDrawn');
+        $form['id']->setDisabled();
         return $form;
     }
 
-    public function addDrawn(Form $form)
+    public function addDrawn(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
         if ($values['reservation'] == '') //TODO little hack to avoid foreign_key error
@@ -67,7 +89,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\DrawnDetailForm($this->defaultsDetail);
+        $form = new \BloodCenter\DrawnDetailForm($this->data, $this->defaultsDetail);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'drawnEdited');
         return $form;

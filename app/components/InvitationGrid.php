@@ -14,12 +14,14 @@ class InvitationGrid extends \NiftyGrid\Grid
 {
     protected $invitation;
     protected $default;
+    private $stationNames;
     
-    public function __construct($invitation,$default = array())
+    public function __construct($invitation, $stationNames, $default = array())
     {
         parent::__construct();
         $this->invitation = $invitation;
         $this->default = $default;
+        $this->stationNames = $stationNames;
         $this->setFilter($default);
     }
     
@@ -34,12 +36,17 @@ class InvitationGrid extends \NiftyGrid\Grid
              ->setRenderer(function($row) use ($presenter)
                 {return \Nette\Utils\Html::el('a')
                 ->setText($row['donor'])
-                ->href($presenter->link("Donor:detail", $row['donor']));})
+                ->href($presenter->link("Donors:detail", $row['donor']));})
             ->setTextFilter();
         $this->addColumn('date', 'Date')
             ->setDateFilter();
+        $stationNames = $this->stationNames;
         $this->addColumn('station', 'Station')
-            ->setTextFilter();
+            ->setRenderer(function($row) use($stationNames, $presenter)
+                {return \Nette\Utils\Html::el('a')
+                    ->setText($stationNames[$row['station']])
+                    ->href($presenter->link('Station:detail', $row['station']));})
+            ->setSelectFilter($stationNames);
         $this->addColumn('type', 'Type')
             ->setSelectFilter(array('normal' => 'normal', 'urgent' => 'urgent'));
         $invitationState = $this->invitation->invitationState;

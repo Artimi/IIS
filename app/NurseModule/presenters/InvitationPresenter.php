@@ -18,6 +18,11 @@ class InvitationPresenter extends \NurseModule\BasePresenter
     private $invitation;
     private $defaultAddInvitation;
     private $defaultsDetail;
+    private $station;
+    private $donor;
+    private $nurse;
+    private $stationNames;
+    private $data = array();
     protected $columns = array('id', 'donor', 'date', 'station', 'type');
 
     public function startup()
@@ -25,6 +30,14 @@ class InvitationPresenter extends \NurseModule\BasePresenter
         parent::startup();
 
         $this->invitation = $this->context->invitation;
+        $this->station = $this->context->station;
+        $this->donor = $this->context->donor;
+        $this->nurse = $this->context->nurse;
+        $this->stationNames = $this->station->getStationNames(TRUE);
+        $this->data['stationNames'] = $this->station->getStationNames();
+        $this->data['donor'] = $this->donor->getIDs();
+        $this->data['invitationState'] = $this->invitation->invitationState;
+        
     }
 
     public function renderDefault()
@@ -34,18 +47,26 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     public function createComponentInvitationGrid()
     {
-        return new \BloodCenter\InvitationGrid($this->invitation, $this->default);
+        return new \BloodCenter\InvitationGrid($this->invitation, $this->stationNames, $this->default);
     }
 
-    public function renderAddInvitation($donorid)
+    public function renderAddInvitation($donor = NULL)
     {
-        $this->defaultAddInvitation = array('donor' => $donorid);
+        $nurse = $this->getUser()->id;
+        $store = $this->nurse->findOneByID($nurse['station']);
+        $this->defaultAddInvitation = array('date' => date('Y-m-d H-i-s'),
+                                            'store' => $store);
+        if ($donor != NULL)
+        {
+            $this->defaultAddInvitation['donor'] = $donor;
+        }
     }
 
     public function createComponentAddInvitation($name)
     {
-        $form = new \BloodCenter\InvitationDetailForm($this->defaultAddInvitation, $this->invitation);
+        $form = new \BloodCenter\InvitationDetailForm($this->data, $this->defaultAddInvitation);
         $form->onSuccess[] = callback($this, 'addInvitation');
+        $form['id']->setDisabled();
         return $form;
     }
 
@@ -66,7 +87,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
 
     public function createComponentDetail($name)
     {
-        $form = new \BloodCenter\InvitationDetailForm($this->defaultsDetail, $this->invitation);
+        $form = new \BloodCenter\InvitationDetailForm($this->data, $this->defaultsDetail);
         $form['submit']->caption = 'Edit';
         $form->onSuccess[] = callback($this, 'invitationEdited');
         return $form;

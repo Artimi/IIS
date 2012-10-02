@@ -1,7 +1,5 @@
 <?php
 
-use \Nette\Application\UI\Form;
-
 namespace NurseModule;
 
 /**
@@ -11,88 +9,59 @@ namespace NurseModule;
  */
 class DonorPresenter extends \NurseModule\BasePresenter
 {
-
     private $donor;
+    private $drawn;
     private $station;
     private $invitation;
-    private $drawn;
-    private $defaultsDetail;
-    private $stationNames;
-    protected $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
-
-    public function startup()
+    private $donorInfo;
+    private $selectDrawnsByUser;
+    private $donorID;
+    
+    
+    protected function startup()
     {
         parent::startup();
-
         $this->donor = $this->context->donor;
+        $this->drawn = $this->context->drawn;
         $this->station = $this->context->station;
         $this->invitation = $this->context->invitation;
-        $this->drawn = $this->context->drawn;
-
-        $this->stationNames = $this->station->getStationNames();
-        $this->template->stationNames = $this->stationNames;
+        
     }
 
     public function renderDefault()
     {
-        $this->getDefaults();
-
-    }
-
-    public function renderDetail($id)
-    {
-
-        $defaults = $this->donor->findOneBy(array('id' => $id));
-        $this->defaultsDetail = $defaults;
-    }
-
-    public function createComponentDetail($name)
-    {
-        $form = new \BloodCenter\DonorDetailForm($this->defaultsDetail, $this->stationNames);
-        $form['submit']->caption = 'Edit';
-        $form->onSuccess[] = callback($this, 'donorEdited');
-        return $form;
-    }
-
-    public function donorEdited(\Nette\Application\UI\Form $form)
-    {
-        $values = $form->getValues();
-        $this->donor->update($values, $values['id']);
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was edited.');
-    }
-
-    public function renderAddDonor()
-    {
         
     }
-
-    public function createComponentAddDonor($name)
+    
+    public function createComponentDonorForm($name)
     {
-        $form = new \BloodCenter\DonorDetailForm(NULL, $this->stationNames);
-        $form['submit']->caption = 'Add';
-        $form->onSuccess[] = callback($this, 'addDonor');
+        $form = new \Nette\Application\UI\Form($this, $name);
+        $form->addSelect('donor', 'Donor', $this->donor->getIDs());
+        $form->addSubmit('submit', 'Submit')
+            ->setAttribute('class','ym-button');
+        $form->onSuccess[] = callback($this, 'chooseDonor');
+        if (isset($this->donorID))
+        {
+            $form->setDefaults(array('donor' => $this->donorID));
+        }
         return $form;
     }
-
-    public function addDonor(\Nette\Application\UI\Form $form)
+    
+    public function chooseDonor(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
-        $values['id'] = $this->donor->generateNick($values['surname']);
-        $this->donor->insert($values);
-        $this->donor->setPassword($values['id'], '123');
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
+        $this->redirect('Donor:detail', $values['donor']);
     }
-
-    public function renderDrawn($donorid)
+    
+    public function renderDetail($donor)
     {
-        $this->template->drawns = $this->drawn->findBy(array('donor' => $donorid));
-        $this->template->donorid = $donorid;
-    }
-
-    public function createComponentDonorGrid($name)
-    {
-        return new \BloodCenter\DonorGrid($this->donor, $this->default);
+        $this->donorID = $donor;
+        $this->donorInfo = $this->donor->findOneByID($donor);
+        $this->template->donorInfo = $this->donorInfo;
+        $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($donor);
+        $this->template->stationNames = $this->station->getStationNames();
+        $this->template->invitations = $this->invitation->findBy(array('donor' => $donor));
+        $this->template->invitationState = $this->invitation->invitationState; 
     }
 
 }
-

@@ -27,6 +27,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
     {
         $nav = new \Navigation\Navigation($this, $name);
         $nav->setupHomepage("Donor", $this->link("Donor:"));
+        $drawn = $nav->add("Donors", $this->link("Donors:"));
         $drawn = $nav->add("Drawn", $this->link("Drawn:"));
         $invitation = $nav->add("Invitation", $this->link("Invitation:"));
         $nurse = $nav->add("Nurse", $this->link("Nurse:"));

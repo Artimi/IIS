@@ -14,12 +14,14 @@ class DonorGrid extends \NiftyGrid\Grid
 {
     protected $donor;
     protected $default;
+    private $stationNames;
     
-    public function __construct($donor,$default = array())
+    public function __construct($donor, $stationNames, $default = array())
     {
         parent::__construct();
         $this->donor = $donor;
         $this->default = $default;
+        $this->stationNames = $stationNames;
         $this->setFilter($default);
     }
     
@@ -32,7 +34,7 @@ class DonorGrid extends \NiftyGrid\Grid
               ->setRenderer(function($row) use ($presenter)
                 {return \Nette\Utils\Html::el('a')
                 ->setText($row['id'])
-                ->href($presenter->link("Donor:detail", $row['id']));})
+                ->href($presenter->link("Donors:detail", $row['id']));})
             ->setTextFilter();
         $this->addColumn('name', 'Name')
             ->setTextFilter();
@@ -40,24 +42,23 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setTextFilter();
         $this->addColumn('blood_type', 'Blood type')
             ->setSelectFilter($this->donor->bloodTypes);
+        $active = array(0 => 'inactive', 1 => 'active');
         $this->addColumn('active', 'Active')
-            ->setBooleanFilter(array(0 => 'inactive', 1 => 'active'));
+            ->setRenderer(function($row) use($active) {return $active[$row['active']];})
+            ->setBooleanFilter($active);
+        $stationNames = $this->stationNames;
         $this->addColumn('pref_station', 'Preferred station')
-            ->setTextFilter(); //TODO select filter
+            ->setRenderer(function($row) use ($presenter, $stationNames)
+                {return \Nette\Utils\Html::el('a')
+                ->setText($stationNames[$row['pref_station']])
+                ->href($presenter->link("Station:detail", $row['id']));})
+            ->setSelectFilter($stationNames);
         $this->addButton('detail','Detail')
             ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Donor:detail", $row['id']);})
+            ->setLink(function($row) use ($presenter){return $presenter->link("Donors:detail", $row['id']);})
             ->setAjax(FALSE);
-        $this->addButton('invitation','Invitations')
-            ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Invitation:default", array('donor' => $row['id']));})
-            ->setAjax(FALSE);
-        $this->addButton('drawn','Drawns')
-            ->setClass('ym-button')
-            ->setLink(function($row) use ($presenter){return $presenter->link("Drawn:default", array('donor' => $row['id']));})
-            ->setAjax(FALSE);
-        $this->addGlobalButton('add_donor', 'Add donor')
-            ->setLink($presenter->link('Donor:addDonor'))
+       $this->addGlobalButton('add_donor', 'Add donor')
+            ->setLink($presenter->link('Donors:addDonor'))
             ->setClass('ym-button')
             ->setAjax(FALSE);
     }
