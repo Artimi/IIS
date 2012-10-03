@@ -60,6 +60,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         if ($donor != NULL)
         {
             $this->defaultAddDrawn['donor'] = $donor;
+            
         }
     }
 
@@ -67,7 +68,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
     {
         $form = new \BloodCenter\DrawnDetailForm($this->data, $this->defaultAddDrawn);
         $form->onSuccess[] = callback($this, 'addDrawn');
-        $form['id']->setDisabled();
+        unset($form['id']);//->setDisabled(); //FIXME!! myslim, ze by to tam vubec byt nemelo
         return $form;
     }
 
@@ -76,6 +77,8 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         $values = $form->getValues();
         if ($values['reservation'] == '') //TODO little hack to avoid foreign_key error
             $values['reservation'] = NULL;
+        //the blood type has to be consistent with donor -> shouldn't be on user's choice
+        $values['blood_type'] = $this->donor->findOneBy(array('id' => $values['donor']))->blood_type;
         $this->drawn->insert($values);
         $this->flashMessage('Added drawn of donor ' . $values['donor']);
     }
@@ -100,6 +103,8 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         $values = $form->getValues();
         if ($values['reservation'] == '') //TODO little hack to avoid foreign_key error
             $values['reservation'] = NULL;
+        //the blood type has to be consistent with donor -> shouldn't be on user's choice
+        $values['blood_type'] = $this->donor->findOneBy(array('id' => $values['donor']))->blood_type;
         $this->drawn->update($values, $values['id']);
         $this->flashMessage('Drawn '  . $values['id'] . ' was edited.');
     }

@@ -20,10 +20,13 @@ class DonorPresenter extends \DonorModule\BasePresenter
     private $default;
     private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
     private $awaitingInvitations;
+    private $invitations;
     private $drawns;
     private $donorInfo;
     private $data = array();
-    private $hasInvitations;
+    private $hasNewInvitations;
+    private $hasConfirmedInvitations;
+            
     public function startup()
     {
         parent::startup();
@@ -39,10 +42,12 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->drawn = $this->context->drawn;
         
         $this->stationNames = $this->station->getStationNames();
-        $this->awaitingInvitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id);
+        $this->awaitingInvitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id,0);
+        $this->invitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id,1);
         $this->drawns = $this->drawn->getDrawnsByDonor($this->user->getIdentity()->id);
         $this->donorInfo = $this->donor->findOneById($this->user->getIdentity()->id);
-        $this->hasInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id);
+        $this->hasNewInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id,0);
+        $this->hasConfirmedInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id,1);
         
         $this->data['stationNames'] = $this->stationNames;
         $this->data['bloodTypes'] = $this->donor->bloodTypes;
@@ -62,8 +67,10 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->template->drawns = $this->drawns;
         $this->template->donorInfo = $this->donorInfo;
         $this->template->awaitingInvitations = $this->awaitingInvitations;
+        $this->template->invitations = $this->invitations;
         $this->template->stationNames = $this->stationNames;
-        $this->template->hasInvitations = $this->hasInvitations;
+        $this->template->hasNewInvitations = $this->hasNewInvitations;
+        $this->template->hasConfirmedInvitations = $this->hasConfirmedInvitations;
     }
 
 
@@ -96,9 +103,18 @@ class DonorPresenter extends \DonorModule\BasePresenter
     
     public function renderInvitationDecline($id)
     {
-        $this->flashMessage('Invitation declined!');
+        $this->flashMessage('Invitation #'. $id.' declined!');
+        $this->invitation->update(array('state' => 2) ,$id);
         $this->redirect("Donor:");
     }
+    
+    public function renderInvitationConfirm($id)
+    {
+        $this->flashMessage('Invitation #'. $id.' confirmed!');
+        $this->invitation->update(array('state' => 1) ,$id);
+        $this->redirect("Donor:");
+    }
+    
     /*
     public function renderDetail($id)
     {

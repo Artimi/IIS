@@ -2,13 +2,13 @@
 
 
 namespace BloodCenter;
-
+use \Nette\Application\UI\Form;
 /**
  * Description of StationDetailForm
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
  */
-class StationDetailForm extends \Nette\Application\UI\Form
+class StationDetailForm extends Form
 {
     public function __construct($defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {

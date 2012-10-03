@@ -153,7 +153,7 @@ abstract class Table extends Nette\Object
     {
         foreach($array as $key => $value)
         {
-            if ($value == '')
+            if ($value != 0 && $value == '')
             {
                 $array[$key] = NULL; 
             }

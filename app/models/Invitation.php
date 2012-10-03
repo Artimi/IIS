@@ -16,9 +16,12 @@ class Invitation extends Table
         * @param int $state State of the invitation (0=in progress)
         * @return \Nette\Database\Table\Selection
         */
-        public function getInvitationsByDonor($id, $state=0)
+        public function getInvitationsByDonor($id, $state=-1)
         {
-            return $this->findBy(array('donor' => $id, 'state' => $state));
+            if ($state == -1)
+                return $this->findBy(array('donor' => $id));
+            else    
+                return $this->findBy(array('donor' => $id, 'state' => $state));
         }
                 
         
@@ -27,11 +30,17 @@ class Invitation extends Table
          * @param string $id
          * @return boolean
          */
-        public function hasInvitations($id, $state=0)
+        public function hasInvitations($id, $state=-1)
         {
-            if ($this->findBy(array('donor' => $id, 'state' => $state))->count() > 0)
-                return TRUE;
+            if ($state == -1)
+                if ($this->findBy(array('donor' => $id))->count() > 0)
+                    return TRUE;
+                else
+                    return FALSE;
             else
-                return FALSE;
+                if ($this->findBy(array('donor' => $id, 'state' => $state))->count() > 0)
+                    return TRUE;
+                else
+                    return FALSE;
         }
 }

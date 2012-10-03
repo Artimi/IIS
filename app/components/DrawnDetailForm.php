@@ -23,12 +23,12 @@ class DrawnDetailForm extends Form
             ->setRequired();
         $this->addSelect('donor', 'Donor:', $data['donors'])
             ->setRequired();
-        $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes']); 
+        //$this->addSelect('blood_type', 'Blood type:', $data['bloodTypes']);//FIXME!!! musi byt podle darce!!!!!
         $this->addSelect('nurse', 'Nurse:',$data['nurses'])
             ->setRequired();
         $this->addSelect('store', 'Store', $data['stationNames']);
         $this->addSelect('reservation', 'Reservation:', $data['reservation']);
-        $quality = array(0 => 'bad', 1 => 'good');
+        $quality = array(1 => 'good', 0 => 'bad');
         $this->addSelect('quality', 'Quality:', $quality);
         $this->addSubmit('submit','Submit')
             ->setAttribute('class','ym-button');
