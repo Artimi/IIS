@@ -7,7 +7,8 @@
             You are invited to blood donation by date "{$invitation->date|date:'%Y/%m/%d'}"
             to station "<a n:href="Station:default">{$stationNames[$invitation->station]}</a>".
             <div class="align-to-right">
-                <a class="ym-button" >Confirm</a><a class="ym-button">Decline</a>
+                <a class="ym-button" n:href="Donor:invitationConfirm, id => $invitation->id">Confirm</a>
+                <a class="ym-button" n:href="Donor:invitationDecline, id => $invitation->id">Decline</a>
             </div>
         </li>
     {/foreach}
@@ -78,7 +79,7 @@
                 <div class="pi-value"><a href="mailto:{$donorInfo->email}">{$donorInfo->email}</a></div>
                 {/if}
             </div>
-            <div class="ym-gbox ym-gr"><a n:href="Donor:edit" class="ym-button">Edit</a></div>
+            <div class="ym-gbox ym-gr"><a n:href="Donor:edit, id => $donorInfo->id" class="ym-button">Edit</a></div>
         </div>
     </div>
 </div>

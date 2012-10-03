@@ -22,6 +22,7 @@ class DonorPresenter extends \DonorModule\BasePresenter
     private $awaitingInvitations;
     private $drawns;
     private $donorInfo;
+    private $data = array();
     private $hasInvitations;
     public function startup()
     {
@@ -36,12 +37,15 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->station = $this->context->station;
         $this->invitation = $this->context->invitation;
         $this->drawn = $this->context->drawn;
-
+        
         $this->stationNames = $this->station->getStationNames();
-        $this->awaitingInvitations = $this->invitation->getInvitationsById($this->user->getIdentity()->id);
+        $this->awaitingInvitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id);
         $this->drawns = $this->drawn->getDrawnsByDonor($this->user->getIdentity()->id);
-        $this->donorInfo = $this->donor->getInfoById($this->user->getIdentity()->id);
+        $this->donorInfo = $this->donor->findOneById($this->user->getIdentity()->id);
         $this->hasInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id);
+        
+        $this->data['stationNames'] = $this->stationNames;
+        $this->data['bloodTypes'] = $this->donor->bloodTypes;
     }
 
     public function renderDefault()
@@ -63,14 +67,38 @@ class DonorPresenter extends \DonorModule\BasePresenter
     }
 
 
-    public function createComponentEdit($name)
+    public function createComponentEdit()
     {
-        $form = new \BloodCenter\DonorDetailForm($this->donorInfo, $this->stationNames);
-        $form['submit']->caption = 'Edit';
+        $form = new \BloodCenter\DonorDetailForm($this->data, $this->donorInfo);
+        $form['submit']->caption = 'Update';
+        $form['national_id']->setAttribute('readonly');
+        $form['blood_type']->setAttribute('readonly');
+        $form['name']->setAttribute('readonly');
+        $form['surname']->setAttribute('readonly');
+        unset($form['note']);
+        $presenter = $this;
+        $form->addSubmit('cancel','Back')->setAttribute('class','ym-button')
+                ->setValidationScope(FALSE)
+                ->onClick[] = function () use ($presenter) {$presenter->redirect('Donor:');};
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
     }
+
     
+    public function donorEdited(\BloodCenter\DonorDetailForm $form)
+    {
+        $values = $form->getValues();
+        $this->donor->update($values, $values['id']);
+        $this->flashMessage('Information has been update!');
+    }
+    
+    
+    
+    public function renderInvitationDecline($id)
+    {
+        $this->flashMessage('Invitation declined!');
+        $this->redirect("Donor:");
+    }
     /*
     public function renderDetail($id)
     {

@@ -31,6 +31,7 @@ class DonorDetailForm extends Form
         $this->addText('street', 'Street:');
         $this->addText('phone', 'Phone:');
         $this->addText('email', 'Email:')
+            ->addCondition(Form::FILLED)
             ->addRule(Form::EMAIL,'Email must be in email format: abc@def.gh.');
         $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes'])
             ->setRequired();

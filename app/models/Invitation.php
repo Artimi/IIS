@@ -16,7 +16,7 @@ class Invitation extends Table
         * @param int $state State of the invitation (0=in progress)
         * @return \Nette\Database\Table\Selection
         */
-        public function getInvitationsById($id, $state=0)
+        public function getInvitationsByDonor($id, $state=0)
         {
             return $this->findBy(array('donor' => $id, 'state' => $state));
         }
