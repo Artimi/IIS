@@ -82,7 +82,7 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $form['blood_type']->setAttribute('readonly');
         $form['name']->setAttribute('readonly');
         $form['surname']->setAttribute('readonly');
-        unset($form['note']);
+        unset($form['note']); //user is not supposed to rwad the notes about him
         $presenter = $this;
         $form->addSubmit('cancel','Back')->setAttribute('class','ym-button')
                 ->setValidationScope(FALSE)

@@ -15,7 +15,7 @@
     <div class="pi-label">Nurse</div>
     <div class="pi-value">{$drawnInfo->nurse}</div>
     <div class="pi-label">Where stored</div>
-    <div class="pi-value"><a n:href="Station:default, station => $drawnInfo->store">{$stationNames[$drawnInfo->store]}</a></div>
+    <div class="pi-value"><a n:href="Station:detail, station => $drawnInfo->store">{$stationNames[$drawnInfo->store]}</a></div>
     <div class="pi-label">Reserved</div>
     <div class="pi-value">{$drawnInfo->reservation ? "Reserved" : "Not reserved"}</div>
     <div class="pi-label">Quality</div>

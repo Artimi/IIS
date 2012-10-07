@@ -10,7 +10,7 @@
     {foreach $awaitingInvitations as $invitation}
             <li>
                 You are invited to blood donation by date "{$invitation->date|date:'%Y/%m/%d'}" to station
-                "<a n:href="Station:default, station => $invitation->station">{$stationNames[$invitation->station]}</a>".
+                "<a n:href="Station:detail, station => $invitation->station">{$stationNames[$invitation->station]}</a>".
                 <div class="align-to-right">
                     <a class="ym-button" n:href="Donor:invitationConfirm, id => $invitation->id">Confirm</a>
                     <a class="ym-button" n:href="Donor:invitationDecline, id => $invitation->id">Decline</a>
@@ -101,7 +101,7 @@
                 <div class="pi-label">National ID</div>
                 <div class="pi-value">{$donorInfo->national_id}</div>
                 <div class="pi-label">Preferred station</div>
-                <div class="pi-value"><a n:href="Station:default, station => $donorInfo->pref_station">{$stationNames[$donorInfo->pref_station]}</a></div>
+                <div class="pi-value"><a n:href="Station:detail, station => $donorInfo->pref_station">{$stationNames[$donorInfo->pref_station]}</a></div>
                 <div class="pi-label">Address</div>
                 <div class="pi-value">{$donorInfo->street}<br />{$donorInfo->postal_code}, {$donorInfo->city}</div>
                 {if ($donorInfo->phone)}

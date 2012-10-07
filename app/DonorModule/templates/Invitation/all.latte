@@ -1,4 +1,35 @@
 
 {block content}
-{control invitationGrid}
+<h3>All invitations</h3>
+<div clas="ym-gbox">
+    {if $hasInvitations}
+    <table>
+        <thead>
+            <tr>
+                <th>Date of invitation</th>
+                <th>Where are invited to</th>
+                <th>Urgency of invitation</th>
+                <th>State of invitation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach $invitations as $invitation}
+            <tr>
+                <td>{$invitation->date|date:'%Y/%m/%d %H:%M'}</td>
+                <td>{$stationNames[$invitation->station]}</td>
+                <td>{$invitation->type ? 'Normal' : 'Urgent'}</td>
+                <td>{$invitationState[$invitation->state]|capitalize}</td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    {else}
+    <p>
+        You don't have any invitation.
+    </p>
+    {/if}
+</div>
+
+
+<div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back</a></div>
 {/block}

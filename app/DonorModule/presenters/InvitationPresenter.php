@@ -31,15 +31,21 @@ class InvitationPresenter extends \DonorModule\BasePresenter
     {
         //$this->template->stationInfo = $this->station->getStationById($station);
         //$this->template->drawnInfo = $this->drawn->getDrawnById($id);
-        //$this->template->stationNames = $this->station->getStationNames();
+        $this->template->stationNames = $this->station->getStationNames();
+        $this->template->invitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id);
+        $this->template->hasInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id);
+        $this->template->invitationState = $this->invitation->invitationState;
     }
     
-    public function createComponentInvitationGrid()
+    /*public function createComponentAllInvitations()
     {
         //FIXME!!! pouze od jednoho autora
         //FIXME!!! odkaz spravit
         //FIXME!!! odstranit AddInvitation
-        $form = new \BloodCenter\InvitationGrid($this->invitation, $this->stationNames);
+        $form = new \NiftyGrid\Grid();
+       
         return $form;
-    }
+    }*/
+    
 }
+

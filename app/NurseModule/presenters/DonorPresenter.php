@@ -58,7 +58,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
         $this->donorID = $donor;
         $this->donorInfo = $this->donor->findOneByID($donor);
         $this->template->donorInfo = $this->donorInfo;
-        $this->template->selectDrawnsByUser= $this->drawn->getDrawnsById($donor);
+        $this->template->selectDrawnsByUser= $this->drawn->getDrawnsByDonor($donor);
         $this->template->stationNames = $this->station->getStationNames();
         $this->template->invitations = $this->invitation->findBy(array('donor' => $donor));
         $this->template->invitationState = $this->invitation->invitationState; 

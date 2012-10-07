@@ -20,7 +20,7 @@ class StationPresenter extends \DonorModule\BasePresenter
         $this->station = $this->context->station;
     }
 
-    public function renderDefault($station)
+    public function renderDetail($station)
     {
         $this->template->stationInfo = $this->station->getStationById($station);
         $this->template->stations = $this->station->getStationNames();
