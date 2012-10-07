@@ -19,7 +19,7 @@ class InvitationDetailForm extends Form
     public function __construct($data, $defaults = NULL, \Nette\ComponentModel\IContainer $parent = NULL, $name = NULL)
     {
         parent::__construct($parent, $name);
-        $this->addText('id', 'Id')
+        $this->addText('id', 'ID')
             ->setAttribute('readonly');
         $this->addSelect('donor', 'Donor:', $data['donor'])
             ->setRequired();

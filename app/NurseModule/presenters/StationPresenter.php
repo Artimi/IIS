@@ -40,7 +40,7 @@ class StationPresenter extends BasePresenter
         $form = new \BloodCenter\StationDetailForm(NULL);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addStation');
-        $form['id']->setDisabled();
+        unset($form['id']);
         return $form;
     }
 

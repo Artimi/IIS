@@ -68,16 +68,19 @@ class DrawnPresenter extends \NurseModule\BasePresenter
     {
         $form = new \BloodCenter\DrawnDetailForm($this->data, $this->defaultAddDrawn);
         $form->onSuccess[] = callback($this, 'addDrawn');
-        unset($form['id']);//->setDisabled(); //FIXME!! myslim, ze by to tam vubec byt nemelo
+        unset($form['id']);
         return $form;
     }
 
     public function addDrawn(\Nette\Application\UI\Form $form)
     {
         $values = $form->getValues();
-        if ($values['reservation'] == '') //TODO little hack to avoid foreign_key error
-            $values['reservation'] = NULL;
         //the blood type has to be consistent with donor -> shouldn't be on user's choice
+        //xsebek02: long long times ago we said that donor blood_type will be
+        //other check/control that it is the right donor. It is possible that
+        //somebody let go his friend instead of him and of course we will assume
+        //same blood_type and someone else can die because of this assumption.
+        //I would let it the way it is.
         $values['blood_type'] = $this->donor->findOneBy(array('id' => $values['donor']))->blood_type;
         $this->drawn->insert($values);
         $this->flashMessage('Added drawn of donor ' . $values['donor']);
