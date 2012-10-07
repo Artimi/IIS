@@ -66,7 +66,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
     {
         $form = new \BloodCenter\InvitationDetailForm($this->data, $this->defaultAddInvitation);
         $form->onSuccess[] = callback($this, 'addInvitation');
-        $form['id']->setDisabled();
+        unset($form['id']);
         return $form;
     }
 

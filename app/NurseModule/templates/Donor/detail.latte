@@ -1,3 +1,7 @@
+{block title}
+Donor
+{/block}
+
 {block content}
 
 <div class="ym-grid">
@@ -32,8 +36,10 @@
                 <div class="pi-value"><a n:href="Station:default, station => $donorInfo->pref_station">{$stationNames[$donorInfo->pref_station]}</a></div>
                 <div class="pi-label">Active</div>
                 <div class="pi-value">{$donorInfo->active ? "Active" : "Inactive"}</div>
+                {if $donorInfo->street and $donorInfo->postal_code and $donorInfo->city}
                 <div class="pi-label">Address</div>
                 <div class="pi-value">{$donorInfo->street}<br />{$donorInfo->postal_code}, {$donorInfo->city}</div>
+                {/if}
                 {if ($donorInfo->phone)}
                 <div class="pi-label">Phone</div>
                 <div class="pi-value">{$donorInfo->phone}</div>
@@ -108,9 +114,9 @@
                     {foreach $selectDrawnsByUser as $drawn}
                     <tr>
                         <td>{$drawn->date|date:'%Y/%m/%d'}</td>
-                        <td>{$stationNames[$drawn->store]}</td>
+                        <td>{ifset $drawn->store}{$stationNames[$drawn->store]}{/ifset}</td>
                         <td>{$drawn->nurse}</td>
-                        <td>{$drawn->quality ? "Good" : "Not good"}</td>
+                        <td>{ifset $drawn->quality}{$drawn->quality ? "Good" : "Not good"}{/ifset}</td>
                         <td><a n:href="Drawn:detail, id => $drawn->id" class="ym-button">Details</a></td>
                     </tr>
                     {/foreach}

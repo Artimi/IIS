@@ -38,7 +38,7 @@ class ReservationPresenter extends BasePresenter
         $form = new \BloodCenter\ReservationDetailForm($this->reservation);
         $form['submit']->caption = 'Add';
         $form->onSuccess[] = callback($this, 'addStation');
-        $form['id']->setDisabled();
+        unset($form['id']);
         return $form;
     }
 
