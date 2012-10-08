@@ -9,11 +9,11 @@
     <div class="pi-label">Date and time of donation</div>
     <div class="pi-value">{$drawnInfo->date|date:'%Y/%m/%d %H:%M:%S'}</div>
     <div class="pi-label">Donor</div>
-    <div class="pi-value">{$drawnInfo->donor}</div>
+    <div class="pi-value">{$user->getIdentity()->name} {$user->getIdentity()->surname}</div>
     <div class="pi-label">Blood type</div>
     <div class="pi-value">{$drawnInfo->blood_type}</div>
     <div class="pi-label">Nurse</div>
-    <div class="pi-value">{$drawnInfo->nurse}</div>
+    <div class="pi-value">{$nurseInfo->name} {$nurseInfo->surname}</div>
     <div class="pi-label">Where stored</div>
     <div class="pi-value"><a n:href="Station:detail, station => $drawnInfo->store">{$stationNames[$drawnInfo->store]}</a></div>
     <div class="pi-label">Reserved</div>
@@ -21,8 +21,6 @@
     <div class="pi-label">Quality</div>
     <div class="pi-value">{$drawnInfo->quality ? "Good" : "Unusable"}</div>
 </div>
-
-
 
 <div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back</a></div>
 {/block}

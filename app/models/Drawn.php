@@ -20,13 +20,4 @@ class Drawn extends Table
             return $this->findBy(array('donor' => $donor));
         }
         
-        /**
-        * Returns the drawn defined by $id
-        * @param string $id
-        * @return \Nette\Database\Table\ActiveRow|FALSE
-        */
-        public function getDrawnById($id)
-        {
-            return $this->findOneBy(array('id' => $id));
-        }
 }

@@ -10,12 +10,10 @@ namespace DonorModule;
  */
 class DonorPresenter extends \DonorModule\BasePresenter
 {
-
     private $donor;
     private $station;
     private $invitation;
     private $drawn;
-    //private $defaultsDetail;
     private $stationNames;
     private $default;
     private $columns = array('id', 'name', 'surname', 'blood_type', 'active', 'pref_station');
@@ -45,7 +43,7 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->awaitingInvitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id,0);
         $this->invitations = $this->invitation->getInvitationsByDonor($this->user->getIdentity()->id,1);
         $this->drawns = $this->drawn->getDrawnsByDonor($this->user->getIdentity()->id);
-        $this->donorInfo = $this->donor->findOneById($this->user->getIdentity()->id);
+        $this->donorInfo = $this->donor->getOneByID($this->user->getIdentity()->id);
         $this->hasNewInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id,0);
         $this->hasConfirmedInvitations = $this->invitation->hasInvitations($this->user->getIdentity()->id,1);
         
@@ -73,7 +71,6 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->template->hasConfirmedInvitations = $this->hasConfirmedInvitations;
     }
 
-
     public function createComponentEdit()
     {
         $form = new \BloodCenter\DonorDetailForm($this->data, $this->donorInfo);
@@ -90,7 +87,6 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $form->onSuccess[] = callback($this, 'donorEdited');
         return $form;
     }
-
     
     public function donorEdited(\BloodCenter\DonorDetailForm $form)
     {
@@ -98,8 +94,6 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->donor->update($values, $values['id']);
         $this->flashMessage('Information has been update!');
     }
-    
-    
     
     public function renderInvitationDecline($id)
     {
@@ -114,62 +108,4 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->invitation->update(array('state' => 1) ,$id);
         $this->redirect("Donor:");
     }
-    
-    /*
-    public function renderDetail($id)
-    {
-
-        $defaults = $this->donor->findOneBy(array('id' => $id));
-        $this->defaultsDetail = $defaults;
-    }
-
-    public function createComponentDetail($name)
-    {
-        $form = new \BloodCenter\DetailForm($this->defaultsDetail, $this->stationNames);
-        $form['submit']->caption = 'Edit';
-        $form->onSuccess[] = callback($this, 'donorEdited');
-        return $form;
-    }
-
-    public function donorEdited(Form $form)
-    {
-        $values = $form->getValues();
-        $this->donor->update($values, $values['id']);
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was edited.');
-    }
-
-    public function renderAddDonor()
-    {
-        
-    }
-
-    public function createComponentAddDonor($name)
-    {
-        $form = new \BloodCenter\DetailForm(NULL, $this->stationNames);
-        $form['submit']->caption = 'Add';
-        $form->onSuccess[] = callback($this, 'addDonor');
-        return $form;
-    }
-
-    public function addDonor(\Nette\Application\UI\Form $form)
-    {
-        $values = $form->getValues();
-        $values['id'] = $this->donor->generateNick($values['surname']);
-        $this->donor->insert($values);
-        $this->donor->setPassword($values['id'], '123');
-        $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
-    }
-
-    public function renderDrawn($donorid)
-    {
-        $this->template->drawns = $this->drawn->findBy(array('donor' => $donorid));
-        $this->template->donorid = $donorid;
-    }
-
-    public function createComponentDonorGrid($name)
-    {
-        return new \BloodCenter\DonorGrid($this->donor, $this->default);
-    }
-    */
 }
-

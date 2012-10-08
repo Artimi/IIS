@@ -7,7 +7,7 @@
     <div n:if="$hasNewInvitations" class="box warning">
         <h4>You have a new invitation!</h4>
         <ul>
-    {foreach $awaitingInvitations as $invitation}
+        {foreach $awaitingInvitations as $invitation}
             <li>
                 You are invited to blood donation by date "{$invitation->date|date:'%Y/%m/%d'}" to station
                 "<a n:href="Station:detail, station => $invitation->station">{$stationNames[$invitation->station]}</a>".
@@ -16,9 +16,8 @@
                     <a class="ym-button" n:href="Donor:invitationDecline, id => $invitation->id">Decline</a>
                 </div>
             </li>
-    {/foreach}
+        {/foreach}
         </ul>
-
     </div>
     <h4>Your confirmed invitations</h4>    
     {if $hasConfirmedInvitations}
@@ -31,13 +30,13 @@
             </tr>
         </thead>
         <tbody>
-        {foreach $invitations as $invitation}
+            {foreach $invitations as $invitation}
             <tr>
                 <td>{$invitation->date|date:'%Y/%m/%d %H:%M'}</td>
-                <td>{$stationNames[$invitation->station]}</td>
+                <td><a n:href="Station:detail, station => $invitation->station">{$stationNames[$invitation->station]}</a></td>
                 <td>{$invitation->type ? 'Normal' : 'Urgent'}</td>
             </tr>
-        {/foreach}
+            {/foreach}
         </tbody>
     </table>
     {else}
@@ -49,8 +48,6 @@
         <a class="ym-button" n:href="Invitation:all">See all invitations</a>
     </div>
 </div>
-
-
 
 <div class="ym-grid">
     <div class="ym-g66 ym-gl">

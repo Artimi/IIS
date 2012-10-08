@@ -133,7 +133,7 @@ abstract class Table extends Nette\Object
         return $table;
     }
 
-    public function findOneByID($id)
+    public function getOneByID($id)
     {
         return $this->findOneBy(array('id' => $id));
     }

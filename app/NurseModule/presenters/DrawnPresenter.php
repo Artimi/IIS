@@ -52,7 +52,7 @@ class DrawnPresenter extends \NurseModule\BasePresenter
     public function renderAddDrawn($donor=NULL)
     {
         $nurse = $this->getUser()->id;
-        $store = $this->nurse->findOneByID($nurse['station']);
+        $store = $this->nurse->getOneByID($nurse['station']);
         $this->defaultAddDrawn = array(
             'date' => date('Y-m-d H-i-s'),
             'nurse' => $nurse,

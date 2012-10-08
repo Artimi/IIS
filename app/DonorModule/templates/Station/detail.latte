@@ -1,26 +1,15 @@
 
 {block content}
+<div class="ym-wbox">
 
-<select>
-    {foreach $stations as $item}
-    <option>{$item}</option>
-    {/foreach}
-</select>
 
-<div class="ym-grid">
-    <div class="ym-g66 ym-gl">
-        <div class="ym-gbox">
-            <div class="pi-label">Name</div>
-            <div class="pi-value">{$stationInfo->name}</div>
-            <div class="pi-label">Address</div>
-            <div class="pi-value">{$stationInfo->street}<br />{$stationInfo->postal_code}, {$stationInfo->city}</div>
-        </div>
-    </div>
-    <div class="ym-g33 ym-gr">
-        <div class="box">
-            <p>Gmap</p>
-        </div>
-    </div>
+    <div class="pi-label">Name</div>
+    <div class="pi-value">{$stationInfo->name}</div>
+    <div class="pi-label">Address</div>
+    <div class="pi-value">{$stationInfo->street}<br />{$stationInfo->postal_code}, {$stationInfo->city}</div>
 </div>
-<div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back</a></div>
+<div class="box">
+{control stationsForm}
+</div>
+<div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back home</a></div>
 {/block}

@@ -11,7 +11,7 @@ namespace DonorModule;
 class DrawnPresenter extends \DonorModule\BasePresenter
 {
     private $drawn;
-    //private $drawnInfo;
+    private $nurse;
     private $station;
     
     public function startup()
@@ -19,12 +19,13 @@ class DrawnPresenter extends \DonorModule\BasePresenter
         parent::startup();
         $this->drawn = $this->context->drawn;
         $this->station = $this->context->station;
+        $this->nurse = $this->context->nurse;
     }
 
     public function renderDetail($id)
     {
-        //$this->template->stationInfo = $this->station->getStationById($station);
-        $this->template->drawnInfo = $this->drawn->getDrawnById($id);
+        $this->template->drawnInfo = $this->drawn->getOneById($id);
         $this->template->stationNames = $this->station->getStationNames();
+        $this->template->nurseInfo = $this->nurse->getOneById($this->template->drawnInfo->nurse);
     }
 }

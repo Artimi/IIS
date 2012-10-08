@@ -16,7 +16,7 @@
         {foreach $invitations as $invitation}
             <tr>
                 <td>{$invitation->date|date:'%Y/%m/%d %H:%M'}</td>
-                <td>{$stationNames[$invitation->station]}</td>
+                <td><a n:href="Station:detail, station => $invitation->station">{$stationNames[$invitation->station]}</a></td>
                 <td>{$invitation->type ? 'Normal' : 'Urgent'}</td>
                 <td>{$invitationState[$invitation->state]|capitalize}</td>
             </tr>
@@ -31,5 +31,5 @@
 </div>
 
 
-<div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back</a></div>
+<div class="ym-gbox"><a n:href="Donor:default" class="ym-button">Back home</a></div>
 {/block}

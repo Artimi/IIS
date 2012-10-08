@@ -56,7 +56,7 @@ class DonorPresenter extends \NurseModule\BasePresenter
     public function renderDetail($donor)
     {
         $this->donorID = $donor;
-        $this->donorInfo = $this->donor->findOneByID($donor);
+        $this->donorInfo = $this->donor->getOneByID($donor);
         $this->template->donorInfo = $this->donorInfo;
         $this->template->selectDrawnsByUser= $this->drawn->getDrawnsByDonor($donor);
         $this->template->stationNames = $this->station->getStationNames();
