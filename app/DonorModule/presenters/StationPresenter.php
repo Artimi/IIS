@@ -11,7 +11,6 @@ namespace DonorModule;
 class StationPresenter extends \DonorModule\BasePresenter
 {
     private $station;
-    
     public function startup()
     {
         parent::startup();
@@ -22,6 +21,7 @@ class StationPresenter extends \DonorModule\BasePresenter
     {
         $this->template->stationInfo = $this->station->getOneById($station);
         $this->template->stations = $this->station->findAll();
+        $this->template->param = $station;
     }
     
     public function createComponentStationsForm($name)

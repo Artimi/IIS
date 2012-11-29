@@ -75,8 +75,10 @@ class DonorPresenter extends \DonorModule\BasePresenter
     {
         $form = new \BloodCenter\DonorDetailForm($this->data, $this->donorInfo);
         $form['submit']->caption = 'Update';
-        $form['national_id']->setAttribute('readonly');
-        $form['blood_type']->setAttribute('readonly');
+        //$form['national_id']->setAttribute('readonly');
+        unset($form['national_id']); // user is not supposed to edit this option
+        //$form['blood_type']->setAttribute('readonly');
+        unset($form['blood_type']); // user is not supposed to edit this option
         $form['name']->setAttribute('readonly');
         $form['surname']->setAttribute('readonly');
         unset($form['note']); //user is not supposed to rwad the notes about him
@@ -106,6 +108,13 @@ class DonorPresenter extends \DonorModule\BasePresenter
     {
         $this->flashMessage('Invitation #'. $id.' confirmed!');
         $this->invitation->update(array('state' => 1) ,$id);
+        $this->redirect("Donor:");
+    }
+    
+    public function renderInvitationRearrange($id)
+    {
+        $this->flashMessage('Request for rearrange invitation #'.$id.' sent!');
+        $this->invitation->update(array('state' => 4), $id);
         $this->redirect("Donor:");
     }
 }

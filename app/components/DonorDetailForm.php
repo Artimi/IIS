@@ -29,7 +29,9 @@ class DonorDetailForm extends Form
             ->addRule(Form::LENGTH, 'Postal code must be 5 chars long.', 5);
         $this->addText('city', 'City:');
         $this->addText('street', 'Street:');
-        $this->addText('phone', 'Phone:');
+        $this->addText('phone', 'Phone:')
+            ->addCondition(Form::FILLED)
+            ->addRule(Form::REGEXP,'Phone must be in format: +123123123123','/\+[0-9]{12}/');
         $this->addText('email', 'Email:')
             ->addCondition(Form::FILLED)
             ->addRule(Form::EMAIL,'Email must be in email format: abc@def.gh.');

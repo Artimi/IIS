@@ -13,6 +13,7 @@
                 "<a n:href="Station:detail, station => $invitation->station">{$stationNames[$invitation->station]}</a>".
                 <div class="align-to-right">
                     <a class="ym-button" n:href="Donor:invitationConfirm, id => $invitation->id">Confirm</a>
+                    <a class="ym-button" n:href="Donor:invitationRearrange, id => $invitation->id">Request for rearrange</a>
                     <a class="ym-button" n:href="Donor:invitationDecline, id => $invitation->id">Decline</a>
                 </div>
             </li>
@@ -58,7 +59,7 @@
                     <tr>
                         <th>Date</th>
                         <th>Nurse</th>
-                        <th>Reserved</th>
+                        <!--<th>Reserved</th>-->
                         <th>Quality</th>
                         <th>Actions</th>
                     </tr>
@@ -68,7 +69,7 @@
                     <tr>
                         <td>{$drawn->date|date:'%Y/%m/%d'}</td>
                         <td>{$drawn->nurse}</td>
-                        <td>{$drawn->reservation ? "Reserved" : "Not reserved"}</td>
+                        <!--<td>{$drawn->reservation ? "Reserved" : "Not reserved"}</td>-->
                         <td>{$drawn->quality ? "Good" : "Unusable"}</td>
                         <td><a n:href="Drawn:detail, id => $drawn->id" class="ym-button">Details</a></td>
                     </tr>

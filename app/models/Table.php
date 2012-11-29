@@ -35,7 +35,8 @@ abstract class Table extends Nette\Object
         1 => 'confirmed',
         2 => 'cancelled',
         3 => 'finished',
-        4 => 'unfulfilled');
+        4 => 'rearrange',
+        5 => 'unfulfilled');
 
     /**
      * @param Nette\Database\Connection $db
