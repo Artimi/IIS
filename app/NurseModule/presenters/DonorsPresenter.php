@@ -81,7 +81,18 @@ class DonorsPresenter extends \NurseModule\BasePresenter
     {
         $values = $form->getValues();
         $values['id'] = $this->donor->generateNick($values['surname']);
-        $this->donor->insert($values);
+        try
+        {
+            $this->donor->insert($values);
+        }
+        catch(\PDOException $e)
+        {
+            if($e->getCode()==23000)
+            {
+                $this->flashMessage('There already is donor with this national id!');
+                return;
+            }
+        }
         $this->donor->setPassword($values['id'], '123');
         $this->flashMessage('Donor ' . $values['name'] . ' ' . $values['surname'] . ' (' . $values['id'] . ') was added.');
     }
