@@ -51,7 +51,7 @@ class DonorGrid extends \NiftyGrid\Grid
             ->setRenderer(function($row) use ($presenter, $stationNames)
                 {return \Nette\Utils\Html::el('a')
                 ->setText($stationNames[$row['pref_station']])
-                ->href($presenter->link("Station:detail", $row['id']));})
+                ->href($presenter->link("Station:detail", $row['pref_station']));})
             ->setSelectFilter($stationNames);
         $this->addButton('detail','Detail')
             ->setClass('ym-button')
