@@ -37,7 +37,7 @@ class ReservationPresenter extends BasePresenter
     {
         $form = new \BloodCenter\ReservationDetailForm($this->reservation);
         $form['submit']->caption = 'Add';
-        $form->onSuccess[] = callback($this, 'addStation');
+        $form->onSuccess[] = callback($this, 'addReservation');
         unset($form['id']);
         return $form;
     }
@@ -46,7 +46,7 @@ class ReservationPresenter extends BasePresenter
     {
         $values = $form->getValues();
         $this->reservation->insert($values);
-        $this->flashMessage('Reservation ' . $values['name']. ' was added.');
+        $this->flashMessage('Reservation to ' . $values['order_from']. ' was added.');
     }
     
      public function renderDetail($id)
