@@ -6,3 +6,4 @@
 !/log/web.config
 !/log/.htaccess
 *~
+app/config/config.neon
