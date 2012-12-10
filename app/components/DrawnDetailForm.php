@@ -1,15 +1,14 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace BloodCenter;
 use Nette\Application\UI\Form;
+
 /**
  * Description of DrawnDetailForm
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class DrawnDetailForm extends Form
 {

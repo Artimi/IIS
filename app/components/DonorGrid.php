@@ -9,6 +9,8 @@ namespace BloodCenter;
  * Description of DonorGrid
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class DonorGrid extends \NiftyGrid\Grid
 {
@@ -43,7 +45,7 @@ class DonorGrid extends \NiftyGrid\Grid
         $this->addColumn('blood_type', 'Blood type')
             ->setSelectFilter($this->donor->bloodTypes);
         $active = array(0 => 'inactive', 1 => 'active');
-        $this->addColumn('active', 'Active')
+        $this->addColumn('active', 'Activity')
             ->setRenderer(function($row) use($active) {return $active[$row['active']];})
             ->setBooleanFilter($active);
         $stationNames = $this->stationNames;

@@ -5,8 +5,9 @@ namespace NurseModule;
 /**
  * Base class for all application presenters.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {

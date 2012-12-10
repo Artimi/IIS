@@ -1,12 +1,14 @@
 <?php
+
 use Nette\Application\UI\Form;
 use Nette\Security as NS;
 
 /**
  * Sign in/out presenters.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class SignPresenter extends Nette\Application\UI\Presenter
 {

@@ -1,12 +1,9 @@
 {**
- * My Application layout template.
+ * Default layout for Nurse module template.
  *
- * @copyright  Copyright (c) 2010 John Doe
- * @package    MyApplication
- *
- * @param string   $basePath web base path
- * @param string   $robots   tell robots how to index the content of a page (optional)
- * @param array    $flashes  flash messages
+ * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  *}
 
 <!DOCTYPE html>
@@ -59,7 +56,7 @@
                 <div class="ym-wbox">
 
                     <h1>{block title}{/block}</h1>            
-                    <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+                    <div n:foreach="$flashes as $flash" class="box {$flash->type}">{$flash->message}</div>
 
 	{include #content}
 

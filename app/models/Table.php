@@ -1,8 +1,11 @@
 <?php
 
 /**
- * @author petr
  * Downloaded from: http://doc.nette.org/cs/quickstart/database
+ * 
+ * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 
 namespace BloodCenter;

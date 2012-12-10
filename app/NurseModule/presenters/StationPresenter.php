@@ -6,6 +6,8 @@ namespace NurseModule;
  * Description of StationPresenter
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class StationPresenter extends BasePresenter
 {

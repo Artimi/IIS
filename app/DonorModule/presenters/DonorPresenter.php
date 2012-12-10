@@ -1,12 +1,13 @@
 <?php
 
-
 namespace DonorModule;
 
 /**
  * Description of DonorPresenter
  *
- * @author Martin Simon <xsimon14@stud.fit.vutbr.cz>
+ * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class DonorPresenter extends \DonorModule\BasePresenter
 {

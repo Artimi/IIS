@@ -1,9 +1,13 @@
 <?php
+
 namespace BloodCenter; 
+
 /**
  * Description of NurseGrid
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class NurseGrid extends \NiftyGrid\Grid
 {

@@ -6,6 +6,8 @@ namespace BloodCenter;
  * Description of StationGrid
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class StationGrid extends \NiftyGrid\Grid
 {

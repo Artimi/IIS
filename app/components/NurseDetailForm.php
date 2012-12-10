@@ -1,12 +1,14 @@
 <?php
 
-
 namespace BloodCenter;
 use \Nette\Application\UI\Form;
+
 /**
  * Description of NurseDetailForm
  *
  * @author Petr Šebek <xsebek02@stud.fit.vutbr.cz>
+ * @author Martin Šimon <xsimon14@stud.fit.vutbr.cz>
+ * @author Jakub Šimon <xsimon06@stud.fit.vutbr.cz>
  */
 class NurseDetailForm extends Form
 {
