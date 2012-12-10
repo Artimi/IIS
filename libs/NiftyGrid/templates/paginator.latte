@@ -26,9 +26,9 @@
 			{/if}
 		</li>
 		<li class="active" data-lastpage="{$paginator->getLastPage()}">
-			<a href="this, 'page' => $paginator->getPage()" class ="ajax">
+			{* <a href="this, 'page' => $paginator->getPage()" class ="ajax"> *}
 				{$paginator->getPage()}
-			</a>
+			{* </a> *}
 		</li>
 		<li n:class="!($paginator->getPage() + 1 <= $paginator->getLastPage()) ? 'disabled'">
 			{if $paginator->getPage() + 1 <= $paginator->getLastPage()}
