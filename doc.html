@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Transfúzní stanice</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Petr Šebek <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xsebek02@stud.fit.vutbr.cz">xsebek02@stud.fit.vutbr.cz</a> -
+		Nurse module
+	</dd>
+	<dd>Jakub Šimon <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xsimon06@stud.fit.vutbr.cz">xsimon06@stud.fit.vutbr.cz</a> - 
+		Testování, úprava databáze
+	</dd>
+	<dd>Martin Šimon <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xsimon14@stud.fit.vutbr.cz">xsimon14@stud.fit.vutbr.cz</a> - 
+		Donor module
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xsebek02/IIS/www/">http://www.stud.fit.vutbr.cz/~xsebek02/IIS/www/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>skrom00</td><td>123</td><td>Donor</td></tr>
+<tr><td>npave00</td><td>123</td><td>Nurse</td></tr>
+</table>
+
+<h2>Implementace</h2>
+<p>Webová aplikace byla napsána ve frameworku <a href="http://nette.org/cs/">Nette</a>. Aplikace je tedy vytvořena s pomocí návrhového vzoru Model-View-Controller. Proto je rozdělení následující:</p>
+
+<ul>
+<li>
+	Model: primárně zpracování požadavků na databázi a správa uživatelů. Jednotlivé třídy pro model se nacházejí ve složce app/models/. Zde je hlavní třída Table, která reprezentuje abstraktní tabulku. Od ní potom dědí další třídy reprezentující tabulky databáze. Třída Authenticator zajišťuje přihlašování uživatelů.
+</li>
+<li>
+	Presenter: rozdělen do dvou modulů Nurse a Donor, podle uživatelských rolí. Ve složce app/presenters/ se nacházejí obecné presentery pro přihlášení uživatelů a hlášení chyb.
+	 V Nurse modulu se nacházejí následující presentery: Donor pro kompletní informaci o jednom dárci. Další presentery pak mají za úkol vyhledávání v tabulkách, přidávání a editaci. Jsou to: Donors, Drawn, Invitation, Nurse, Station a Reservation. 
+	 Donor modul má pak následující strukturu ...
+</li>
+<li>
+	View: šablony pro vzhled. Nacházejí se ve složkách template/ v jednotlivých modulech.
+</li>
+</ul>
+
+<h2>Instalace</h2>
+<ul>
+<li>
+	Informační systém je na server nutno nainstalovat následujícím způsobem. Naplnit databázi sql příkazem v other/create.sql. Případně naplnit databázi sql příkazem other/data.sql. Poté je třeba zkopírovat zdrojové soubory na úmistění, které si přejeme používat. Pokud bylo změněno například jméno databáze, je třeba ho upravit v souboru app/config/config.neon v sekci database.
+</li>
+<li>
+	Informační systém pro svůj běh vyžaduje PHP verze 5.3. Dále pracuje pod frameworkem Nette verze 2.0.4.
+</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p></p>
+
+</body>
+</html>
