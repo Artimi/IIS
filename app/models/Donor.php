@@ -16,6 +16,7 @@ class Donor extends Table
         $this->getTable()->where(array('id' => $id))->update(array(
             'password' => Authenticator::calculateHash($password)
         ));
+        
     }
 
     public function generateNick($surname)
