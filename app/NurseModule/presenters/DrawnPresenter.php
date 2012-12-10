@@ -60,7 +60,8 @@ class DrawnPresenter extends \NurseModule\BasePresenter
         if ($donor != NULL)
         {
             $this->defaultAddDrawn['donor'] = $donor;
-            
+            $donor_all = $this->donor->getOneByID($donor);
+            $this->defaultAddDrawn['blood_type'] = $donor_all['blood_type']; 
         }
     }
 
