@@ -15,7 +15,7 @@ class ReservationDetailForm extends Form
         parent::__construct($parent, $name);
         $this->addText('id', 'ID:')
             ->setAttribute('readonly');
-        $this->addText('order_from', 'Order_from:')
+        $this->addText('order_from', 'Order from:')
             ->setRequired();
         $this->addSelect('blood_type', 'Blood type:', $reservation->bloodTypes)
             ->setRequired();
@@ -23,6 +23,7 @@ class ReservationDetailForm extends Form
             ->setRequired()
             ->addRule(Form::INTEGER, 'Quantity must be integer.');
         $this->addText('date', 'Date:')
+            ->setOption('description','YYYY-MM-DD HH:MM:SS')
             ->setRequired();
         $this->addSelect('state', 'State:', $reservation->reservationState)
             ->setRequired();
@@ -32,5 +33,4 @@ class ReservationDetailForm extends Form
         if ($defaults != NULL)
             $this->setDefaults($defaults);
     }
-
 }
