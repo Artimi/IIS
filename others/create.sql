@@ -25,11 +25,11 @@ CREATE TABLE drawn (
     id		        INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     date            DATETIME NOT NULL,
     donor           CHAR(7) NOT NULL, 
-    blood_type      CHAR(3), -- FIXME !!!! nemelo by to byt NOT NULL??? 
+    blood_type      CHAR(3),
     nurse           CHAR(7) NOT NULL,
-    store           INT(3) UNSIGNED, -- FIXME !!!! nemelo by to byt NOT NULL???
+    store           INT(3) UNSIGNED,
     reservation     INT(10) UNSIGNED, 
-    quality         TINYINT, -- FIXME !!!! nemelo by to byt NOT NULL???
+    quality         TINYINT,
     PRIMARY KEY (id),
     CONSTRAINT fk_drawn_donor FOREIGN KEY (donor) REFERENCES donor (id),
     CONSTRAINT fk_drawn_nurse FOREIGN KEY (nurse) REFERENCES nurse (id),

@@ -60,7 +60,6 @@
                     <tr>
                         <th>Date</th>
                         <th>Nurse</th>
-                        <!--<th>Reserved</th>-->
                         <th>Quality</th>
                         <th>Actions</th>
                     </tr>
@@ -70,7 +69,6 @@
                     <tr>
                         <td>{$drawn->date|date:'%Y/%m/%d'}</td>
                         <td>{$drawn->nurse}</td>
-                        <!--<td>{$drawn->reservation ? "Reserved" : "Not reserved"}</td>-->
                         <td>{$drawn->quality ? "Good" : "Unusable"}</td>
                         <td><a n:href="Drawn:detail, id => $drawn->id" class="ym-button">Details</a></td>
                     </tr>
