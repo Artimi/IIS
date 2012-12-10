@@ -79,7 +79,7 @@ class ReservationPresenter extends BasePresenter
         $reservation = $this->reservation->find($reservationId);
         if ($toSend->count() < $reservation['quantity'])
         {
-            $this->flashMessage('Reservation send could not be established because there are not enough drawns assigned to reservation '.$reservationId);
+            $this->flashMessage('Reservation send could not be established because there is not enough drawns assigned to reservation '.$reservationId);
         }
         else
         {
@@ -93,7 +93,7 @@ class ReservationPresenter extends BasePresenter
                     $this->drawn->update(array('reservation' => NULL), $drawn['id']);
             }
             $this->reservation->update(array('state' => 1), $reservationId);
-            $this->flashMessage('Reserved drawns was released from system.');
+            $this->flashMessage('Reserved drawns were released from system.');
         }
             
     }

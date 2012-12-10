@@ -33,7 +33,7 @@ Donor
                 <div class="pi-label">National ID</div>
                 <div class="pi-value">{$donorInfo->national_id}</div>
                 <div class="pi-label">Preferred station</div>
-                <div class="pi-value"><a n:href="Station:default, station => $donorInfo->pref_station">{$stationNames[$donorInfo->pref_station]}</a></div>
+                <div class="pi-value"><a n:href="Station:detail $donorInfo->pref_station">{$stationNames[$donorInfo->pref_station]}</a></div>
                 <div class="pi-label">Active</div>
                 <div class="pi-value">{$donorInfo->active ? "Active" : "Inactive"}</div>
                 {if $donorInfo->street and $donorInfo->postal_code and $donorInfo->city}
