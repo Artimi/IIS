@@ -36,7 +36,6 @@
 </dl>
 
 <h2>U¾ivatelé systému pro testování</h2>
-<p>Uveïte prosím existující zástupce <strong>v¹ech rolí u¾ivatelù</strong>.</p>
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
 <tr><td>skrom00</td><td>123</td><td>Donor</td></tr>
@@ -52,8 +51,8 @@
 </li>
 <li>
 	Presenter: rozdìlen do dvou modulù Nurse a Donor, podle u¾ivatelských rolí. Ve slo¾ce app/presenters/ se nacházejí obecné presentery pro pøihlá¹ení u¾ivatelù a hlá¹ení chyb.
-	 V Nurse modulu se nacházejí následující presentery: Donor pro kompletní informaci o jednom dárci. Dal¹í presentery pak mají za úkol vyhledávání v tabulkách, pøidávání a editaci. Jsou to: Donors, Drawn, Invitation, Nurse, Station a Reservation. 
-	 Donor modul má pak následující strukturu ...
+    V Nurse modulu se nacházejí následující presentery: Donor pro kompletní informaci o jednom dárci. Dal¹í presentery pak mají za úkol vyhledávání v tabulkách, pøidávání a editaci. Jsou to: Donors, Drawn, Invitation, Nurse, Station a Reservation. 
+    Donor modul má pak následující strukturu. Jsou pøítomny presentery Donor, který se stará o základní stránku modulu, dále pak Drawn, Invitation a Station, které se starají o vykreslování dílèích èástí, které mù¾ou být zobrazeny z tohoto modulu.
 </li>
 <li>
 	View: ¹ablony pro vzhled. Nacházejí se ve slo¾kách template/ v jednotlivých modulech.
@@ -66,7 +65,7 @@
 	Informaèní systém je na server nutno nainstalovat následujícím zpùsobem. Naplnit databázi sql pøíkazem v other/create.sql. Pøípadnì naplnit databázi sql pøíkazem other/data.sql. Poté je tøeba zkopírovat zdrojové soubory na úmistìní, které si pøejeme pou¾ívat. Pokud bylo zmìnìno napøíklad jméno databáze, je tøeba ho upravit v souboru app/config/config.neon v sekci database.
 </li>
 <li>
-	Informaèní systém pro svùj bìh vy¾aduje PHP verze 5.3. Dále pracuje pod frameworkem Nette verze 2.0.4.
+	Informaèní systém pro svùj bìh vy¾aduje PHP verze 5.3. Dále pracuje pod frameworkem Nette verze 2.0.4, který je potøeba rozbalit do slo¾ky 'libs'. Ostatní komponenty byly pro tento systém upraveny a proto není mo¾né pou¾ít výchozích verzí.
 </li>
 </ul>
 
