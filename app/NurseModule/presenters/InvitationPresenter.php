@@ -54,8 +54,7 @@ class InvitationPresenter extends \NurseModule\BasePresenter
     {
         $nurse = $this->getUser()->id;
         $store = $this->nurse->getOneByID($nurse['station']);
-        $this->defaultAddInvitation = array('date' => date('Y-m-d H-i-s'),
-                                            'store' => $store);
+        $this->defaultAddInvitation = array('store' => $store);
         if ($donor != NULL)
         {
             $this->defaultAddInvitation['donor'] = $donor;

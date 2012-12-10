@@ -23,7 +23,7 @@ class ReservationDetailForm extends Form
             ->setRequired()
             ->addRule(Form::INTEGER, 'Quantity must be integer.');
         $this->addText('date', 'Date:')
-            ->setOption('description','YYYY-MM-DD HH:MM:SS')
+            ->setOption('description','YYYY-MM-DD HH-MM-SS')
             ->setRequired();
         $this->addSelect('state', 'State:', $reservation->reservationState)
             ->setRequired();

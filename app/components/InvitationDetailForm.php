@@ -24,7 +24,7 @@ class InvitationDetailForm extends Form
         $this->addSelect('donor', 'Donor:', $data['donor'])
             ->setRequired();
         $this->addText('date', 'Date:')
-            ->setOption('description','YYYY-MM-DD HH:MM:SS')
+            ->setOption('description','YYYY-MM-DD HH-MM-SS')
             ->setRequired();
         $this->addSelect('station', 'Station:', $data['stationNames'])
             ->setRequired();
