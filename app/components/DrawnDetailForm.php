@@ -20,7 +20,8 @@ class DrawnDetailForm extends Form
         $this->addText('id', 'ID')
             ->setAttribute('readonly');
         $this->addText('date', 'Date:')//TODO better date picking
-            ->setRequired();
+            ->setRequired()
+            ->setOption('description','YYYY-MM-DD HH:MM:SS');
         $this->addSelect('donor', 'Donor:', $data['donors'])
             ->setRequired();
         $this->addSelect('blood_type', 'Blood type:', $data['bloodTypes']);//FIXME!!! musi byt podle darce!!!!!

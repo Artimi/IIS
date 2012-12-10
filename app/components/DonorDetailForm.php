@@ -25,6 +25,7 @@ class DonorDetailForm extends Form
         $this->addText('surname', 'Surname:')
             ->setRequired();
         $this->addText('postal_code', 'Postal code:')
+            ->addCondition(Form::FILLED)
             ->addRule(Form::INTEGER, 'Postal code must be integer.')
             ->addRule(Form::LENGTH, 'Postal code must be 5 chars long.', 5);
         $this->addText('city', 'City:');
