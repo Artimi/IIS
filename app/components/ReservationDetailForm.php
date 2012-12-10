@@ -16,10 +16,12 @@ class ReservationDetailForm extends Form
         $this->addText('id', 'ID:')
             ->setAttribute('readonly');
         $this->addText('order_from', 'Order from:')
+            ->setOption('description', 'Name of external medical institution')
             ->setRequired();
         $this->addSelect('blood_type', 'Blood type:', $reservation->bloodTypes)
             ->setRequired();
         $this->addText('quantity', 'Quantity:')
+            ->setOption('description', 'Count of units')
             ->setRequired()
             ->addRule(Form::INTEGER, 'Quantity must be integer.');
         $this->addText('date', 'Date:')
