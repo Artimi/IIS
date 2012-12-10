@@ -44,7 +44,7 @@
             {widget navigation}
                                 {if $user->isLoggedIn()}
                         <form class="ym-searchform">
-                            Logged as: {$user->getIdentity()->id} | <a n:href=":Sign:out">Log out</a>
+                            Logged as: {$user->getIdentity()->name} {$user->getIdentity()->surname} ({$user->getIdentity()->id}) | <a n:href=":Sign:out">Log out</a>
                         </form>
                                 {/if}
                     </div>
