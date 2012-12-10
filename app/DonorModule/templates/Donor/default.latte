@@ -8,13 +8,14 @@
         <h4>You have a new invitation!</h4>
         <ul>
         {foreach $awaitingInvitations as $invitation}
-            <li>
-                You are invited to blood donation by date "{$invitation->date|date:'%Y/%m/%d'}" to station
+            <li>{var $tmpDate = $invitation->date->format('Y/m/d')}
+                You are invited to blood donation by date "{$tmpDate}" to station
                 "<a n:href="Station:detail, station => $invitation->station">{$stationNames[$invitation->station]}</a>".
                 <div class="align-to-right">
-                    <a class="ym-button" n:href="Donor:invitationConfirm, id => $invitation->id">Confirm</a>
-                    <a class="ym-button" n:href="Donor:invitationRearrange, id => $invitation->id">Request for rearrange</a>
-                    <a class="ym-button" n:href="Donor:invitationDecline, id => $invitation->id">Decline</a>
+                    
+                    <a class="ym-button" n:href="Donor:invitationConfirm, id => $invitation->id, date => $tmpDate">Confirm</a>
+                    <a class="ym-button" n:href="Donor:invitationRearrange, id => $invitation->id, date => $tmpDate">Request for rearrange</a>
+                    <a class="ym-button" n:href="Donor:invitationDecline, id => $invitation->id, date => $tmpDate">Decline</a>
                 </div>
             </li>
         {/foreach}

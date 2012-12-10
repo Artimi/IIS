@@ -97,23 +97,23 @@ class DonorPresenter extends \DonorModule\BasePresenter
         $this->flashMessage('Information has been update!');
     }
     
-    public function renderInvitationDecline($id)
+    public function renderInvitationDecline($id,$date)
     {
-        $this->flashMessage('Invitation #'. $id.' declined!');
+        $this->flashMessage('Invitation to date '. $date.' declined!');
         $this->invitation->update(array('state' => 2) ,$id);
         $this->redirect("Donor:");
     }
     
-    public function renderInvitationConfirm($id)
+    public function renderInvitationConfirm($id,$date)
     {
-        $this->flashMessage('Invitation #'. $id.' confirmed!');
+        $this->flashMessage('Invitation to date '. $date.' confirmed!');
         $this->invitation->update(array('state' => 1) ,$id);
         $this->redirect("Donor:");
     }
     
-    public function renderInvitationRearrange($id)
+    public function renderInvitationRearrange($id,$date)
     {
-        $this->flashMessage('Request for rearrange invitation #'.$id.' sent!');
+        $this->flashMessage('Request for rearrange invitation to date '.$date.' sent!');
         $this->invitation->update(array('state' => 4), $id);
         $this->redirect("Donor:");
     }
